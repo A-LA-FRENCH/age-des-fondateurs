@@ -1,14 +1,14 @@
-# La jeunesse fait-elle les géants de la tech ?
+# La jeunesse fait-elle les décacornes ?
 
-Étude interactive, en français, sur l'âge des fondateurs au départ et la valeur atteinte par leur société. Elle porte sur 187 « géants » (plus de 10 milliards de dollars de valorisation, fondés de 1968 à 2025) et, dans une seconde partie, sur 278 licornes (plus de 1 milliard).
+Étude interactive, en français, sur l'âge des fondateurs au départ et la valeur atteinte par leur société. Une **décacorne** est une startup valorisée plus de 10 milliards de dollars : dix licornes en une. L'étude porte sur 187 décacornes fondées de 1968 à 2025 et, dans une seconde partie, sur 278 licornes (plus de 1 milliard), décacornes comprises.
 
 *English version below.*
 
 ## Ce que fait la page
 
-- **Partie 1, les géants** : nuage âge / valorisation, courbe cumulée (part des sociétés et de la valeur créées par des fondateurs de X ans ou moins), distribution des âges, statistiques par tranche, évolution par décennie, répartition par secteur et par région, effet des fondateurs en série, top 25.
-- **Partie 2, les licornes** : comparaison licornes de 1 à 10 Md$ et géants, âge selon le niveau de valorisation, nuage, courbe cumulée et distribution.
-- Un résumé, une section « ce que dit la recherche », une conclusion et le tableau complet des sociétés, avec recherche et copie en CSV.
+- **Partie 1, les décacornes** : nuage âge / valorisation, courbe cumulée (part des sociétés et de la valeur créées par des fondateurs de X ans ou moins), distribution des âges, statistiques par tranche, évolution par décennie, répartition par secteur et par région, effet des fondateurs en série, top 25.
+- **Partie 2, les licornes** : comparaison licornes de 1 à 10 Md$ et décacornes, âge selon le niveau de valorisation, nuage, courbe cumulée et distribution.
+- Un lexique illustré en pixel art (startuper, startup, scaleup, licorne, décacorne), un résumé, une section « ce que dit la recherche », une conclusion et le tableau complet des sociétés, avec recherche et copie en CSV.
 - Des filtres valables pour toute la page : mesure de l'âge, période, secteur, région et deux seuils d'âge réglables (26 et 33 ans par défaut). Les chiffres du texte se recalculent avec les filtres.
 
 Tout tient dans un seul fichier, `index.html`. Il suffit de l'ouvrir dans un navigateur, ou d'activer GitHub Pages sur la branche `main`. La page charge D3 depuis cdnjs et sa police (Courier Prime) depuis Google Fonts.
@@ -37,7 +37,7 @@ Les données sont dans le `<script>` de `index.html`, entre les commentaires `//
 | `age` | `first_funded_year − birth_year` |
 | `age_at_this_company` | `founded − birth_year` |
 | `peak_valuation_busd` | Valorisation maximale, en milliards de dollars |
-| `tier` | `geant` (≥ 10 Md$) ou `licorne` (1 à 10 Md$) |
+| `tier` | `decacorne` (≥ 10 Md$) ou `licorne` (1 à 10 Md$) |
 | `country`, `region` | Pays d'origine et région (`États-Unis & Canada`, `Chine`, `Europe`, `Reste du monde`) |
 | `sector`, `group` | Secteur et famille de secteurs |
 | `decade` | Décennie de création, telle qu'affichée |
@@ -54,15 +54,15 @@ Valorisations vérifiées pour 2026 : Nvidia, Apple, Alphabet, Microsoft, Amazon
 
 ---
 
-# Does youth make the tech giants?
+# Does youth make decacorns?
 
-An interactive study, in French, of founders' age at the start and the value their company went on to reach. It covers 187 "giants" (valued at more than $10 billion, founded between 1968 and 2025) and, in a second part, 278 unicorns (more than $1 billion).
+An interactive study, in French, of founders' age at the start and the value their company went on to reach. A **decacorn** is a startup valued at more than $10 billion: ten unicorns in one. The study covers 187 decacorns founded between 1968 and 2025 and, in a second part, 278 unicorns (more than $1 billion), decacorns included.
 
 ## What the page does
 
-- **Part 1, the giants**: age / valuation scatter plot, cumulative curve (share of companies and of value created by founders aged X or younger), age distribution, statistics by age bracket, trend by decade, breakdown by sector and region, effect of serial founders, top 25.
-- **Part 2, the unicorns**: $1–10B unicorns compared with the giants, age by valuation level, scatter plot, cumulative curve and distribution.
-- A summary, a "what the research says" section, a conclusion and the full table of companies, with search and CSV copy.
+- **Part 1, the decacorns**: age / valuation scatter plot, cumulative curve (share of companies and of value created by founders aged X or younger), age distribution, statistics by age bracket, trend by decade, breakdown by sector and region, effect of serial founders, top 25.
+- **Part 2, the unicorns**: $1–10B unicorns compared with decacorns, age by valuation level, scatter plot, cumulative curve and distribution.
+- A pixel-art glossary (founder, startup, scaleup, unicorn, decacorn), a summary, a "what the research says" section, a conclusion and the full table of companies, with search and CSV copy.
 - Filters that apply to the whole page: how age is measured, period, sector, region and two adjustable age thresholds (26 and 33 by default). The figures in the text update with the filters.
 
 Everything lives in a single file, `index.html`. Open it in a browser, or enable GitHub Pages on the `main` branch. The page loads D3 from cdnjs and its font (Courier Prime) from Google Fonts.
