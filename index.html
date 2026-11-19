@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>À la French — La jeunesse fait-elle les géants de la tech ?</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
+<style>
+.viz-root{
+  color-scheme:dark;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --crt:"VT323","IBM Plex Mono",ui-monospace,monospace;
+  --surface-0:#0c0d0c; --surface-1:#0c0d0c; --border:#2b302b; --grid:#1b1e1b; --wash:#121512;
+  --text-primary:#e6e8e3; --text-secondary:#a4aaa1; --text-muted:#70776e;
+  --accent:#3ddc84; --series-1:#1aa85a; --series-2:#9d7cf0; --ref:#e6e8e3;
+}
+html,body{margin:0;padding:0;background:#0c0d0c}
+.viz-root{background:var(--surface-0);color:var(--text-primary);font:14px/1.65 var(--mono);min-height:100vh;-webkit-font-smoothing:antialiased}
+.viz-root ::selection{background:var(--accent);color:#0c0d0c}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px 64px}
+.osbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);padding:12px 0;margin:0 0 40px}
+.osbar b{color:var(--text-primary);font-weight:400;font-family:var(--crt);font-size:17px;letter-spacing:.04em}
+.path{font-size:12.5px;color:var(--text-muted);margin:0 0 14px}
+.path .ok{color:var(--accent)}
+h1{font-family:var(--crt);font-size:76px;line-height:.92;margin:0 0 24px;letter-spacing:0;font-weight:400;text-transform:uppercase;max-width:960px}
+h1 .cur{color:var(--accent);animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){h1 .cur{animation:none}}
+h2{font-family:var(--crt);font-size:30px;line-height:1.05;margin:0 0 8px;font-weight:400;text-transform:uppercase;letter-spacing:.01em}
+h3{font-size:14px;margin:0 0 4px}
+.kicker{font-size:12px;color:var(--accent);margin:0 0 10px;letter-spacing:.02em}
+.lede{color:var(--text-secondary);margin:0 0 26px;max-width:760px;font-size:14.5px}
+.lede strong{color:var(--text-primary)}
+.ticker{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:9px 0;margin:0 0 22px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary)}
+.ticker i{font-style:normal;color:var(--accent);padding:0 12px}
+.toc{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:12px;margin:0 0 26px}
+.toc a{color:var(--text-secondary);text-decoration:none}
+.toc a::before{content:"▸ ";color:var(--text-muted)}
+.toc a:hover{color:var(--accent)}
+.controls{position:sticky;top:0;z-index:20;background:rgba(12,13,12,.94);backdrop-filter:blur(6px);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:0 -24px 10px;padding:10px 24px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+.ctl{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em}
+.seg{display:inline-flex;gap:10px}
+.seg button{font:inherit;font-size:12px;text-transform:none;letter-spacing:0;border:0;background:transparent;color:var(--text-secondary);padding:2px 0;cursor:pointer}
+.seg button::before{content:"[ ] ";color:var(--text-muted)}
+.seg button[aria-pressed="true"]{color:var(--accent)}
+.seg button[aria-pressed="true"]::before{content:"[x] ";color:var(--accent)}
+select,input[type=number],input[type=search]{font:inherit;font-size:12px;color:var(--text-primary);background:transparent;border:1px solid var(--border);border-radius:0;padding:4px 6px;text-transform:none;letter-spacing:0}
+select option{background:#0c0d0c}
+select:focus,input:focus,button:focus-visible,a:focus-visible,th:focus-visible{outline:1px solid var(--accent);outline-offset:2px}
+input[type=number]{width:52px}
+select{max-width:100%;min-width:0}
+.ctl{max-width:100%;min-width:0}
+.ctl select{max-width:calc(100vw - 120px)}
+.btn{font:inherit;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-primary);background:transparent;border:0;padding:4px 0;cursor:pointer}
+.btn::before{content:"[ ";color:var(--text-muted)}
+.btn::after{content:" ]";color:var(--text-muted)}
+.btn:hover{color:var(--accent)}
+.filters-note{font-size:11.5px;color:var(--text-muted);margin:0 0 30px}
+.filters-note::before{content:"$ ";color:var(--accent)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0;margin:0 0 30px;border-top:1px solid var(--border);border-left:1px solid var(--border)}
+.tile{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 16px}
+.tile .v{font-family:var(--crt);font-size:46px;font-weight:400;line-height:1;letter-spacing:0}
+.tile:first-child .v{color:var(--accent)}
+.tile .k{color:var(--text-muted);font-size:11.5px;margin-top:4px}
+.card{border-top:1px solid var(--border);padding:30px 0 18px;margin:0}
+.card .sub{color:var(--text-secondary);font-size:13px;margin:0 0 14px;max-width:820px}
+.takeaway{font-size:13px;color:var(--text-primary);border-left:2px solid var(--accent);padding:2px 0 2px 14px;margin:14px 0 6px;max-width:860px}
+.takeaway::before{content:"> ";color:var(--accent)}
+.section-title{margin:56px 0 18px}
+h2.section-title,.part-title{font-size:13px;color:var(--text-muted);letter-spacing:.08em}
+.part{border-top:2px solid var(--text-primary);padding-top:18px}
+.part h2{font-size:52px;line-height:.95}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;color:var(--text-secondary);margin:0 0 8px}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.lkey{width:16px;height:2px;display:inline-block}
+.chart svg{display:block;width:100%;overflow:visible}
+.chart svg,.chart svg text{font-family:var(--mono)}
+.axis text{fill:var(--text-muted);font-size:11px}
+.axis path,.axis line{stroke:var(--border)}
+.gridline line{stroke:var(--grid)}
+.gridline path{display:none}
+.lab{fill:var(--text-primary);font-size:11px;paint-order:stroke;stroke:var(--surface-1);stroke-width:3px;stroke-linejoin:round}
+.lab2{fill:var(--text-secondary);font-size:10.5px;paint-order:stroke;stroke:var(--surface-1);stroke-width:3px;stroke-linejoin:round}
+.slab{paint-order:stroke;stroke:var(--surface-1);stroke-width:3px;stroke-linejoin:round;font-size:12px}
+.reflab{fill:var(--text-primary);font-size:11px;font-weight:700;paint-order:stroke;stroke:var(--surface-1);stroke-width:3px;stroke-linejoin:round}
+.tip{position:fixed;pointer-events:none;background:#0c0d0c;color:var(--text-primary);border:1px solid var(--accent);border-radius:0;padding:8px 10px;font:12px/1.5 var(--mono);opacity:0;transition:opacity .08s;max-width:290px;z-index:50}
+.tip .t1{font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.02em}
+.tip .t2{color:var(--text-secondary)}
+.tip .num{font-weight:700;color:var(--text-primary)}
+.tip .row{display:flex;align-items:center;gap:6px}
+.summary{border-top:1px solid var(--border);padding:26px 0 22px;margin:0}
+.summary ol{margin:8px 0 0;padding-left:0;list-style:none;counter-reset:s}
+.summary li{margin:10px 0;color:var(--text-secondary);padding-left:34px;position:relative;max-width:900px}
+.summary li::before{counter-increment:s;content:counter(s,decimal-leading-zero);position:absolute;left:0;top:-3px;color:var(--accent);font-family:var(--crt);font-size:22px}
+.summary strong{color:var(--text-primary)}
+.prose p,.prose li{color:var(--text-secondary);max-width:860px}
+.prose strong{color:var(--text-primary)}
+.prose ul{padding-left:0;list-style:none;margin:8px 0}
+.prose ul li{padding-left:20px;position:relative;margin:8px 0}
+.prose ul li::before{content:"▸";position:absolute;left:0;color:var(--accent)}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border-top:1px solid var(--border);border-left:1px solid var(--border)}
+.ref{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px}
+.ref .big{font-family:var(--crt);font-size:48px;font-weight:400;line-height:1;color:var(--accent)}
+.ref p{color:var(--text-secondary);font-size:12.5px;margin:8px 0 0}
+.ref .src{font-size:11px;color:var(--text-muted);margin-top:10px}
+.verdict h2{color:var(--accent)}
+.tblwrap{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;font-size:12px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:7px 10px 7px 0;border-bottom:1px solid var(--grid);white-space:nowrap}
+th{color:var(--text-muted);font-weight:500;text-transform:uppercase;letter-spacing:.04em;font-size:11px;border-bottom:1px solid var(--border)}
+#tbl th{cursor:pointer;user-select:none}
+#tbl th:hover{color:var(--accent)}
+td.n,th.n{text-align:right;padding-left:14px;padding-right:18px}
+#bracket-tbl td:first-child,#tier-tbl td:first-child{color:var(--accent)}
+.tblbar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;font-size:12px;color:var(--text-muted)}
+#donnees .tblwrap{max-height:560px;overflow:auto;border-top:1px solid var(--border)}
+#tbl thead th{position:sticky;top:0;background:#0c0d0c;z-index:1}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(61,220,132,.35)}
+a:hover{border-bottom-color:var(--accent)}
+.foot{color:var(--text-muted);font-size:11.5px}
+.foot p{color:var(--text-muted)}
+.foot h2{color:var(--text-primary)}
+.empty{color:var(--text-muted);font-size:12px;padding:30px 0;text-align:center}
+.empty::before{content:"[!] ";color:var(--series-2)}
+.endbar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;border-top:1px solid var(--border);margin-top:40px;padding-top:14px;font-size:11.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em}
+.endbar .blk{color:var(--accent);letter-spacing:0}
+.endbar{font-family:var(--crt);font-size:17px}
+@media (max-width:560px){
+  h1{font-size:46px} .wrap{padding:0 16px 48px} .controls{position:static;margin:0 -16px 10px;padding:10px 16px}
+  .part h2{font-size:36px} h2{font-size:25px} .osbar{margin-bottom:28px}
+}
+</style>
+</head>
+<body>
+<div class="viz-root">
+<div class="wrap">
+
+  <div class="osbar"><span><b>À LA FRENCH</b> OS — étude n°01</span><span>données : novembre 2026</span></div>
+  <p class="path">~ / à-la-french / études / age-des-fondateurs &nbsp;<span class="ok" id="boot">[OK] chargement… ✓</span></p>
+  <h1>La jeunesse fait-elle les géants de la tech ?<span class="cur">_</span></h1>
+  <p class="lede">On compare l'âge du fondateur au départ à la valeur que sa société a atteinte. <strong>Partie 1</strong> : <span id="lede-n1">–</span> géants fondés entre 1968 et 2025, ayant tous dépassé 10 milliards de dollars de valorisation. <strong>Partie 2</strong> : on élargit aux licornes (plus de 1 milliard), soit <span id="lede-n2">–</span> sociétés. Par défaut, l'âge est celui de la création de la <em>première société du fondateur ayant levé des fonds</em>.</p>
+
+  <div class="ticker" id="ticker" aria-label="Chiffres clés"></div>
+
+  <nav class="toc" aria-label="Sommaire">
+    <a href="#resume">Résumé</a><a href="#nuage">1. Âge et valeur</a><a href="#courbe">2. Courbe cumulée</a><a href="#distribution">3. Distribution</a>
+    <a href="#tranches">4. Tranches</a><a href="#decennies">5. Dans le temps</a><a href="#secteurs">6. Secteurs</a><a href="#regions">7. Régions</a>
+    <a href="#serie">8. Fondateurs en série</a><a href="#top">9. Top 25</a><a href="#licornes">Partie 2 : licornes</a><a href="#recherche">Ce que dit la recherche</a><a href="#conclusion">Conclusion</a><a href="#donnees">Données</a>
+  </nav>
+
+  <div class="controls" role="group" aria-label="Filtres de l'étude">
+    <div class="ctl">Âge
+      <div class="seg" id="seg-mode">
+        <button type="button" data-v="rule" aria-pressed="true">1re société financée</button>
+        <button type="button" data-v="this" aria-pressed="false">Cette société</button>
+      </div>
+    </div>
+    <label class="ctl">Période
+      <select id="f-era"><option value="all">Toutes</option><option value="pre">Avant 2000</option><option value="post">Depuis 2000</option></select>
+    </label>
+    <label class="ctl">Secteur <select id="f-group"></select></label>
+    <label class="ctl">Région <select id="f-region"></select></label>
+    <div class="ctl">Seuils
+      <input type="number" id="f-s1" min="18" max="49" step="1" value="26" aria-label="Premier seuil d'âge">
+      <input type="number" id="f-s2" min="19" max="50" step="1" value="33" aria-label="Second seuil d'âge">
+    </div>
+    <button type="button" class="btn" id="f-reset">Réinitialiser</button>
+  </div>
+  <p class="filters-note" id="filters-note"></p>
+
+  <div class="part section-title" style="margin-top:8px"><p class="kicker">// partie_01</p><h2>Les géants : plus de 10 milliards.</h2></div>
+  <div class="tiles">
+    <div class="tile"><div class="v" id="t-n">–</div><div class="k">géants dans la sélection</div></div>
+    <div class="tile"><div class="v" id="t-med">–</div><div class="k">âge médian du fondateur au départ</div></div>
+    <div class="tile"><div class="v" id="t-b0">–</div><div class="k" id="t-b0-k">–</div></div>
+    <div class="tile"><div class="v" id="t-b1">–</div><div class="k" id="t-b1-k">–</div></div>
+    <div class="tile"><div class="v" id="t-b2">–</div><div class="k" id="t-b2-k">–</div></div>
+  </div>
+
+  <section class="summary" id="resume">
+    <p class="kicker">// 00 — resume.txt</p>
+    <h2>Résumé.</h2>
+    <ol id="summary-list"></ol>
+  </section>
+
+  <section class="card" id="nuage">
+    <p class="kicker">// 01 — age_x_valeur.csv</p>
+    <h2>Valorisation maximale selon l'âge du fondateur au départ</h2>
+    <p class="sub">Une société = un point. Échelle logarithmique. Les lignes pointillées marquent les deux seuils. Survolez un point pour le détail.</p>
+    <div class="legend" id="scatter-legend">
+      <span><i class="dot" style="background:var(--series-1)"></i>Première société du fondateur</span>
+      <span><i class="dot" style="background:var(--series-2)"></i>Fondateur en série (âge pris à une société antérieure)</span>
+    </div>
+    <div class="chart" id="scatter"></div>
+    <p class="takeaway" id="tk-scatter"></p>
+  </section>
+
+  <section class="card" id="courbe">
+    <p class="kicker">// 02 — courbe_cumulee.log</p>
+    <h2>Part des sociétés et de la valeur créées par des fondateurs de X ans ou moins</h2>
+    <p class="sub">À chaque âge, la part cumulée des sociétés (en nombre) et de la valeur totale (en dollars) dont le fondateur avait cet âge ou moins. Survolez la courbe pour lire les valeurs à chaque âge.</p>
+    <div class="legend">
+      <span><i class="lkey" style="background:var(--series-1)"></i>Part des sociétés</span>
+      <span><i class="lkey" style="background:var(--series-2)"></i>Part de la valeur cumulée</span>
+    </div>
+    <div class="chart" id="cumul"></div>
+    <p class="takeaway" id="tk-cumul"></p>
+  </section>
+
+  <section class="card" id="distribution">
+    <p class="kicker">// 03 — distribution.hist</p>
+    <h2>Nombre de sociétés par âge du fondateur au départ</h2>
+    <p class="sub">Par année d'âge. Teinte selon la tranche.</p>
+    <div class="chart" id="hist"></div>
+  </section>
+
+  <section class="card" id="tranches">
+    <p class="kicker">// 04 — tranches.json</p>
+    <h2>Statistiques par tranche d'âge</h2>
+    <p class="sub" id="tranches-sub"></p>
+    <div class="tblwrap"><table id="bracket-tbl"><thead><tr><th>Tranche</th><th class="n">Sociétés</th><th class="n">% des sociétés</th><th class="n">Valeur cumulée</th><th class="n">% de la valeur</th><th class="n">Valorisation médiane</th><th>Plus grosses</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section class="card" id="decennies">
+    <p class="kicker">// 05 — decennies.csv</p>
+    <h2>Part des fondateurs sous chaque seuil, par décennie de création</h2>
+    <p class="sub">Les géants récents ont-ils des fondateurs plus jeunes ? Survolez une décennie pour l'âge médian et les sociétés.</p>
+    <div class="legend" id="dec-legend"></div>
+    <div class="chart" id="decade"></div>
+    <p class="takeaway" id="tk-decade"></p>
+  </section>
+
+  <section class="card" id="secteurs">
+    <p class="kicker">// 06 — secteurs.csv</p>
+    <h2>Âge du fondateur par famille de secteurs</h2>
+    <p class="sub">Chaque point est une société ; le trait vertical épais marque l'âge médian du secteur. Survolez un point pour le détail.</p>
+    <div class="chart" id="strip-group"></div>
+  </section>
+
+  <section class="card" id="regions">
+    <p class="kicker">// 07 — regions.csv</p>
+    <h2>Âge du fondateur par région d'origine</h2>
+    <p class="sub">Même lecture que pour les secteurs.</p>
+    <div class="chart" id="strip-region"></div>
+  </section>
+
+  <section class="card" id="serie">
+    <p class="kicker">// 08 — fondateurs_en_serie.diff</p>
+    <h2>Ce que change la règle « première société financée »</h2>
+    <p class="sub" id="serie-sub"></p>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--series-2)"></i>Âge à la 1re société financée</span>
+      <span><i class="dot" style="background:var(--series-1)"></i>Âge à la création de la société géante</span>
+    </div>
+    <div class="chart" id="dumbbell"></div>
+  </section>
+
+  <section class="card" id="top">
+    <p class="kicker">// 09 — top_25.sh</p>
+    <h2>Les 25 plus grosses sociétés de la sélection et l'âge de leur fondateur</h2>
+    <p class="sub">Classées par valorisation maximale. Longueur de barre = âge du fondateur au départ.</p>
+    <div class="chart" id="top25"></div>
+    <p class="takeaway" id="tk-top"></p>
+  </section>
+
+  <section class="section-title part" id="licornes">
+    <p class="kicker">// partie_02</p>
+    <h2>Les licornes : plus de 1 milliard.</h2>
+    <p class="lede" style="font-size:15px;margin-top:6px">On ajoute aux géants un échantillon de <span id="p2-nl">–</span> licornes dont la valorisation maximale est comprise entre 1 et 10 Md$ (rachetées, cotées, privées ou disparues). Il existe plusieurs milliers de licornes : cet échantillon, constitué à la main, privilégie les noms connus et comporte davantage d'âges estimés. Les filtres en haut de page s'appliquent aussi ici.</p>
+  </section>
+  <div class="tiles">
+    <div class="tile"><div class="v" id="t2-n">–</div><div class="k">licornes dans la sélection (≥ 1 Md$)</div></div>
+    <div class="tile"><div class="v" id="t2-med">–</div><div class="k">âge médian du fondateur au départ</div></div>
+    <div class="tile"><div class="v" id="t2-b0">–</div><div class="k" id="t2-b0-k">–</div></div>
+    <div class="tile"><div class="v" id="t2-b1">–</div><div class="k" id="t2-b1-k">–</div></div>
+    <div class="tile"><div class="v" id="t2-b2">–</div><div class="k" id="t2-b2-k">–</div></div>
+  </div>
+  <section class="summary">
+    <p class="kicker">// 2.0 — resume.txt</p>
+    <h2>Résumé.</h2>
+    <ol id="summary2-list"></ol>
+  </section>
+  <section class="card" id="licornes-compare">
+    <p class="kicker">// 2A — licornes_vs_geants.json</p>
+    <h2>Licornes de 1 à 10 Md$ contre géants : même profil d'âge ?</h2>
+    <p class="sub">Comparaison des deux niveaux de succès avec la même mesure de l'âge et les mêmes seuils.</p>
+    <div class="tblwrap"><table id="tier-tbl"><thead><tr><th>Univers</th><th class="n">Sociétés</th><th class="n">Âge médian</th><th class="n" id="th-b0">≤ s1</th><th class="n" id="th-b1">≤ s2</th><th class="n" id="th-b2">&gt; s2</th><th class="n">Fondateurs en série</th><th class="n">Âges estimés (≈)</th></tr></thead><tbody></tbody></table></div>
+    <p class="takeaway" id="tk-tier"></p>
+  </section>
+  <section class="card" id="licornes-niveaux">
+    <p class="kicker">// 2B — niveaux_de_valo.csv</p>
+    <h2>Âge du fondateur selon le niveau de valorisation atteint</h2>
+    <p class="sub">Si la jeunesse expliquait l'ampleur du succès, les points devraient glisser vers la gauche à mesure que la valorisation augmente. Le trait vertical épais marque l'âge médian de chaque niveau.</p>
+    <div class="chart" id="strip-tier"></div>
+  </section>
+  <section class="card" id="licornes-nuage">
+    <p class="kicker">// 2C — age_x_valeur_licornes.csv</p>
+    <h2>Valorisation maximale selon l'âge du fondateur, toutes licornes</h2>
+    <p class="sub">Même lecture que le graphique 1, en descendant jusqu'à 1 Md$. Échelle logarithmique.</p>
+    <div class="legend" id="scatter2-legend">
+      <span><i class="dot" style="background:var(--series-1)"></i>Première société du fondateur</span>
+      <span><i class="dot" style="background:var(--series-2)"></i>Fondateur en série (âge pris à une société antérieure)</span>
+    </div>
+    <div class="chart" id="scatter2"></div>
+    <p class="takeaway" id="tk-scatter2"></p>
+  </section>
+  <section class="card" id="licornes-courbe">
+    <p class="kicker">// 2D — courbe_cumulee_licornes.log</p>
+    <h2>Courbe cumulée, toutes licornes</h2>
+    <p class="sub">Part des licornes, et de leur valeur cumulée, créées par des fondateurs de X ans ou moins.</p>
+    <div class="legend">
+      <span><i class="lkey" style="background:var(--series-1)"></i>Part des sociétés</span>
+      <span><i class="lkey" style="background:var(--series-2)"></i>Part de la valeur cumulée</span>
+    </div>
+    <div class="chart" id="cumul2"></div>
+    <p class="takeaway" id="tk-cumul2"></p>
+  </section>
+  <section class="card" id="licornes-distribution">
+    <p class="kicker">// 2E — distribution_licornes.hist</p>
+    <h2>Distribution des âges, toutes licornes</h2>
+    <p class="sub">Par année d'âge. Teinte selon la tranche.</p>
+    <div class="chart" id="hist2"></div>
+  </section>
+
+  <section class="section-title part" id="recherche">
+    <p class="kicker">// 10 — recherche.md</p>
+    <h2>Ce que dit la recherche.</h2>
+    <p class="sub" style="color:var(--text-secondary);font-size:13px;margin:8px 0 0">Les études qui mesurent un taux de réussite par âge.</p>
+    <p class="lede" style="font-size:14.5px;margin-top:6px">Cette étude ne regarde que les gagnants. Pour savoir si un âge <em>augmente les chances</em> de réussir, il faut aussi compter ceux qui ont essayé et échoué. C'est ce que font ces travaux.</p>
+    <div class="grid3">
+      <div class="ref"><div class="big">45 ans</div><p>Âge moyen au départ des fondateurs du 0,1 % des entreprises américaines à plus forte croissance. Un fondateur de 50 ans a environ 1,8 fois plus de chances qu'un fondateur de 30 ans d'en créer une.</p><div class="src">Azoulay, Jones, Kim, Miranda, <em>AER: Insights</em> 2020 · 2,7 millions de fondateurs (données du recensement américain)</div></div>
+      <div class="ref"><div class="big">34 ans</div><p>Âge médian à la création de leur société de 3 586 fondateurs de licornes américaines. Les travaux du même centre situent la tranche la plus favorable entre 30 et 34 ans.</p><div class="src">Ilya Strebulaev, Stanford Venture Capital Initiative</div></div>
+      <div class="ref"><div class="big">49 %</div><p>Part des fondateurs des 200 licornes les mieux valorisées qui avaient déjà créé une autre entreprise auparavant.</p><div class="src">Endeavor Insight</div></div>
+      <div class="ref"><div class="big" id="ref-this">–</div><p id="ref-this-p">–</p><div class="src">Cette étude · licornes de la sélection en cours</div></div>
+    </div>
+  </section>
+
+  <section class="card prose verdict" id="conclusion">
+    <p class="kicker">// 11 — conclusion.md</p>
+    <h2>Ce que l'on peut affirmer, et ce que l'on ne peut pas</h2>
+    <p><strong>Ce que les données montrent.</strong> <span id="concl-1"></span></p>
+    <p><strong>Ce qu'elles ne montrent pas.</strong> Que la jeunesse soit <em>le principal facteur</em> du succès. Trois raisons :</p>
+    <ul>
+      <li><strong>Pas de dénominateur.</strong> Sans le nombre de fondateurs de chaque âge qui ont essayé, on ne peut pas calculer de taux de réussite. Les études qui le calculent trouvent un avantage aux fondateurs plus âgés, pas aux plus jeunes.</li>
+      <li><strong>L'âge ne prédit pas la taille.</strong> Parmi ces gagnants, la corrélation entre âge et valorisation est <span id="concl-r"></span>. Les plus grosses réussites se répartissent de part et d'autre des seuils.</li>
+      <li><strong>La règle convertit de l'expérience en jeunesse.</strong> <span id="concl-3"></span> Or c'est précisément l'expérience que la recherche associe au succès.</li>
+      <li><strong>Le niveau de succès change peu le profil d'âge.</strong> <span id="concl-4"></span></li>
+    </ul>
+    <p><strong>Formulation défendable.</strong> « Les licornes et les géants de la tech ont très souvent été lancés par des fondateurs jeunes, la plupart avant 33 ans, et une bonne partie d'entre eux avaient déjà monté une première société. » Une formulation comme « la jeunesse est le principal facteur de succès » va au-delà de ce que ces données peuvent prouver.</p>
+  </section>
+
+  <section class="card" id="donnees">
+    <p class="kicker">// 12 — donnees.csv</p>
+    <h2>Les sociétés de la sélection (géants et licornes)</h2>
+    <div class="tblbar">
+      <input type="search" id="q" placeholder="Rechercher une société, un fondateur, un pays…" style="min-width:240px;flex:1" aria-label="Rechercher dans le tableau">
+      <span id="tbl-count"></span>
+      <button type="button" class="btn" id="copy-csv">Copier en CSV</button>
+      <span id="copy-status" aria-live="polite"></span>
+    </div>
+    <div class="tblwrap"><table id="tbl"><thead></thead><tbody></tbody></table></div>
+  </section>
+
+  <section class="card foot" id="methode">
+    <p class="kicker">// 13 — methode.txt</p>
+    <h2>Méthode et sources.</h2>
+    <p><strong>Périmètre.</strong> Partie 1 : sociétés fondées de 1968 à 2025, dans la tech, l'internet, les semi-conducteurs, la biotech et quelques autres secteurs, toutes zones, ayant atteint au moins 10 Md$ de valorisation. Partie 2 : on y ajoute un échantillon de licornes dont le maximum est compris entre 1 et 10 Md$, y compris des sociétés rachetées, en déclin ou disparues (Instagram, YouTube, Skype, Theranos, Quibi…). Les deux échantillons sont constitués à la main et ne sont pas exhaustifs. Exclus : filiales et spin-offs de grands groupes (Ant Group, Waymo, Broadcom Inc. issu d'Avago), sociétés sans fondateur identifiable, secteurs hors tech (distribution, luxe, industrie lourde).</p>
+    <p><strong>Fondateur retenu.</strong> Le cofondateur le plus associé à la société, en général le PDG fondateur. <strong>Âge</strong> = année de création − année de naissance (± 1 an). Avec la règle par défaut, pour un fondateur en série, on prend l'année de création de sa première société ayant levé des fonds. Les âges marqués ≈ sont des estimations (année de naissance ou première société financée incertaine).</p>
+    <p><strong>Valorisation.</strong> Maximum atteint, en milliards de dollars courants, non corrigés de l'inflation : dernier tour privé, prix de rachat ou plus haute capitalisation boursière, arrondi. Vérifiées pour 2026 : Nvidia (~5 900 Md$), Apple (~5 040 Md$), Alphabet (~4 250 Md$), Amazon (~3 100 Md$), SpaceX (IPO juin 2026, ~2 200 Md$), AMD (~1 000 Md$), Anthropic (965 Md$), OpenAI (852 Md$), Databricks (190 Md$), Stripe (159 Md$), Anduril (61 Md$), Cursor (60 Md$), xAI (250 Md$ à la fusion), Unitree (~53 Md$ après son introduction en bourse), Polymarket (21 Md$), Lovable (13,3 Md$), ElevenLabs (11 Md$), Replit (9 Md$). Les autres chiffres viennent de données publiques connues jusqu'à mi-2026.</p>
+    <p><strong>Sources.</strong>
+      <a href="https://www.nber.org/papers/w24489">Azoulay et al., « Age and High-Growth Entrepreneurship »</a> ·
+      <a href="https://insight.kellogg.northwestern.edu/article/younger-older-tech-entrepreneurs">Kellogg Insight</a> ·
+      <a href="https://poetsandquants.com/2023/07/05/do-you-need-an-mba-to-found-a-unicorn-history-says-probably-not/">Poets&amp;Quants (Strebulaev, âge optimal 30–34 ans)</a> ·
+      <a href="https://de.linkedin.com/in/joelklein05">Relais LinkedIn des données Strebulaev (âge médian 34 ans) et Endeavor (49 %)</a> ·
+      <a href="https://cryptobriefing.com/nvidia-approaches-6-trillion-market-cap-as-stock-hits-record-high/">Nvidia</a> ·
+      <a href="https://pulse2.com/apple-briefly-reaches-5-trillion-market-capitalization/">Apple</a> ·
+      <a href="https://fourweekmba.com/ai-apple-closes-at-5-005-trillion-a-first-as-ai-stocks-slide/">Alphabet, Microsoft</a> ·
+      <a href="https://pulse2.com/amazon-market-cap-tops-3-trillion-as-aws-revenue-jumps-37/">Amazon</a> ·
+      <a href="https://www.channelinsider.com/channel-business/news-amd-1-trillion-market-cap-ai-rally/">AMD</a> ·
+      <a href="https://news.crunchbase.com/public/spacex-record-breaking-ipo-spcx/">SpaceX</a> ·
+      <a href="https://www.eweek.com/news/anthropic-965b-valuation-claude-ai-startup/">Anthropic</a> ·
+      <a href="https://builtin.com/articles/openai-raises-122b-852b-valuation-20260401">OpenAI</a> ·
+      <a href="https://sacra.com/research/databricks">Databricks</a> ·
+      <a href="https://www.theblock.co/news/business/2026-02-24-stripe-valuation-jumps-to-159-billion-on-back-of-tender-offer-391075">Stripe</a> · <a href="https://humanoid.guide/?p=15941">Unitree</a> · <a href="https://multiples.vc/private-comps/polymarket">Polymarket</a> · <a href="https://www.vktr.com/ai-platforms/lovable-raises-400-million-at-133-billion-valuation/">Lovable</a> · <a href="https://www.eweek.com/news/elevenlabs-500m-funding/">ElevenLabs</a> · <a href="https://www.trendingtopics.eu/replit-raises-400m-tripling-its-valuation-to-9-billion-in-six-months/">Replit</a>
+    </p>
+  </section>
+</div>
+<div class="wrap" style="padding-top:0"><div class="endbar"><span><span class="blk">███</span>&nbsp; À LA FRENCH — étude n°01</span><span>fr_FR.UTF-8 · novembre 2026</span></div></div>
+<div class="tip" id="tip" role="status"></div>
+</div>
+
+<script>
+// DATA-START (une société par objet ; voir README)
+const DATA = [
+{"company": "Nvidia", "founded": 1993, "founder": "Jensen Huang", "birth_year": 1963, "first_funded_company": "Nvidia", "first_funded_year": 1993, "age": 30, "age_at_this_company": 30, "peak_valuation_busd": 5900, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Semi-conducteurs", "group": "Semi-conducteurs & hardware", "decade": "Années 90", "serial": false, "approx": 0},
+{"company": "Apple", "founded": 1976, "founder": "Steve Jobs", "birth_year": 1955, "first_funded_company": "Apple", "first_funded_year": 1976, "age": 21, "age_at_this_company": 21, "peak_valuation_busd": 5040, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "1968–1979", "serial": false, "approx": 0},
+{"company": "Alphabet (Google)", "founded": 1998, "founder": "Larry Page", "birth_year": 1973, "first_funded_company": "Alphabet (Google)", "first_funded_year": 1998, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 4300, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 90", "serial": false, "approx": 0},
+{"company": "Microsoft", "founded": 1975, "founder": "Bill Gates", "birth_year": 1955, "first_funded_company": "Microsoft", "first_funded_year": 1975, "age": 20, "age_at_this_company": 20, "peak_valuation_busd": 4100, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "1968–1979", "serial": false, "approx": 0},
+{"company": "Amazon", "founded": 1994, "founder": "Jeff Bezos", "birth_year": 1964, "first_funded_company": "Amazon", "first_funded_year": 1994, "age": 30, "age_at_this_company": 30, "peak_valuation_busd": 3100, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 90", "serial": false, "approx": 0},
+{"company": "AMD", "founded": 1969, "founder": "Jerry Sanders", "birth_year": 1936, "first_funded_company": "AMD", "first_funded_year": 1969, "age": 33, "age_at_this_company": 33, "peak_valuation_busd": 1000, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Semi-conducteurs", "group": "Semi-conducteurs & hardware", "decade": "1968–1979", "serial": false, "approx": 0},
+{"company": "Tencent", "founded": 1998, "founder": "Pony Ma", "birth_year": 1971, "first_funded_company": "Tencent", "first_funded_year": 1998, "age": 27, "age_at_this_company": 27, "peak_valuation_busd": 950, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 90", "serial": false, "approx": 0},
+{"company": "Oracle", "founded": 1977, "founder": "Larry Ellison", "birth_year": 1944, "first_funded_company": "Oracle", "first_funded_year": 1977, "age": 33, "age_at_this_company": 33, "peak_valuation_busd": 930, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "1968–1979", "serial": false, "approx": 0},
+{"company": "Alibaba", "founded": 1999, "founder": "Jack Ma", "birth_year": 1964, "first_funded_company": "China Pages", "first_funded_year": 1995, "age": 31, "age_at_this_company": 35, "peak_valuation_busd": 860, "tier": "geant", "country": "CN", "region": "Chine", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 90", "serial": true, "approx": 0},
+{"company": "Intel", "founded": 1968, "founder": "Robert Noyce", "birth_year": 1927, "first_funded_company": "Fairchild Semiconductor", "first_funded_year": 1957, "age": 30, "age_at_this_company": 41, "peak_valuation_busd": 650, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Semi-conducteurs", "group": "Semi-conducteurs & hardware", "decade": "1968–1979", "serial": true, "approx": 0},
+{"company": "Cisco", "founded": 1984, "founder": "Len Bosack", "birth_year": 1952, "first_funded_company": "Cisco", "first_funded_year": 1984, "age": 32, "age_at_this_company": 32, "peak_valuation_busd": 555, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "Années 80", "serial": false, "approx": 0},
+{"company": "Netflix", "founded": 1997, "founder": "Reed Hastings", "birth_year": 1960, "first_funded_company": "Pure Software", "first_funded_year": 1991, "age": 31, "age_at_this_company": 37, "peak_valuation_busd": 550, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 90", "serial": true, "approx": 0},
+{"company": "PayPal", "founded": 1998, "founder": "Peter Thiel", "birth_year": 1967, "first_funded_company": "PayPal", "first_funded_year": 1998, "age": 31, "age_at_this_company": 31, "peak_valuation_busd": 360, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 90", "serial": false, "approx": 0},
+{"company": "SAP", "founded": 1972, "founder": "Dietmar Hopp", "birth_year": 1940, "first_funded_company": "SAP", "first_funded_year": 1972, "age": 32, "age_at_this_company": 32, "peak_valuation_busd": 350, "tier": "geant", "country": "DE", "region": "Europe", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "1968–1979", "serial": false, "approx": 0},
+{"company": "Adobe", "founded": 1982, "founder": "John Warnock", "birth_year": 1940, "first_funded_company": "Adobe", "first_funded_year": 1982, "age": 42, "age_at_this_company": 42, "peak_valuation_busd": 320, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 80", "serial": false, "approx": 0},
+{"company": "Salesforce", "founded": 1999, "founder": "Marc Benioff", "birth_year": 1964, "first_funded_company": "Salesforce", "first_funded_year": 1999, "age": 35, "age_at_this_company": 35, "peak_valuation_busd": 310, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 90", "serial": false, "approx": 0},
+{"company": "Qualcomm", "founded": 1985, "founder": "Irwin Jacobs", "birth_year": 1933, "first_funded_company": "Linkabit", "first_funded_year": 1968, "age": 35, "age_at_this_company": 52, "peak_valuation_busd": 210, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Semi-conducteurs", "group": "Semi-conducteurs & hardware", "decade": "Années 80", "serial": true, "approx": 1},
+{"company": "Sun Microsystems", "founded": 1982, "founder": "Vinod Khosla", "birth_year": 1955, "first_funded_company": "Daisy Systems", "first_funded_year": 1980, "age": 25, "age_at_this_company": 27, "peak_valuation_busd": 200, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "Années 80", "serial": true, "approx": 0},
+{"company": "Intuit", "founded": 1983, "founder": "Scott Cook", "birth_year": 1952, "first_funded_company": "Intuit", "first_funded_year": 1983, "age": 31, "age_at_this_company": 31, "peak_valuation_busd": 200, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 80", "serial": false, "approx": 0},
+{"company": "Intuitive Surgical", "founded": 1995, "founder": "Fred Moll", "birth_year": 1953, "first_funded_company": "Origin Medsystems", "first_funded_year": 1992, "age": 39, "age_at_this_company": 42, "peak_valuation_busd": 200, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Medtech", "group": "Santé (biotech, medtech)", "decade": "Années 90", "serial": true, "approx": 1},
+{"company": "Amgen", "founded": 1980, "founder": "George Rathmann", "birth_year": 1927, "first_funded_company": "Amgen", "first_funded_year": 1980, "age": 53, "age_at_this_company": 53, "peak_valuation_busd": 170, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Biotech", "group": "Santé (biotech, medtech)", "decade": "Années 80", "serial": false, "approx": 1},
+{"company": "Gilead", "founded": 1987, "founder": "Michael Riordan", "birth_year": 1957, "first_funded_company": "Gilead", "first_funded_year": 1987, "age": 30, "age_at_this_company": 30, "peak_valuation_busd": 150, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Biotech", "group": "Santé (biotech, medtech)", "decade": "Années 80", "serial": false, "approx": 0},
+{"company": "JD.com", "founded": 1998, "founder": "Richard Liu", "birth_year": 1973, "first_funded_company": "JD.com", "first_funded_year": 1998, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 140, "tier": "geant", "country": "CN", "region": "Chine", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 90", "serial": false, "approx": 1},
+{"company": "Yahoo", "founded": 1994, "founder": "Jerry Yang", "birth_year": 1968, "first_funded_company": "Yahoo", "first_funded_year": 1994, "age": 26, "age_at_this_company": 26, "peak_valuation_busd": 125, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 90", "serial": false, "approx": 0},
+{"company": "Vertex", "founded": 1989, "founder": "Joshua Boger", "birth_year": 1951, "first_funded_company": "Vertex", "first_funded_year": 1989, "age": 38, "age_at_this_company": 38, "peak_valuation_busd": 125, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Biotech", "group": "Santé (biotech, medtech)", "decade": "Années 80", "serial": false, "approx": 0},
+{"company": "MercadoLibre", "founded": 1999, "founder": "Marcos Galperin", "birth_year": 1971, "first_funded_company": "MercadoLibre", "first_funded_year": 1999, "age": 28, "age_at_this_company": 28, "peak_valuation_busd": 120, "tier": "geant", "country": "AR", "region": "Reste du monde", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 90", "serial": false, "approx": 0},
+{"company": "Dell", "founded": 1984, "founder": "Michael Dell", "birth_year": 1965, "first_funded_company": "Dell", "first_funded_year": 1984, "age": 19, "age_at_this_company": 19, "peak_valuation_busd": 110, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "Années 80", "serial": false, "approx": 1},
+{"company": "Regeneron", "founded": 1988, "founder": "Leonard Schleifer", "birth_year": 1952, "first_funded_company": "Regeneron", "first_funded_year": 1988, "age": 36, "age_at_this_company": 36, "peak_valuation_busd": 110, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Biotech", "group": "Santé (biotech, medtech)", "decade": "Années 80", "serial": false, "approx": 0},
+{"company": "Marvell", "founded": 1995, "founder": "Sehat Sutardja", "birth_year": 1961, "first_funded_company": "Marvell", "first_funded_year": 1995, "age": 34, "age_at_this_company": 34, "peak_valuation_busd": 110, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Semi-conducteurs", "group": "Semi-conducteurs & hardware", "decade": "Années 90", "serial": false, "approx": 1},
+{"company": "Genentech", "founded": 1976, "founder": "Robert Swanson", "birth_year": 1947, "first_funded_company": "Genentech", "first_funded_year": 1976, "age": 29, "age_at_this_company": 29, "peak_valuation_busd": 100, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Biotech", "group": "Santé (biotech, medtech)", "decade": "1968–1979", "serial": false, "approx": 0},
+{"company": "Biogen", "founded": 1978, "founder": "Walter Gilbert", "birth_year": 1932, "first_funded_company": "Biogen", "first_funded_year": 1978, "age": 46, "age_at_this_company": 46, "peak_valuation_busd": 100, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Biotech", "group": "Santé (biotech, medtech)", "decade": "1968–1979", "serial": false, "approx": 1},
+{"company": "Infosys", "founded": 1981, "founder": "N. R. Narayana Murthy", "birth_year": 1946, "first_funded_company": "Infosys", "first_funded_year": 1981, "age": 35, "age_at_this_company": 35, "peak_valuation_busd": 100, "tier": "geant", "country": "IN", "region": "Reste du monde", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 80", "serial": false, "approx": 1},
+{"company": "Compaq", "founded": 1982, "founder": "Rod Canion", "birth_year": 1945, "first_funded_company": "Compaq", "first_funded_year": 1982, "age": 37, "age_at_this_company": 37, "peak_valuation_busd": 90, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "Années 80", "serial": false, "approx": 1},
+{"company": "NetEase", "founded": 1997, "founder": "Ding Lei", "birth_year": 1971, "first_funded_company": "NetEase", "first_funded_year": 1997, "age": 26, "age_at_this_company": 26, "peak_valuation_busd": 90, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 90", "serial": false, "approx": 0},
+{"company": "eBay", "founded": 1995, "founder": "Pierre Omidyar", "birth_year": 1967, "first_funded_company": "Ink Development", "first_funded_year": 1991, "age": 24, "age_at_this_company": 28, "peak_valuation_busd": 75, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 90", "serial": true, "approx": 1},
+{"company": "Autodesk", "founded": 1982, "founder": "John Walker", "birth_year": 1949, "first_funded_company": "Autodesk", "first_funded_year": 1982, "age": 33, "age_at_this_company": 33, "peak_valuation_busd": 75, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 80", "serial": false, "approx": 0},
+{"company": "Juniper Networks", "founded": 1996, "founder": "Pradeep Sindhu", "birth_year": 1953, "first_funded_company": "Juniper Networks", "first_funded_year": 1996, "age": 43, "age_at_this_company": 43, "peak_valuation_busd": 70, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "Années 90", "serial": false, "approx": 1},
+{"company": "VMware", "founded": 1998, "founder": "Diane Greene", "birth_year": 1955, "first_funded_company": "VXtreme", "first_funded_year": 1995, "age": 40, "age_at_this_company": 43, "peak_valuation_busd": 69, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 90", "serial": true, "approx": 1},
+{"company": "EMC", "founded": 1979, "founder": "Richard Egan", "birth_year": 1936, "first_funded_company": "EMC", "first_funded_year": 1979, "age": 43, "age_at_this_company": 43, "peak_valuation_busd": 67, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "1968–1979", "serial": false, "approx": 0},
+{"company": "Electronic Arts", "founded": 1982, "founder": "Trip Hawkins", "birth_year": 1953, "first_funded_company": "Electronic Arts", "first_funded_year": 1982, "age": 29, "age_at_this_company": 29, "peak_valuation_busd": 55, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Jeux", "group": "Internet, e-commerce & jeux", "decade": "Années 80", "serial": false, "approx": 0},
+{"company": "Mobileye", "founded": 1999, "founder": "Amnon Shashua", "birth_year": 1960, "first_funded_company": "Mobileye", "first_funded_year": 1999, "age": 39, "age_at_this_company": 39, "peak_valuation_busd": 50, "tier": "geant", "country": "IL", "region": "Reste du monde", "sector": "Auto", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 90", "serial": false, "approx": 1},
+{"company": "Trip.com (Ctrip)", "founded": 1999, "founder": "James Liang", "birth_year": 1969, "first_funded_company": "Trip.com (Ctrip)", "first_funded_year": 1999, "age": 30, "age_at_this_company": 30, "peak_valuation_busd": 50, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 90", "serial": false, "approx": 1},
+{"company": "Check Point", "founded": 1993, "founder": "Gil Shwed", "birth_year": 1968, "first_funded_company": "Check Point", "first_funded_year": 1993, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 30, "tier": "geant", "country": "IL", "region": "Reste du monde", "sector": "Cybersécurité", "group": "Logiciel, cloud & cyber", "decade": "Années 90", "serial": false, "approx": 0},
+{"company": "Netscape", "founded": 1994, "founder": "Jim Clark", "birth_year": 1944, "first_funded_company": "Silicon Graphics", "first_funded_year": 1982, "age": 38, "age_at_this_company": 50, "peak_valuation_busd": 10.2, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 90", "serial": true, "approx": 0},
+{"company": "SpaceX", "founded": 2002, "founder": "Elon Musk", "birth_year": 1971, "first_funded_company": "Zip2", "first_funded_year": 1995, "age": 24, "age_at_this_company": 31, "peak_valuation_busd": 2200, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Spatial", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "Meta (Facebook)", "founded": 2004, "founder": "Mark Zuckerberg", "birth_year": 1984, "first_funded_company": "Meta (Facebook)", "first_funded_year": 2004, "age": 20, "age_at_this_company": 20, "peak_valuation_busd": 1900, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Tesla", "founded": 2003, "founder": "Elon Musk", "birth_year": 1971, "first_funded_company": "Zip2", "first_funded_year": 1995, "age": 24, "age_at_this_company": 32, "peak_valuation_busd": 1500, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Auto", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "Anthropic", "founded": 2021, "founder": "Dario Amodei", "birth_year": 1983, "first_funded_company": "Anthropic", "first_funded_year": 2021, "age": 38, "age_at_this_company": 38, "peak_valuation_busd": 965, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "IA", "group": "IA & robotique", "decade": "Années 2020", "serial": false, "approx": 0},
+{"company": "OpenAI", "founded": 2015, "founder": "Sam Altman", "birth_year": 1985, "first_funded_company": "Loopt", "first_funded_year": 2005, "age": 20, "age_at_this_company": 30, "peak_valuation_busd": 852, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "IA", "group": "IA & robotique", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "ByteDance", "founded": 2012, "founder": "Zhang Yiming", "birth_year": 1983, "first_funded_company": "99fang", "first_funded_year": 2009, "age": 26, "age_at_this_company": 29, "peak_valuation_busd": 480, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": true, "approx": 1},
+{"company": "Palantir", "founded": 2003, "founder": "Peter Thiel", "birth_year": 1967, "first_funded_company": "Confinity/PayPal", "first_funded_year": 1998, "age": 31, "age_at_this_company": 36, "peak_valuation_busd": 450, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "Meituan", "founded": 2010, "founder": "Wang Xing", "birth_year": 1979, "first_funded_company": "Xiaonei", "first_funded_year": 2005, "age": 26, "age_at_this_company": 31, "peak_valuation_busd": 350, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "xAI", "founded": 2023, "founder": "Elon Musk", "birth_year": 1971, "first_funded_company": "Zip2", "first_funded_year": 1995, "age": 24, "age_at_this_company": 52, "peak_valuation_busd": 250, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "IA", "group": "IA & robotique", "decade": "Années 2020", "serial": true, "approx": 0},
+{"company": "CATL", "founded": 2011, "founder": "Zeng Yuqun", "birth_year": 1968, "first_funded_company": "ATL", "first_funded_year": 1999, "age": 31, "age_at_this_company": 43, "peak_valuation_busd": 250, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Énergie", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "ServiceNow", "founded": 2004, "founder": "Fred Luddy", "birth_year": 1955, "first_funded_company": "ServiceNow", "first_funded_year": 2004, "age": 49, "age_at_this_company": 49, "peak_valuation_busd": 230, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "PDD (Pinduoduo/Temu)", "founded": 2015, "founder": "Colin Huang", "birth_year": 1980, "first_funded_company": "Ouku", "first_funded_year": 2007, "age": 27, "age_at_this_company": 35, "peak_valuation_busd": 230, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": true, "approx": 1},
+{"company": "AppLovin", "founded": 2012, "founder": "Adam Foroughi", "birth_year": 1980, "first_funded_company": "Lifestreet Media", "first_funded_year": 2004, "age": 24, "age_at_this_company": 32, "peak_valuation_busd": 230, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": true, "approx": 1},
+{"company": "Kuaishou", "founded": 2011, "founder": "Cheng Yixiao", "birth_year": 1983, "first_funded_company": "Kuaishou", "first_funded_year": 2011, "age": 28, "age_at_this_company": 28, "peak_valuation_busd": 220, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Uber", "founded": 2009, "founder": "Travis Kalanick", "birth_year": 1976, "first_funded_company": "Scour", "first_funded_year": 1998, "age": 22, "age_at_this_company": 33, "peak_valuation_busd": 200, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "Shopify", "founded": 2004, "founder": "Tobi Lütke", "birth_year": 1980, "first_funded_company": "Shopify", "first_funded_year": 2004, "age": 24, "age_at_this_company": 24, "peak_valuation_busd": 200, "tier": "geant", "country": "CA", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Sea Ltd", "founded": 2009, "founder": "Forrest Li", "birth_year": 1977, "first_funded_company": "Sea Ltd", "first_funded_year": 2009, "age": 32, "age_at_this_company": 32, "peak_valuation_busd": 200, "tier": "geant", "country": "SG", "region": "Reste du monde", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Databricks", "founded": 2013, "founder": "Ali Ghodsi", "birth_year": 1978, "first_funded_company": "Databricks", "first_funded_year": 2013, "age": 35, "age_at_this_company": 35, "peak_valuation_busd": 190, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Moderna", "founded": 2010, "founder": "Noubar Afeyan", "birth_year": 1962, "first_funded_company": "PerSeptive Biosystems", "first_funded_year": 1987, "age": 25, "age_at_this_company": 48, "peak_valuation_busd": 190, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Biotech", "group": "Santé (biotech, medtech)", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Xiaomi", "founded": 2010, "founder": "Lei Jun", "birth_year": 1969, "first_funded_company": "Joyo.com", "first_funded_year": 2000, "age": 31, "age_at_this_company": 41, "peak_valuation_busd": 190, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "Années 2010", "serial": true, "approx": 1},
+{"company": "Arista Networks", "founded": 2004, "founder": "Andy Bechtolsheim", "birth_year": 1955, "first_funded_company": "Sun Microsystems", "first_funded_year": 1982, "age": 27, "age_at_this_company": 49, "peak_valuation_busd": 180, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "Zoom", "founded": 2011, "founder": "Eric Yuan", "birth_year": 1970, "first_funded_company": "Zoom", "first_funded_year": 2011, "age": 41, "age_at_this_company": 41, "peak_valuation_busd": 160, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Stripe", "founded": 2010, "founder": "Patrick Collison", "birth_year": 1988, "first_funded_company": "Auctomatic", "first_funded_year": 2007, "age": 19, "age_at_this_company": 22, "peak_valuation_busd": 159, "tier": "geant", "country": "US/IE", "region": "États-Unis & Canada", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Rivian", "founded": 2009, "founder": "RJ Scaringe", "birth_year": 1983, "first_funded_company": "Rivian", "first_funded_year": 2009, "age": 26, "age_at_this_company": 26, "peak_valuation_busd": 150, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Auto", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Spotify", "founded": 2006, "founder": "Daniel Ek", "birth_year": 1983, "first_funded_company": "Spotify", "first_funded_year": 2006, "age": 23, "age_at_this_company": 23, "peak_valuation_busd": 140, "tier": "geant", "country": "SE", "region": "Europe", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Snap", "founded": 2011, "founder": "Evan Spiegel", "birth_year": 1990, "first_funded_company": "Snap", "first_funded_year": 2011, "age": 21, "age_at_this_company": 21, "peak_valuation_busd": 130, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Block (Square)", "founded": 2009, "founder": "Jack Dorsey", "birth_year": 1976, "first_funded_company": "Twitter", "first_funded_year": 2006, "age": 30, "age_at_this_company": 33, "peak_valuation_busd": 130, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "Palo Alto Networks", "founded": 2005, "founder": "Nir Zuk", "birth_year": 1971, "first_funded_company": "OneSecure", "first_funded_year": 1999, "age": 28, "age_at_this_company": 34, "peak_valuation_busd": 130, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Cybersécurité", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": true, "approx": 1},
+{"company": "CrowdStrike", "founded": 2011, "founder": "George Kurtz", "birth_year": 1970, "first_funded_company": "Foundstone", "first_funded_year": 1999, "age": 29, "age_at_this_company": 41, "peak_valuation_busd": 130, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Cybersécurité", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Baidu", "founded": 2000, "founder": "Robin Li", "birth_year": 1968, "first_funded_company": "Baidu", "first_funded_year": 2000, "age": 32, "age_at_this_company": 32, "peak_valuation_busd": 120, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Snowflake", "founded": 2012, "founder": "Benoît Dageville", "birth_year": 1966, "first_funded_company": "Snowflake", "first_funded_year": 2012, "age": 46, "age_at_this_company": 46, "peak_valuation_busd": 120, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Robinhood", "founded": 2013, "founder": "Vlad Tenev", "birth_year": 1987, "first_funded_company": "Robinhood", "first_funded_year": 2013, "age": 26, "age_at_this_company": 26, "peak_valuation_busd": 120, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Airbnb", "founded": 2008, "founder": "Brian Chesky", "birth_year": 1981, "first_funded_company": "Airbnb", "first_funded_year": 2008, "age": 27, "age_at_this_company": 27, "peak_valuation_busd": 115, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "DoorDash", "founded": 2013, "founder": "Tony Xu", "birth_year": 1984, "first_funded_company": "DoorDash", "first_funded_year": 2013, "age": 29, "age_at_this_company": 29, "peak_valuation_busd": 110, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Atlassian", "founded": 2002, "founder": "Mike Cannon-Brookes", "birth_year": 1979, "first_funded_company": "Atlassian", "first_funded_year": 2002, "age": 23, "age_at_this_company": 23, "peak_valuation_busd": 110, "tier": "geant", "country": "AU", "region": "Reste du monde", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Coinbase", "founded": 2012, "founder": "Brian Armstrong", "birth_year": 1983, "first_funded_company": "Coinbase", "first_funded_year": 2012, "age": 29, "age_at_this_company": 29, "peak_valuation_busd": 100, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "SHEIN", "founded": 2008, "founder": "Xu Yangtian", "birth_year": 1984, "first_funded_company": "SHEIN", "first_funded_year": 2008, "age": 24, "age_at_this_company": 24, "peak_valuation_busd": 100, "tier": "geant", "country": "CN", "region": "Chine", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "BioNTech", "founded": 2008, "founder": "Uğur Şahin", "birth_year": 1965, "first_funded_company": "Ganymed", "first_funded_year": 2001, "age": 36, "age_at_this_company": 43, "peak_valuation_busd": 100, "tier": "geant", "country": "DE", "region": "Europe", "sector": "Biotech", "group": "Santé (biotech, medtech)", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "NIO", "founded": 2014, "founder": "William Li", "birth_year": 1974, "first_funded_company": "Bitauto", "first_funded_year": 2000, "age": 26, "age_at_this_company": 40, "peak_valuation_busd": 100, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Auto", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Coupang", "founded": 2010, "founder": "Bom Kim", "birth_year": 1978, "first_funded_company": "Coupang", "first_funded_year": 2010, "age": 32, "age_at_this_company": 32, "peak_valuation_busd": 100, "tier": "geant", "country": "KR", "region": "Reste du monde", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Roblox", "founded": 2004, "founder": "David Baszucki", "birth_year": 1963, "first_funded_company": "Knowledge Revolution", "first_funded_year": 1989, "age": 26, "age_at_this_company": 41, "peak_valuation_busd": 95, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Jeux", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "Adyen", "founded": 2006, "founder": "Pieter van der Does", "birth_year": 1969, "first_funded_company": "Bibit", "first_funded_year": 1995, "age": 26, "age_at_this_company": 37, "peak_valuation_busd": 90, "tier": "geant", "country": "NL", "region": "Europe", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "CoreWeave", "founded": 2017, "founder": "Michael Intrator", "birth_year": 1970, "first_funded_company": "CoreWeave", "first_funded_year": 2017, "age": 47, "age_at_this_company": 47, "peak_valuation_busd": 90, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Cloud IA", "group": "IA & robotique", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Beike (KE Holdings)", "founded": 2001, "founder": "Zuo Hui", "birth_year": 1971, "first_funded_company": "Beike (KE Holdings)", "first_funded_year": 2001, "age": 30, "age_at_this_company": 30, "peak_valuation_busd": 85, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Immobilier", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Didi", "founded": 2012, "founder": "Cheng Wei", "birth_year": 1983, "first_funded_company": "Didi", "first_funded_year": 2012, "age": 29, "age_at_this_company": 29, "peak_valuation_busd": 80, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Cloudflare", "founded": 2009, "founder": "Matthew Prince", "birth_year": 1974, "first_funded_company": "Unspam Technologies", "first_funded_year": 2002, "age": 28, "age_at_this_company": 35, "peak_valuation_busd": 80, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Cloud", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": true, "approx": 1},
+{"company": "Carvana", "founded": 2012, "founder": "Ernie Garcia III", "birth_year": 1982, "first_funded_company": "Carvana", "first_funded_year": 2012, "age": 30, "age_at_this_company": 30, "peak_valuation_busd": 80, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Workday", "founded": 2005, "founder": "Dave Duffield", "birth_year": 1940, "first_funded_company": "Integral Systems", "first_funded_year": 1972, "age": 32, "age_at_this_company": 65, "peak_valuation_busd": 80, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": true, "approx": 1},
+{"company": "Fortinet", "founded": 2000, "founder": "Ken Xie", "birth_year": 1963, "first_funded_company": "Systems Integration Solutions", "first_funded_year": 1993, "age": 30, "age_at_this_company": 37, "peak_valuation_busd": 80, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Cybersécurité", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "Cambricon", "founded": 2016, "founder": "Chen Tianshi", "birth_year": 1985, "first_funded_company": "Cambricon", "first_funded_year": 2016, "age": 31, "age_at_this_company": 31, "peak_valuation_busd": 80, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Semi-conducteurs", "group": "Semi-conducteurs & hardware", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Revolut", "founded": 2015, "founder": "Nik Storonsky", "birth_year": 1984, "first_funded_company": "Revolut", "first_funded_year": 2015, "age": 31, "age_at_this_company": 31, "peak_valuation_busd": 75, "tier": "geant", "country": "UK", "region": "Europe", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Nubank", "founded": 2013, "founder": "David Vélez", "birth_year": 1981, "first_funded_company": "Nubank", "first_funded_year": 2013, "age": 32, "age_at_this_company": 32, "peak_valuation_busd": 70, "tier": "geant", "country": "BR", "region": "Reste du monde", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Twilio", "founded": 2008, "founder": "Jeff Lawson", "birth_year": 1977, "first_funded_company": "Versity.com", "first_funded_year": 1998, "age": 21, "age_at_this_company": 31, "peak_valuation_busd": 70, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "The Trade Desk", "founded": 2009, "founder": "Jeff Green", "birth_year": 1977, "first_funded_company": "AdECN", "first_funded_year": 2004, "age": 27, "age_at_this_company": 32, "peak_valuation_busd": 70, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "AdTech", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "Figma", "founded": 2012, "founder": "Dylan Field", "birth_year": 1992, "first_funded_company": "Figma", "first_funded_year": 2012, "age": 20, "age_at_this_company": 20, "peak_valuation_busd": 65, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Circle", "founded": 2013, "founder": "Jeremy Allaire", "birth_year": 1971, "first_funded_company": "Allaire Corp", "first_funded_year": 1995, "age": 24, "age_at_this_company": 42, "peak_valuation_busd": 65, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Anduril", "founded": 2017, "founder": "Palmer Luckey", "birth_year": 1992, "first_funded_company": "Oculus", "first_funded_year": 2012, "age": 20, "age_at_this_company": 25, "peak_valuation_busd": 61, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Défense", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Cursor (Anysphere)", "founded": 2022, "founder": "Michael Truell", "birth_year": 2000, "first_funded_company": "Cursor (Anysphere)", "first_funded_year": 2022, "age": 22, "age_at_this_company": 22, "peak_valuation_busd": 60, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "IA", "group": "IA & robotique", "decade": "Années 2020", "serial": false, "approx": 1},
+{"company": "Datadog", "founded": 2010, "founder": "Olivier Pomel", "birth_year": 1977, "first_funded_company": "Datadog", "first_funded_year": 2010, "age": 33, "age_at_this_company": 33, "peak_valuation_busd": 60, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Veeva", "founded": 2007, "founder": "Peter Gassner", "birth_year": 1964, "first_funded_company": "Veeva", "first_funded_year": 2007, "age": 43, "age_at_this_company": 43, "peak_valuation_busd": 55, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Unity", "founded": 2004, "founder": "David Helgason", "birth_year": 1977, "first_funded_company": "Unity", "first_funded_year": 2004, "age": 27, "age_at_this_company": 27, "peak_valuation_busd": 50, "tier": "geant", "country": "DK", "region": "Europe", "sector": "Jeux", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Pinterest", "founded": 2010, "founder": "Ben Silbermann", "birth_year": 1982, "first_funded_company": "Pinterest", "first_funded_year": 2010, "age": 28, "age_at_this_company": 28, "peak_valuation_busd": 50, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Peloton", "founded": 2012, "founder": "John Foley", "birth_year": 1970, "first_funded_company": "Peloton", "first_funded_year": 2012, "age": 42, "age_at_this_company": 42, "peak_valuation_busd": 50, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Zscaler", "founded": 2007, "founder": "Jay Chaudhry", "birth_year": 1958, "first_funded_company": "SecureIT", "first_funded_year": 1996, "age": 38, "age_at_this_company": 49, "peak_valuation_busd": 50, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Cybersécurité", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "WeWork", "founded": 2010, "founder": "Adam Neumann", "birth_year": 1979, "first_funded_company": "Green Desk", "first_funded_year": 2008, "age": 29, "age_at_this_company": 31, "peak_valuation_busd": 47, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Immobilier", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": true, "approx": 1},
+{"company": "Affirm", "founded": 2012, "founder": "Max Levchin", "birth_year": 1975, "first_funded_company": "Confinity/PayPal", "first_funded_year": 1998, "age": 23, "age_at_this_company": 37, "peak_valuation_busd": 47, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Klarna", "founded": 2005, "founder": "Sebastian Siemiatkowski", "birth_year": 1981, "first_funded_company": "Klarna", "first_funded_year": 2005, "age": 24, "age_at_this_company": 24, "peak_valuation_busd": 46, "tier": "geant", "country": "SE", "region": "Europe", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Chewy", "founded": 2011, "founder": "Ryan Cohen", "birth_year": 1986, "first_funded_company": "Chewy", "first_funded_year": 2011, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 45, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Reddit", "founded": 2005, "founder": "Steve Huffman", "birth_year": 1983, "first_funded_company": "Reddit", "first_funded_year": 2005, "age": 22, "age_at_this_company": 22, "peak_valuation_busd": 45, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Pop Mart", "founded": 2010, "founder": "Wang Ning", "birth_year": 1987, "first_funded_company": "Pop Mart", "first_funded_year": 2010, "age": 23, "age_at_this_company": 23, "peak_valuation_busd": 45, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Grande conso", "group": "Grande consommation", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Twitter", "founded": 2006, "founder": "Jack Dorsey", "birth_year": 1976, "first_funded_company": "Twitter", "first_funded_year": 2006, "age": 30, "age_at_this_company": 30, "peak_valuation_busd": 44, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Canva", "founded": 2012, "founder": "Melanie Perkins", "birth_year": 1987, "first_funded_company": "Canva", "first_funded_year": 2012, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 42, "tier": "geant", "country": "AU", "region": "Reste du monde", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Okta", "founded": 2009, "founder": "Todd McKinnon", "birth_year": 1971, "first_funded_company": "Okta", "first_funded_year": 2009, "age": 38, "age_at_this_company": 38, "peak_valuation_busd": 40, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Cybersécurité", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "HubSpot", "founded": 2006, "founder": "Brian Halligan", "birth_year": 1967, "first_funded_company": "HubSpot", "first_funded_year": 2006, "age": 39, "age_at_this_company": 39, "peak_valuation_busd": 40, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Grab", "founded": 2012, "founder": "Anthony Tan", "birth_year": 1982, "first_funded_company": "Grab", "first_funded_year": 2012, "age": 30, "age_at_this_company": 30, "peak_valuation_busd": 40, "tier": "geant", "country": "SG", "region": "Reste du monde", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Checkout.com", "founded": 2012, "founder": "Guillaume Pousaz", "birth_year": 1981, "first_funded_company": "Checkout.com", "first_funded_year": 2012, "age": 31, "age_at_this_company": 31, "peak_valuation_busd": 40, "tier": "geant", "country": "UK", "region": "Europe", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "UiPath", "founded": 2005, "founder": "Daniel Dines", "birth_year": 1972, "first_funded_company": "UiPath", "first_funded_year": 2005, "age": 33, "age_at_this_company": 33, "peak_valuation_busd": 40, "tier": "geant", "country": "RO/US", "region": "Europe", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "XPeng", "founded": 2014, "founder": "He Xiaopeng", "birth_year": 1977, "first_funded_company": "UCWeb", "first_funded_year": 2004, "age": 27, "age_at_this_company": 37, "peak_valuation_busd": 40, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Auto", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Ubiquiti", "founded": 2005, "founder": "Robert Pera", "birth_year": 1978, "first_funded_company": "Ubiquiti", "first_funded_year": 2005, "age": 27, "age_at_this_company": 27, "peak_valuation_busd": 40, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Ripple", "founded": 2012, "founder": "Chris Larsen", "birth_year": 1960, "first_funded_company": "E-Loan", "first_funded_year": 1996, "age": 36, "age_at_this_company": 52, "peak_valuation_busd": 40, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Crypto", "group": "Fintech & crypto", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Instacart", "founded": 2012, "founder": "Apoorva Mehta", "birth_year": 1986, "first_funded_company": "Instacart", "first_funded_year": 2012, "age": 26, "age_at_this_company": 26, "peak_valuation_busd": 39, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Figure AI", "founded": 2022, "founder": "Brett Adcock", "birth_year": 1986, "first_funded_company": "Vettery", "first_funded_year": 2013, "age": 27, "age_at_this_company": 36, "peak_valuation_busd": 39, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Robotique", "group": "IA & robotique", "decade": "Années 2020", "serial": true, "approx": 0},
+{"company": "Juul (Pax Labs)", "founded": 2007, "founder": "James Monsees", "birth_year": 1980, "first_funded_company": "Juul (Pax Labs)", "first_funded_year": 2007, "age": 27, "age_at_this_company": 27, "peak_valuation_busd": 38, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Grande conso", "group": "Grande consommation", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Flipkart", "founded": 2007, "founder": "Sachin Bansal", "birth_year": 1981, "first_funded_company": "Flipkart", "first_funded_year": 2007, "age": 26, "age_at_this_company": 26, "peak_valuation_busd": 37, "tier": "geant", "country": "IN", "region": "Reste du monde", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "MongoDB", "founded": 2007, "founder": "Dwight Merriman", "birth_year": 1968, "first_funded_company": "DoubleClick", "first_funded_year": 1996, "age": 28, "age_at_this_company": 39, "peak_valuation_busd": 35, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "Wayfair", "founded": 2002, "founder": "Niraj Shah", "birth_year": 1973, "first_funded_company": "Spinners", "first_funded_year": 1995, "age": 22, "age_at_this_company": 29, "peak_valuation_busd": 35, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "Delivery Hero", "founded": 2011, "founder": "Niklas Östberg", "birth_year": 1980, "first_funded_company": "Online Pizza Norden", "first_funded_year": 2007, "age": 27, "age_at_this_company": 31, "peak_valuation_busd": 35, "tier": "geant", "country": "DE", "region": "Europe", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Zomato (Eternal)", "founded": 2008, "founder": "Deepinder Goyal", "birth_year": 1983, "first_funded_company": "Zomato (Eternal)", "first_funded_year": 2008, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 33, "tier": "geant", "country": "IN", "region": "Reste du monde", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "SSI (Safe Superintelligence)", "founded": 2024, "founder": "Ilya Sutskever", "birth_year": 1986, "first_funded_company": "DNNresearch", "first_funded_year": 2012, "age": 26, "age_at_this_company": 38, "peak_valuation_busd": 32, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "IA", "group": "IA & robotique", "decade": "Années 2020", "serial": true, "approx": 0},
+{"company": "FTX", "founded": 2019, "founder": "Sam Bankman-Fried", "birth_year": 1992, "first_funded_company": "Alameda Research", "first_funded_year": 2017, "age": 25, "age_at_this_company": 27, "peak_valuation_busd": 32, "tier": "geant", "country": "BS", "region": "États-Unis & Canada", "sector": "Crypto", "group": "Fintech & crypto", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Ramp", "founded": 2019, "founder": "Eric Glyman", "birth_year": 1990, "first_funded_company": "Paribus", "first_funded_year": 2014, "age": 24, "age_at_this_company": 29, "peak_valuation_busd": 32, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": true, "approx": 1},
+{"company": "Wiz", "founded": 2020, "founder": "Assaf Rappaport", "birth_year": 1984, "first_funded_company": "Adallom", "first_funded_year": 2012, "age": 28, "age_at_this_company": 36, "peak_valuation_busd": 32, "tier": "geant", "country": "IL", "region": "Reste du monde", "sector": "Cybersécurité", "group": "Logiciel, cloud & cyber", "decade": "Années 2020", "serial": true, "approx": 1},
+{"company": "Cruise", "founded": 2013, "founder": "Kyle Vogt", "birth_year": 1985, "first_funded_company": "Justin.tv", "first_funded_year": 2006, "age": 21, "age_at_this_company": 28, "peak_valuation_busd": 30, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Auto", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Zalando", "founded": 2008, "founder": "Robert Gentz", "birth_year": 1983, "first_funded_company": "Zalando", "first_funded_year": 2008, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 30, "tier": "geant", "country": "DE", "region": "Europe", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Telegram", "founded": 2013, "founder": "Pavel Durov", "birth_year": 1984, "first_funded_company": "VK", "first_funded_year": 2006, "age": 22, "age_at_this_company": 29, "peak_valuation_busd": 30, "tier": "geant", "country": "AE", "region": "Reste du monde", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Scale AI", "founded": 2016, "founder": "Alexandr Wang", "birth_year": 1997, "first_funded_company": "Scale AI", "first_funded_year": 2016, "age": 19, "age_at_this_company": 19, "peak_valuation_busd": 29, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "IA", "group": "IA & robotique", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Afterpay", "founded": 2014, "founder": "Nick Molnar", "birth_year": 1990, "first_funded_company": "Afterpay", "first_funded_year": 2014, "age": 24, "age_at_this_company": 24, "peak_valuation_busd": 29, "tier": "geant", "country": "AU", "region": "Reste du monde", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Duolingo", "founded": 2011, "founder": "Luis von Ahn", "birth_year": 1978, "first_funded_company": "reCAPTCHA", "first_funded_year": 2007, "age": 29, "age_at_this_company": 33, "peak_valuation_busd": 24, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Edtech", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "GoTo (Gojek)", "founded": 2010, "founder": "Nadiem Makarim", "birth_year": 1984, "first_funded_company": "GoTo (Gojek)", "first_funded_year": 2010, "age": 26, "age_at_this_company": 26, "peak_valuation_busd": 28, "tier": "geant", "country": "ID", "region": "Reste du monde", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Etsy", "founded": 2005, "founder": "Rob Kalin", "birth_year": 1980, "first_funded_company": "Etsy", "first_funded_year": 2005, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 28, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Slack", "founded": 2009, "founder": "Stewart Butterfield", "birth_year": 1973, "first_funded_company": "Ludicorp (Flickr)", "first_funded_year": 2002, "age": 29, "age_at_this_company": 36, "peak_valuation_busd": 27.7, "tier": "geant", "country": "US/CA", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "LinkedIn", "founded": 2002, "founder": "Reid Hoffman", "birth_year": 1967, "first_funded_company": "SocialNet", "first_funded_year": 1997, "age": 30, "age_at_this_company": 35, "peak_valuation_busd": 26.2, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "Lyft", "founded": 2007, "founder": "Logan Green", "birth_year": 1984, "first_funded_company": "Lyft", "first_funded_year": 2007, "age": 23, "age_at_this_company": 23, "peak_valuation_busd": 24, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Byju's", "founded": 2011, "founder": "Byju Raveendran", "birth_year": 1980, "first_funded_company": "Byju's", "first_funded_year": 2011, "age": 31, "age_at_this_company": 31, "peak_valuation_busd": 22, "tier": "geant", "country": "IN", "region": "Reste du monde", "sector": "Edtech", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Perplexity", "founded": 2022, "founder": "Aravind Srinivas", "birth_year": 1994, "first_funded_company": "Perplexity", "first_funded_year": 2022, "age": 28, "age_at_this_company": 28, "peak_valuation_busd": 20, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "IA", "group": "IA & robotique", "decade": "Années 2020", "serial": false, "approx": 0},
+{"company": "DJI", "founded": 2006, "founder": "Frank Wang", "birth_year": 1980, "first_funded_company": "DJI", "first_funded_year": 2006, "age": 26, "age_at_this_company": 26, "peak_valuation_busd": 15, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "Années 2000", "serial": false, "approx": 1},
+{"company": "Chobani", "founded": 2005, "founder": "Hamdi Ulukaya", "birth_year": 1972, "first_funded_company": "Chobani", "first_funded_year": 2005, "age": 33, "age_at_this_company": 33, "peak_valuation_busd": 20, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Grande conso", "group": "Grande consommation", "decade": "Années 2000", "serial": false, "approx": 1},
+{"company": "WhatsApp", "founded": 2009, "founder": "Jan Koum", "birth_year": 1976, "first_funded_company": "WhatsApp", "first_funded_year": 2009, "age": 33, "age_at_this_company": 33, "peak_valuation_busd": 19, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Rippling", "founded": 2016, "founder": "Parker Conrad", "birth_year": 1980, "first_funded_company": "Wikinvest", "first_funded_year": 2006, "age": 26, "age_at_this_company": 36, "peak_valuation_busd": 16.8, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Dropbox", "founded": 2007, "founder": "Drew Houston", "birth_year": 1983, "first_funded_company": "Dropbox", "first_funded_year": 2007, "age": 24, "age_at_this_company": 24, "peak_valuation_busd": 16, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Groupon", "founded": 2008, "founder": "Andrew Mason", "birth_year": 1980, "first_funded_company": "Groupon", "first_funded_year": 2008, "age": 28, "age_at_this_company": 28, "peak_valuation_busd": 16, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Paytm (One97)", "founded": 2000, "founder": "Vijay Shekhar Sharma", "birth_year": 1978, "first_funded_company": "Paytm (One97)", "first_funded_year": 2000, "age": 22, "age_at_this_company": 22, "peak_valuation_busd": 16, "tier": "geant", "country": "IN", "region": "Reste du monde", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Wise", "founded": 2011, "founder": "Kristo Käärmann", "birth_year": 1980, "first_funded_company": "Wise", "first_funded_year": 2011, "age": 31, "age_at_this_company": 31, "peak_valuation_busd": 15, "tier": "geant", "country": "UK", "region": "Europe", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Discord", "founded": 2015, "founder": "Jason Citron", "birth_year": 1984, "first_funded_company": "OpenFeint", "first_funded_year": 2009, "age": 25, "age_at_this_company": 31, "peak_valuation_busd": 15, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Mistral AI", "founded": 2023, "founder": "Arthur Mensch", "birth_year": 1992, "first_funded_company": "Mistral AI", "first_funded_year": 2023, "age": 31, "age_at_this_company": 31, "peak_valuation_busd": 14, "tier": "geant", "country": "FR", "region": "Europe", "sector": "IA", "group": "IA & robotique", "decade": "Années 2020", "serial": false, "approx": 0},
+{"company": "Helsing", "founded": 2021, "founder": "Torsten Reil", "birth_year": 1977, "first_funded_company": "NaturalMotion", "first_funded_year": 2001, "age": 24, "age_at_this_company": 44, "peak_valuation_busd": 14, "tier": "geant", "country": "DE", "region": "Europe", "sector": "Défense", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2020", "serial": true, "approx": 0},
+{"company": "Beyond Meat", "founded": 2009, "founder": "Ethan Brown", "birth_year": 1971, "first_funded_company": "Beyond Meat", "first_funded_year": 2009, "age": 38, "age_at_this_company": 38, "peak_valuation_busd": 14, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Grande conso", "group": "Grande consommation", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Plaid", "founded": 2013, "founder": "Zach Perret", "birth_year": 1987, "first_funded_company": "Plaid", "first_funded_year": 2013, "age": 26, "age_at_this_company": 26, "peak_valuation_busd": 13.4, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Celonis", "founded": 2011, "founder": "Alexander Rinke", "birth_year": 1989, "first_funded_company": "Celonis", "first_funded_year": 2011, "age": 22, "age_at_this_company": 22, "peak_valuation_busd": 13, "tier": "geant", "country": "DE", "region": "Europe", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Freshworks", "founded": 2010, "founder": "Girish Mathrubootham", "birth_year": 1975, "first_funded_company": "Freshworks", "first_funded_year": 2010, "age": 35, "age_at_this_company": 35, "peak_valuation_busd": 13, "tier": "geant", "country": "IN", "region": "Reste du monde", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Zynga", "founded": 2007, "founder": "Mark Pincus", "birth_year": 1966, "first_funded_company": "Freeloader", "first_funded_year": 1995, "age": 29, "age_at_this_company": 41, "peak_valuation_busd": 12.7, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Jeux", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "Brex", "founded": 2017, "founder": "Henrique Dubugras", "birth_year": 1995, "first_funded_company": "Pagar.me", "first_funded_year": 2013, "age": 18, "age_at_this_company": 22, "peak_valuation_busd": 12.3, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Thinking Machines Lab", "founded": 2025, "founder": "Mira Murati", "birth_year": 1988, "first_funded_company": "Thinking Machines Lab", "first_funded_year": 2025, "age": 37, "age_at_this_company": 37, "peak_valuation_busd": 12, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "IA", "group": "IA & robotique", "decade": "Années 2020", "serial": false, "approx": 0},
+{"company": "Northvolt", "founded": 2016, "founder": "Peter Carlsson", "birth_year": 1970, "first_funded_company": "Northvolt", "first_funded_year": 2016, "age": 46, "age_at_this_company": 46, "peak_valuation_busd": 12, "tier": "geant", "country": "SE", "region": "Europe", "sector": "Énergie", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Airtable", "founded": 2012, "founder": "Howie Liu", "birth_year": 1988, "first_funded_company": "Etacts", "first_funded_year": 2010, "age": 22, "age_at_this_company": 24, "peak_valuation_busd": 11, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "GoPro", "founded": 2002, "founder": "Nick Woodman", "birth_year": 1975, "first_funded_company": "Funbug", "first_funded_year": 1999, "age": 24, "age_at_this_company": 27, "peak_valuation_busd": 11, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "Supercell", "founded": 2010, "founder": "Ilkka Paananen", "birth_year": 1978, "first_funded_company": "Sumea", "first_funded_year": 2000, "age": 22, "age_at_this_company": 32, "peak_valuation_busd": 10.2, "tier": "geant", "country": "FI", "region": "Europe", "sector": "Jeux", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Sierra", "founded": 2023, "founder": "Bret Taylor", "birth_year": 1980, "first_funded_company": "FriendFeed", "first_funded_year": 2007, "age": 27, "age_at_this_company": 43, "peak_valuation_busd": 10, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "IA", "group": "IA & robotique", "decade": "Années 2020", "serial": true, "approx": 0},
+{"company": "OYO", "founded": 2013, "founder": "Ritesh Agarwal", "birth_year": 1993, "first_funded_company": "OYO", "first_funded_year": 2013, "age": 20, "age_at_this_company": 20, "peak_valuation_busd": 10, "tier": "geant", "country": "IN", "region": "Reste du monde", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Notion", "founded": 2013, "founder": "Ivan Zhao", "birth_year": 1987, "first_funded_company": "Notion", "first_funded_year": 2013, "age": 26, "age_at_this_company": 26, "peak_valuation_busd": 10, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Bumble", "founded": 2014, "founder": "Whitney Wolfe Herd", "birth_year": 1989, "first_funded_company": "Bumble", "first_funded_year": 2014, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 13, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Nykaa", "founded": 2012, "founder": "Falguni Nayar", "birth_year": 1963, "first_funded_company": "Nykaa", "first_funded_year": 2012, "age": 49, "age_at_this_company": 49, "peak_valuation_busd": 13, "tier": "geant", "country": "IN", "region": "Reste du monde", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Epic Games", "founded": 1991, "founder": "Tim Sweeney", "birth_year": 1970, "first_funded_company": "Epic Games", "first_funded_year": 1991, "age": 21, "age_at_this_company": 21, "peak_valuation_busd": 32, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Jeux", "group": "Internet, e-commerce & jeux", "decade": "Années 90", "serial": false, "approx": 0},
+{"company": "Polymarket", "founded": 2020, "founder": "Shayne Coplan", "birth_year": 1998, "first_funded_company": "Polymarket", "first_funded_year": 2020, "age": 22, "age_at_this_company": 22, "peak_valuation_busd": 21, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Crypto", "group": "Fintech & crypto", "decade": "Années 2020", "serial": false, "approx": 0},
+{"company": "Unitree", "founded": 2016, "founder": "Wang Xingxing", "birth_year": 1990, "first_funded_company": "Unitree", "first_funded_year": 2016, "age": 26, "age_at_this_company": 26, "peak_valuation_busd": 53, "tier": "geant", "country": "CN", "region": "Chine", "sector": "Robotique", "group": "IA & robotique", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Luminar", "founded": 2012, "founder": "Austin Russell", "birth_year": 1995, "first_funded_company": "Luminar", "first_funded_year": 2012, "age": 17, "age_at_this_company": 17, "peak_valuation_busd": 13, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Auto", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Rocket Lab", "founded": 2006, "founder": "Peter Beck", "birth_year": 1977, "first_funded_company": "Rocket Lab", "first_funded_year": 2006, "age": 29, "age_at_this_company": 29, "peak_valuation_busd": 30, "tier": "geant", "country": "US/NZ", "region": "États-Unis & Canada", "sector": "Spatial", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2000", "serial": false, "approx": 1},
+{"company": "Grubhub", "founded": 2004, "founder": "Matt Maloney", "birth_year": 1976, "first_funded_company": "Grubhub", "first_funded_year": 2004, "age": 28, "age_at_this_company": 28, "peak_valuation_busd": 11.5, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 1},
+{"company": "ElevenLabs", "founded": 2022, "founder": "Mati Staniszewski", "birth_year": 1995, "first_funded_company": "ElevenLabs", "first_funded_year": 2022, "age": 27, "age_at_this_company": 27, "peak_valuation_busd": 11, "tier": "geant", "country": "UK", "region": "Europe", "sector": "IA", "group": "IA & robotique", "decade": "Années 2020", "serial": false, "approx": 1},
+{"company": "Lovable", "founded": 2023, "founder": "Anton Osika", "birth_year": 1990, "first_funded_company": "Lovable", "first_funded_year": 2023, "age": 33, "age_at_this_company": 33, "peak_valuation_busd": 13.3, "tier": "geant", "country": "SE", "region": "Europe", "sector": "IA", "group": "IA & robotique", "decade": "Années 2020", "serial": false, "approx": 1},
+{"company": "Roku", "founded": 2002, "founder": "Anthony Wood", "birth_year": 1965, "first_funded_company": "ReplayTV", "first_funded_year": 1997, "age": 32, "age_at_this_company": 37, "peak_valuation_busd": 65, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "Années 2000", "serial": true, "approx": 1},
+{"company": "QuantumScape", "founded": 2010, "founder": "Jagdeep Singh", "birth_year": 1964, "first_funded_company": "Lightera Networks", "first_funded_year": 1997, "age": 33, "age_at_this_company": 46, "peak_valuation_busd": 48, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Énergie", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2010", "serial": true, "approx": 1},
+{"company": "Zillow", "founded": 2004, "founder": "Rich Barton", "birth_year": 1967, "first_funded_company": "Expedia", "first_funded_year": 1996, "age": 29, "age_at_this_company": 37, "peak_valuation_busd": 45, "tier": "geant", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": true, "approx": 1},
+{"company": "Instagram", "founded": 2010, "founder": "Kevin Systrom", "birth_year": 1983, "first_funded_company": "Instagram", "first_funded_year": 2010, "age": 27, "age_at_this_company": 27, "peak_valuation_busd": 1, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "YouTube", "founded": 2005, "founder": "Chad Hurley", "birth_year": 1977, "first_funded_company": "YouTube", "first_funded_year": 2005, "age": 28, "age_at_this_company": 28, "peak_valuation_busd": 1.65, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "GitHub", "founded": 2008, "founder": "Chris Wanstrath", "birth_year": 1985, "first_funded_company": "GitHub", "first_funded_year": 2008, "age": 23, "age_at_this_company": 23, "peak_valuation_busd": 7.5, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Oculus", "founded": 2012, "founder": "Palmer Luckey", "birth_year": 1992, "first_funded_company": "Oculus", "first_funded_year": 2012, "age": 20, "age_at_this_company": 20, "peak_valuation_busd": 2, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Tumblr", "founded": 2007, "founder": "David Karp", "birth_year": 1986, "first_funded_company": "Tumblr", "first_funded_year": 2007, "age": 21, "age_at_this_company": 21, "peak_valuation_busd": 1.1, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Skype", "founded": 2003, "founder": "Niklas Zennström", "birth_year": 1966, "first_funded_company": "Kazaa", "first_funded_year": 2000, "age": 34, "age_at_this_company": 37, "peak_valuation_busd": 8.5, "tier": "licorne", "country": "SE", "region": "Europe", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "Nextdoor", "founded": 2011, "founder": "Nirav Tolia", "birth_year": 1971, "first_funded_company": "Epinions", "first_funded_year": 1999, "age": 28, "age_at_this_company": 40, "peak_valuation_busd": 5, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Quora", "founded": 2009, "founder": "Adam D'Angelo", "birth_year": 1984, "first_funded_company": "Quora", "first_funded_year": 2009, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 2, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Squarespace", "founded": 2003, "founder": "Anthony Casalena", "birth_year": 1982, "first_funded_company": "Squarespace", "first_funded_year": 2003, "age": 21, "age_at_this_company": 21, "peak_valuation_busd": 7.4, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Warby Parker", "founded": 2010, "founder": "Neil Blumenthal", "birth_year": 1980, "first_funded_company": "Warby Parker", "first_funded_year": 2010, "age": 30, "age_at_this_company": 30, "peak_valuation_busd": 6.8, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Grande conso", "group": "Grande consommation", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Glossier", "founded": 2014, "founder": "Emily Weiss", "birth_year": 1985, "first_funded_company": "Glossier", "first_funded_year": 2014, "age": 29, "age_at_this_company": 29, "peak_valuation_busd": 1.8, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Grande conso", "group": "Grande consommation", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Zenefits", "founded": 2013, "founder": "Parker Conrad", "birth_year": 1980, "first_funded_company": "Wikinvest", "first_funded_year": 2006, "age": 26, "age_at_this_company": 33, "peak_valuation_busd": 4.5, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Oscar Health", "founded": 2012, "founder": "Joshua Kushner", "birth_year": 1985, "first_funded_company": "Vostu", "first_funded_year": 2007, "age": 22, "age_at_this_company": 27, "peak_valuation_busd": 8, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Assurtech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Coursera", "founded": 2012, "founder": "Andrew Ng", "birth_year": 1976, "first_funded_company": "Coursera", "first_funded_year": 2012, "age": 36, "age_at_this_company": 36, "peak_valuation_busd": 7, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Edtech", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Musical.ly", "founded": 2014, "founder": "Alex Zhu", "birth_year": 1979, "first_funded_company": "Musical.ly", "first_funded_year": 2014, "age": 35, "age_at_this_company": 35, "peak_valuation_busd": 1, "tier": "licorne", "country": "CN", "region": "Chine", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "ofo", "founded": 2014, "founder": "Dai Wei", "birth_year": 1991, "first_funded_company": "ofo", "first_funded_year": 2014, "age": 23, "age_at_this_company": 23, "peak_valuation_busd": 2, "tier": "licorne", "country": "CN", "region": "Chine", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "BlaBlaCar", "founded": 2006, "founder": "Frédéric Mazzella", "birth_year": 1976, "first_funded_company": "BlaBlaCar", "first_funded_year": 2006, "age": 30, "age_at_this_company": 30, "peak_valuation_busd": 2, "tier": "licorne", "country": "FR", "region": "Europe", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Doctolib", "founded": 2013, "founder": "Stanislas Niox-Chateau", "birth_year": 1986, "first_funded_company": "Doctolib", "first_funded_year": 2013, "age": 27, "age_at_this_company": 27, "peak_valuation_busd": 6.4, "tier": "licorne", "country": "FR", "region": "Europe", "sector": "Medtech", "group": "Santé (biotech, medtech)", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Monzo", "founded": 2015, "founder": "Tom Blomfield", "birth_year": 1985, "first_funded_company": "GoCardless", "first_funded_year": 2011, "age": 26, "age_at_this_company": 30, "peak_valuation_busd": 5.9, "tier": "licorne", "country": "UK", "region": "Europe", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Bolt", "founded": 2013, "founder": "Markus Villig", "birth_year": 1993, "first_funded_company": "Bolt", "first_funded_year": 2013, "age": 20, "age_at_this_company": 20, "peak_valuation_busd": 8.4, "tier": "licorne", "country": "EE", "region": "Europe", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Wolt", "founded": 2014, "founder": "Miki Kuusi", "birth_year": 1990, "first_funded_company": "Wolt", "first_funded_year": 2014, "age": 24, "age_at_this_company": 24, "peak_valuation_busd": 8.1, "tier": "licorne", "country": "FI", "region": "Europe", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Mojang", "founded": 2009, "founder": "Markus Persson", "birth_year": 1979, "first_funded_company": "Mojang", "first_funded_year": 2009, "age": 30, "age_at_this_company": 30, "peak_valuation_busd": 2.5, "tier": "licorne", "country": "SE", "region": "Europe", "sector": "Jeux", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Inflection AI", "founded": 2022, "founder": "Mustafa Suleyman", "birth_year": 1984, "first_funded_company": "DeepMind", "first_funded_year": 2010, "age": 26, "age_at_this_company": 38, "peak_valuation_busd": 4, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "IA", "group": "IA & robotique", "decade": "Années 2020", "serial": true, "approx": 0},
+{"company": "Vercel", "founded": 2015, "founder": "Guillermo Rauch", "birth_year": 1990, "first_funded_company": "LearnBoost", "first_funded_year": 2010, "age": 20, "age_at_this_company": 25, "peak_valuation_busd": 9.3, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Box", "founded": 2005, "founder": "Aaron Levie", "birth_year": 1985, "first_funded_company": "Box", "first_funded_year": 2005, "age": 20, "age_at_this_company": 20, "peak_valuation_busd": 5, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Ualá", "founded": 2017, "founder": "Pierpaolo Barbieri", "birth_year": 1987, "first_funded_company": "Ualá", "first_funded_year": 2017, "age": 30, "age_at_this_company": 30, "peak_valuation_busd": 2.75, "tier": "licorne", "country": "AR", "region": "Reste du monde", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Ola", "founded": 2010, "founder": "Bhavish Aggarwal", "birth_year": 1985, "first_funded_company": "Ola", "first_funded_year": 2010, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 7.3, "tier": "licorne", "country": "IN", "region": "Reste du monde", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Razorpay", "founded": 2014, "founder": "Harshil Mathur", "birth_year": 1990, "first_funded_company": "Razorpay", "first_funded_year": 2014, "age": 24, "age_at_this_company": 24, "peak_valuation_busd": 7.5, "tier": "licorne", "country": "IN", "region": "Reste du monde", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Dream11", "founded": 2008, "founder": "Harsh Jain", "birth_year": 1986, "first_funded_company": "Dream11", "first_funded_year": 2008, "age": 22, "age_at_this_company": 22, "peak_valuation_busd": 8, "tier": "licorne", "country": "IN", "region": "Reste du monde", "sector": "Jeux", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "CRED", "founded": 2018, "founder": "Kunal Shah", "birth_year": 1983, "first_funded_company": "Freecharge", "first_funded_year": 2010, "age": 27, "age_at_this_company": 35, "peak_valuation_busd": 6.4, "tier": "licorne", "country": "IN", "region": "Reste du monde", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Zepto", "founded": 2021, "founder": "Aadit Palicha", "birth_year": 2002, "first_funded_company": "KiranaKart", "first_funded_year": 2020, "age": 18, "age_at_this_company": 19, "peak_valuation_busd": 7, "tier": "licorne", "country": "IN", "region": "Reste du monde", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2020", "serial": true, "approx": 0},
+{"company": "Lenskart", "founded": 2010, "founder": "Peyush Bansal", "birth_year": 1985, "first_funded_company": "Lenskart", "first_funded_year": 2010, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 8, "tier": "licorne", "country": "IN", "region": "Reste du monde", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Unacademy", "founded": 2015, "founder": "Gaurav Munjal", "birth_year": 1990, "first_funded_company": "Unacademy", "first_funded_year": 2015, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 3.4, "tier": "licorne", "country": "IN", "region": "Reste du monde", "sector": "Edtech", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Tokopedia", "founded": 2009, "founder": "William Tanuwijaya", "birth_year": 1981, "first_funded_company": "Tokopedia", "first_funded_year": 2009, "age": 28, "age_at_this_company": 28, "peak_valuation_busd": 7, "tier": "licorne", "country": "ID", "region": "Reste du monde", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Bukalapak", "founded": 2010, "founder": "Achmad Zaky", "birth_year": 1986, "first_funded_company": "Bukalapak", "first_funded_year": 2010, "age": 24, "age_at_this_company": 24, "peak_valuation_busd": 6, "tier": "licorne", "country": "ID", "region": "Reste du monde", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Toss (Viva Republica)", "founded": 2013, "founder": "Lee Seung-gun", "birth_year": 1982, "first_funded_company": "Toss (Viva Republica)", "first_funded_year": 2013, "age": 31, "age_at_this_company": 31, "peak_valuation_busd": 7.4, "tier": "licorne", "country": "KR", "region": "Reste du monde", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Woowa Brothers (Baemin)", "founded": 2010, "founder": "Kim Bong-jin", "birth_year": 1976, "first_funded_company": "Woowa Brothers (Baemin)", "first_funded_year": 2010, "age": 34, "age_at_this_company": 34, "peak_valuation_busd": 4, "tier": "licorne", "country": "KR", "region": "Reste du monde", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Mercari", "founded": 2013, "founder": "Shintaro Yamada", "birth_year": 1977, "first_funded_company": "Unoh", "first_funded_year": 2001, "age": 24, "age_at_this_company": 36, "peak_valuation_busd": 9.6, "tier": "licorne", "country": "JP", "region": "Reste du monde", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Preferred Networks", "founded": 2014, "founder": "Toru Nishikawa", "birth_year": 1982, "first_funded_company": "Preferred Infrastructure", "first_funded_year": 2006, "age": 24, "age_at_this_company": 32, "peak_valuation_busd": 2, "tier": "licorne", "country": "JP", "region": "Reste du monde", "sector": "IA", "group": "IA & robotique", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Mobike", "founded": 2015, "founder": "Hu Weiwei", "birth_year": 1982, "first_funded_company": "Mobike", "first_funded_year": 2015, "age": 33, "age_at_this_company": 33, "peak_valuation_busd": 2.7, "tier": "licorne", "country": "CN", "region": "Chine", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Hopin", "founded": 2019, "founder": "Johnny Boufarhat", "birth_year": 1994, "first_funded_company": "Hopin", "first_funded_year": 2019, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 7.75, "tier": "licorne", "country": "UK", "region": "Europe", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Flexport", "founded": 2013, "founder": "Ryan Petersen", "birth_year": 1980, "first_funded_company": "ImportGenius", "first_funded_year": 2008, "age": 28, "age_at_this_company": 33, "peak_valuation_busd": 8, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Magic Leap", "founded": 2010, "founder": "Rony Abovitz", "birth_year": 1971, "first_funded_company": "MAKO Surgical", "first_funded_year": 2004, "age": 33, "age_at_this_company": 39, "peak_valuation_busd": 6.4, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Theranos", "founded": 2003, "founder": "Elizabeth Holmes", "birth_year": 1984, "first_funded_company": "Theranos", "first_funded_year": 2003, "age": 19, "age_at_this_company": 19, "peak_valuation_busd": 9, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Medtech", "group": "Santé (biotech, medtech)", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Quibi", "founded": 2018, "founder": "Jeffrey Katzenberg", "birth_year": 1950, "first_funded_company": "DreamWorks SKG", "first_funded_year": 1994, "age": 44, "age_at_this_company": 68, "peak_valuation_busd": 1.75, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": true, "approx": 0},
+{"company": "Zappos", "founded": 1999, "founder": "Nick Swinmurn", "birth_year": 1973, "first_funded_company": "Zappos", "first_funded_year": 1999, "age": 26, "age_at_this_company": 26, "peak_valuation_busd": 1.2, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 90", "serial": false, "approx": 0},
+{"company": "LivingSocial", "founded": 2007, "founder": "Tim O'Shaughnessy", "birth_year": 1982, "first_funded_company": "LivingSocial", "first_funded_year": 2007, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 3, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Blue Apron", "founded": 2012, "founder": "Matt Salzberg", "birth_year": 1983, "first_funded_company": "Blue Apron", "first_funded_year": 2012, "age": 29, "age_at_this_company": 29, "peak_valuation_busd": 2, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Dollar Shave Club", "founded": 2011, "founder": "Michael Dubin", "birth_year": 1978, "first_funded_company": "Dollar Shave Club", "first_funded_year": 2011, "age": 33, "age_at_this_company": 33, "peak_valuation_busd": 1, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Grande conso", "group": "Grande consommation", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "The Honest Company", "founded": 2011, "founder": "Jessica Alba", "birth_year": 1981, "first_funded_company": "The Honest Company", "first_funded_year": 2011, "age": 30, "age_at_this_company": 30, "peak_valuation_busd": 1.7, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Grande conso", "group": "Grande consommation", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Impossible Foods", "founded": 2011, "founder": "Patrick Brown", "birth_year": 1954, "first_funded_company": "Impossible Foods", "first_funded_year": 2011, "age": 57, "age_at_this_company": 57, "peak_valuation_busd": 7, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Grande conso", "group": "Grande consommation", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Relativity Space", "founded": 2015, "founder": "Tim Ellis", "birth_year": 1990, "first_funded_company": "Relativity Space", "first_funded_year": 2015, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 4.2, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Spatial", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Gemini", "founded": 2014, "founder": "Cameron Winklevoss", "birth_year": 1981, "first_funded_company": "Gemini", "first_funded_year": 2014, "age": 33, "age_at_this_company": 33, "peak_valuation_busd": 7.1, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Crypto", "group": "Fintech & crypto", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Yelp", "founded": 2004, "founder": "Jeremy Stoppelman", "birth_year": 1977, "first_funded_company": "Yelp", "first_funded_year": 2004, "age": 27, "age_at_this_company": 27, "peak_valuation_busd": 6, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "Compass", "founded": 2012, "founder": "Robert Reffkin", "birth_year": 1979, "first_funded_company": "Compass", "first_funded_year": 2012, "age": 33, "age_at_this_company": 33, "peak_valuation_busd": 8, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Immobilier", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 0},
+{"company": "Rent the Runway", "founded": 2009, "founder": "Jennifer Hyman", "birth_year": 1980, "first_funded_company": "Rent the Runway", "first_funded_year": 2009, "age": 29, "age_at_this_company": 29, "peak_valuation_busd": 1.7, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 0},
+{"company": "LendingClub", "founded": 2006, "founder": "Renaud Laplanche", "birth_year": 1970, "first_funded_company": "TripleHop", "first_funded_year": 1999, "age": 29, "age_at_this_company": 36, "peak_valuation_busd": 9.7, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "BuzzFeed", "founded": 2006, "founder": "Jonah Peretti", "birth_year": 1974, "first_funded_company": "HuffPost", "first_funded_year": 2005, "age": 31, "age_at_this_company": 32, "peak_valuation_busd": 1.7, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": true, "approx": 0},
+{"company": "Vice Media", "founded": 1994, "founder": "Shane Smith", "birth_year": 1969, "first_funded_company": "Vice Media", "first_funded_year": 1994, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 5.7, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 90", "serial": false, "approx": 0},
+{"company": "Nest", "founded": 2010, "founder": "Tony Fadell", "birth_year": 1969, "first_funded_company": "Nest", "first_funded_year": 2010, "age": 41, "age_at_this_company": 41, "peak_valuation_busd": 3.2, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Hardware", "group": "Semi-conducteurs & hardware", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Waze", "founded": 2008, "founder": "Uri Levine", "birth_year": 1965, "first_funded_company": "Waze", "first_funded_year": 2008, "age": 43, "age_at_this_company": 43, "peak_valuation_busd": 1.15, "tier": "licorne", "country": "IL", "region": "Reste du monde", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 1},
+{"company": "King", "founded": 2003, "founder": "Riccardo Zacconi", "birth_year": 1967, "first_funded_company": "King", "first_funded_year": 2003, "age": 36, "age_at_this_company": 36, "peak_valuation_busd": 7.1, "tier": "licorne", "country": "UK", "region": "Europe", "sector": "Jeux", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 1},
+{"company": "Niantic", "founded": 2015, "founder": "John Hanke", "birth_year": 1967, "first_funded_company": "Archetype Interactive", "first_funded_year": 1996, "age": 29, "age_at_this_company": 48, "peak_valuation_busd": 9, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Jeux", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": true, "approx": 1},
+{"company": "Poshmark", "founded": 2011, "founder": "Manish Chandra", "birth_year": 1965, "first_funded_company": "Kaboodle", "first_funded_year": 2005, "age": 40, "age_at_this_company": 46, "peak_valuation_busd": 7, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": true, "approx": 1},
+{"company": "Character.AI", "founded": 2021, "founder": "Noam Shazeer", "birth_year": 1976, "first_funded_company": "Character.AI", "first_funded_year": 2021, "age": 45, "age_at_this_company": 45, "peak_valuation_busd": 2.5, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "IA", "group": "IA & robotique", "decade": "Années 2020", "serial": false, "approx": 1},
+{"company": "Hugging Face", "founded": 2016, "founder": "Clément Delangue", "birth_year": 1988, "first_funded_company": "Hugging Face", "first_funded_year": 2016, "age": 28, "age_at_this_company": 28, "peak_valuation_busd": 4.5, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "IA", "group": "IA & robotique", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Cohere", "founded": 2019, "founder": "Aidan Gomez", "birth_year": 1996, "first_funded_company": "Cohere", "first_funded_year": 2019, "age": 23, "age_at_this_company": 23, "peak_valuation_busd": 7, "tier": "licorne", "country": "CA", "region": "États-Unis & Canada", "sector": "IA", "group": "IA & robotique", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Replit", "founded": 2016, "founder": "Amjad Masad", "birth_year": 1987, "first_funded_company": "Replit", "first_funded_year": 2016, "age": 29, "age_at_this_company": 29, "peak_valuation_busd": 9, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "IA", "group": "IA & robotique", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Synthesia", "founded": 2017, "founder": "Victor Riparbelli", "birth_year": 1991, "first_funded_company": "Synthesia", "first_funded_year": 2017, "age": 26, "age_at_this_company": 26, "peak_valuation_busd": 4, "tier": "licorne", "country": "UK", "region": "Europe", "sector": "IA", "group": "IA & robotique", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Personio", "founded": 2015, "founder": "Hanno Renner", "birth_year": 1990, "first_funded_company": "Personio", "first_funded_year": 2015, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 8.5, "tier": "licorne", "country": "DE", "region": "Europe", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Criteo", "founded": 2005, "founder": "Jean-Baptiste Rudelle", "birth_year": 1969, "first_funded_company": "K-Mobile", "first_funded_year": 1999, "age": 30, "age_at_this_company": 36, "peak_valuation_busd": 4.5, "tier": "licorne", "country": "FR", "region": "Europe", "sector": "AdTech", "group": "Logiciel, cloud & cyber", "decade": "Années 2000", "serial": true, "approx": 1},
+{"company": "Fisker", "founded": 2016, "founder": "Henrik Fisker", "birth_year": 1963, "first_funded_company": "Fisker Coachbuild", "first_funded_year": 2005, "age": 42, "age_at_this_company": 53, "peak_valuation_busd": 8, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Auto", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2010", "serial": true, "approx": 1},
+{"company": "Jet.com", "founded": 2014, "founder": "Marc Lore", "birth_year": 1971, "first_funded_company": "Quidsi (Diapers.com)", "first_funded_year": 2005, "age": 34, "age_at_this_company": 43, "peak_valuation_busd": 3.3, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": true, "approx": 1},
+{"company": "Zoox", "founded": 2014, "founder": "Tim Kentley-Klay", "birth_year": 1975, "first_funded_company": "Zoox", "first_funded_year": 2014, "age": 39, "age_at_this_company": 39, "peak_valuation_busd": 3.2, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Auto", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Calendly", "founded": 2013, "founder": "Tope Awotona", "birth_year": 1981, "first_funded_company": "Calendly", "first_funded_year": 2013, "age": 32, "age_at_this_company": 32, "peak_valuation_busd": 3, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Credit Karma", "founded": 2007, "founder": "Kenneth Lin", "birth_year": 1976, "first_funded_company": "Credit Karma", "first_funded_year": 2007, "age": 31, "age_at_this_company": 31, "peak_valuation_busd": 7.1, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2000", "serial": false, "approx": 1},
+{"company": "Gorillas", "founded": 2020, "founder": "Kağan Sümer", "birth_year": 1987, "first_funded_company": "Gorillas", "first_funded_year": 2020, "age": 33, "age_at_this_company": 33, "peak_valuation_busd": 3, "tier": "licorne", "country": "DE", "region": "Europe", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2020", "serial": false, "approx": 1},
+{"company": "Bird", "founded": 2017, "founder": "Travis VanderZanden", "birth_year": 1979, "first_funded_company": "Bird", "first_funded_year": 2017, "age": 38, "age_at_this_company": 38, "peak_valuation_busd": 2.5, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Auto", "group": "Mobilité, spatial, énergie, défense", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Mercury", "founded": 2017, "founder": "Immad Akhund", "birth_year": 1984, "first_funded_company": "Heyzap", "first_funded_year": 2009, "age": 25, "age_at_this_company": 33, "peak_valuation_busd": 3.5, "tier": "licorne", "country": "US", "region": "États-Unis & Canada", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": true, "approx": 1},
+{"company": "Careem", "founded": 2012, "founder": "Mudassir Sheikha", "birth_year": 1977, "first_funded_company": "Careem", "first_funded_year": 2012, "age": 35, "age_at_this_company": 35, "peak_valuation_busd": 3.1, "tier": "licorne", "country": "AE", "region": "Reste du monde", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Flutterwave", "founded": 2016, "founder": "Olugbenga Agboola", "birth_year": 1984, "first_funded_company": "Flutterwave", "first_funded_year": 2016, "age": 32, "age_at_this_company": 32, "peak_valuation_busd": 3, "tier": "licorne", "country": "NG", "region": "Reste du monde", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Kavak", "founded": 2016, "founder": "Carlos García Ottati", "birth_year": 1984, "first_funded_company": "Kavak", "first_funded_year": 2016, "age": 32, "age_at_this_company": 32, "peak_valuation_busd": 8.7, "tier": "licorne", "country": "MX", "region": "Reste du monde", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Rappi", "founded": 2015, "founder": "Simón Borrero", "birth_year": 1985, "first_funded_company": "Rappi", "first_funded_year": 2015, "age": 30, "age_at_this_company": 30, "peak_valuation_busd": 5.25, "tier": "licorne", "country": "CO", "region": "Reste du monde", "sector": "Internet", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Vinted", "founded": 2008, "founder": "Justas Janauskas", "birth_year": 1984, "first_funded_company": "Vinted", "first_funded_year": 2008, "age": 24, "age_at_this_company": 24, "peak_valuation_busd": 5, "tier": "licorne", "country": "LT", "region": "Europe", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2000", "serial": false, "approx": 1},
+{"company": "Contentsquare", "founded": 2012, "founder": "Jonathan Cherki", "birth_year": 1988, "first_funded_company": "Contentsquare", "first_funded_year": 2012, "age": 24, "age_at_this_company": 24, "peak_valuation_busd": 5.6, "tier": "licorne", "country": "FR", "region": "Europe", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Dataiku", "founded": 2013, "founder": "Florian Douetteau", "birth_year": 1980, "first_funded_company": "Dataiku", "first_funded_year": 2013, "age": 33, "age_at_this_company": 33, "peak_valuation_busd": 4.6, "tier": "licorne", "country": "FR", "region": "Europe", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Alan", "founded": 2016, "founder": "Jean-Charles Samuelian", "birth_year": 1987, "first_funded_company": "Alan", "first_funded_year": 2016, "age": 29, "age_at_this_company": 29, "peak_valuation_busd": 4.5, "tier": "licorne", "country": "FR", "region": "Europe", "sector": "Assurtech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Qonto", "founded": 2016, "founder": "Alexandre Prot", "birth_year": 1989, "first_funded_company": "Qonto", "first_funded_year": 2016, "age": 27, "age_at_this_company": 27, "peak_valuation_busd": 5, "tier": "licorne", "country": "FR", "region": "Europe", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Mirakl", "founded": 2012, "founder": "Philippe Corrot", "birth_year": 1966, "first_funded_company": "Mirakl", "first_funded_year": 2012, "age": 46, "age_at_this_company": 46, "peak_valuation_busd": 3.5, "tier": "licorne", "country": "FR", "region": "Europe", "sector": "Logiciel", "group": "Logiciel, cloud & cyber", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "Back Market", "founded": 2014, "founder": "Thibaud Hug de Larauze", "birth_year": 1988, "first_funded_company": "Back Market", "first_funded_year": 2014, "age": 26, "age_at_this_company": 26, "peak_valuation_busd": 5.7, "tier": "licorne", "country": "FR", "region": "Europe", "sector": "E-commerce", "group": "Internet, e-commerce & jeux", "decade": "Années 2010", "serial": false, "approx": 1},
+{"company": "GoCardless", "founded": 2011, "founder": "Hiroki Takeuchi", "birth_year": 1986, "first_funded_company": "GoCardless", "first_funded_year": 2011, "age": 25, "age_at_this_company": 25, "peak_valuation_busd": 2.1, "tier": "licorne", "country": "UK", "region": "Europe", "sector": "Fintech", "group": "Fintech & crypto", "decade": "Années 2010", "serial": false, "approx": 1}
+];
+// DATA-END
+const DECADES = ["1968–1979","Années 80","Années 90","Années 2000","Années 2010","Années 2020"];
+const REGIONS = ["États-Unis & Canada","Chine","Europe","Reste du monde"];
+const GROUPS = d3.groups(DATA, d=>d.group).sort((a,b)=>b[1].length-a[1].length).map(g=>g[0]);
+const DEF = {mode:"rule", era:"all", group:"all", region:"all", s1:26, s2:33};
+const S = {...DEF};
+
+const ageOf = d => S.mode==="rule" ? d.age : d.age_at_this_company;
+const viewAll = () => DATA.filter(d => (S.era==="all" || (S.era==="pre" ? d.founded<2000 : d.founded>=2000))
+  && (S.group==="all" || d.group===S.group) && (S.region==="all" || d.region===S.region));
+const view = () => viewAll().filter(d => d.tier==="geant");
+const TIERS = ["1–10 Md$","10–100 Md$","100 Md$ – 1 T$","≥ 1 T$"];
+const tierOf = d => d.peak_valuation_busd < 10 ? TIERS[0] : d.peak_valuation_busd < 100 ? TIERS[1] : d.peak_valuation_busd < 1000 ? TIERS[2] : TIERS[3];
+const BR = () => [
+  {s:`≤ ${S.s1} ans`, k:`${S.s1} ans ou moins`, t:a=>a<=S.s1},
+  {s:`≤ ${S.s2} ans`, k:`${S.s2} ans ou moins`, t:a=>a<=S.s2},
+  {s:`> ${S.s2} ans`, k:`plus de ${S.s2} ans`, t:a=>a>S.s2}];
+const pct = x => (isFinite(x) ? Math.round(x*100) : 0) + " %";
+const nf = (v, d=0) => v.toLocaleString("fr-FR",{maximumFractionDigits:d});
+function fmtVal(v){ return v >= 1000 ? nf(v/1000,2) + " T$" : nf(v,1) + " Md$"; }
+const fmtR = r => { if (!isFinite(r)) return "–"; const v = Math.round(r*100)/100; return (v===0 ? 0 : v).toLocaleString("fr-FR",{minimumFractionDigits:2, maximumFractionDigits:2}); };
+const short = s => s.replace(/ \(.*\)/,"");
+function el(tag, cls, text){ const e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; }
+function setT(id, v){ const e=document.getElementById(id); if(e) e.textContent = v; }
+function hash(s){ let h=0; for(const c of s) h=(h*31+c.charCodeAt(0))|0; return ((h>>>0)%1000)/1000; }
+DATA.forEach(d => { d.jit = (hash(d.company)-0.5)*0.7; d.jy = hash(d.company+"y")-0.5; d.tierLabel = d.tier==="geant" ? "≥ 10 Md$" : "1–10 Md$"; });
+const xMaxAll = () => Math.max(52, d3.max(DATA, ageOf)+3);
+
+function stats(rows, m){
+  m = m || S.mode;
+  const a = rows.map(d => m==="rule" ? d.age : d.age_at_this_company);
+  const v = rows.map(d => d.peak_valuation_busd);
+  const lv = v.map(Math.log10), ma = d3.mean(a), ml = d3.mean(lv);
+  let c=0,sa=0,sl=0; a.forEach((x,i)=>{ c+=(x-ma)*(lv[i]-ml); sa+=(x-ma)**2; sl+=(lv[i]-ml)**2; });
+  return {n: rows.length, med: d3.median(a), r: (sa&&sl) ? c/Math.sqrt(sa*sl) : NaN,
+    top10: d3.sum(v.slice().sort((x,y)=>y-x).slice(0,10)) / (d3.sum(v)||1)};
+}
+function brStats(rows, m){
+  m = m || S.mode;
+  const tot = d3.sum(rows, d=>d.peak_valuation_busd);
+  return BR().map(b => {
+    const s = rows.filter(d => b.t(m==="rule" ? d.age : d.age_at_this_company)).sort((x,y)=>y.peak_valuation_busd-x.peak_valuation_busd);
+    const val = d3.sum(s, d=>d.peak_valuation_busd);
+    return {b, n:s.length, share: rows.length ? s.length/rows.length : NaN, val, valShare: tot ? val/tot : NaN,
+      med: s.length ? d3.median(s, d=>d.peak_valuation_busd) : null, top: s.slice(0,4).map(d=>short(d.company))};
+  });
+}
+const corrWord = r => !isFinite(r) ? "non calculable" : Math.abs(r) < .1 ? "quasi nulle" : Math.abs(r) < .3 ? "faible" : "modérée";
+
+/* ---------- tooltip ---------- */
+const TIP = document.getElementById("tip");
+function tipShow(nodes, cx, cy){
+  TIP.replaceChildren(...nodes); TIP.style.opacity = 1;
+  const tw = TIP.offsetWidth, th = TIP.offsetHeight;
+  let l = cx + 14; if (l + tw > innerWidth - 8) l = cx - tw - 14; if (l < 4) l = 4;
+  let t = cy - th - 12; if (t < 4) t = cy + 16;
+  TIP.style.left = l + "px"; TIP.style.top = t + "px";
+}
+function tipHide(){ TIP.style.opacity = 0; }
+function rowLine(color, valueText, label){
+  const r = el("div","row"); const k = el("i","lkey"); k.style.background = color;
+  r.append(k, el("span","num",valueText), el("span","t2",label)); return r;
+}
+function companyTip(d){
+  const out = [el("div","t1", d.company)];
+  const l1 = el("div","t2"); l1.append(el("span","num", fmtVal(d.peak_valuation_busd)), document.createTextNode(" · fondée en " + d.founded + " · " + d.sector)); out.push(l1);
+  const l2 = el("div","t2"); l2.append(document.createTextNode(d.founder + " : "), el("span","num", ageOf(d) + " ans" + (d.approx ? " (≈)" : ""))); out.push(l2);
+  if (d.serial) out.push(el("div","t2", "1re société financée : " + d.first_funded_company + " (" + d.first_funded_year + ", " + d.age + " ans) · " + d.age_at_this_company + " ans à la création de " + short(d.company)));
+  return out;
+}
+function screenXY(svgNode, W, px, py){ const r = svgNode.getBoundingClientRect(), k = r.width / W; return [r.left + px*k, r.top + py*k]; }
+
+/* ---------- svg helpers ---------- */
+function mkSvg(host, H, label){
+  host.replaceChildren();
+  const W = Math.max(280, host.clientWidth);
+  const svg = d3.select(host).append("svg").attr("viewBox",`0 0 ${W} ${H}`).attr("height",H).attr("role","img").attr("aria-label",label);
+  return {svg, W, narrow: W < 560};
+}
+function thresholdLines(svg, x, y0, y1, labelY, offset){
+  offset = offset == null ? .5 : offset;
+  [S.s1, S.s2].forEach(v => svg.append("line").attr("x1",x(v+offset)).attr("x2",x(v+offset)).attr("y1",y0).attr("y2",y1)
+    .attr("stroke","var(--ref)").attr("stroke-width",1.5).attr("stroke-dasharray","5 4"));
+  if (labelY != null){
+    svg.append("text").attr("class","reflab").attr("x",x(S.s1+offset)-5).attr("y",labelY).attr("text-anchor","end").text(`≤ ${S.s1}`);
+    svg.append("text").attr("class","reflab").attr("x",x(S.s2+offset)-5).attr("y",labelY).attr("text-anchor","end").text(`≤ ${S.s2}`);
+    svg.append("text").attr("class","reflab").attr("x",x(S.s2+offset)+5).attr("y",labelY).text(`> ${S.s2}`);
+  }
+}
+function emptyMsg(host){ host.replaceChildren(el("div","empty","Aucune société pour ces filtres.")); }
+const bandOpacity = a => a<=S.s1 ? 1 : (a<=S.s2 ? .68 : .4);
+
+/* ---------- 1. scatter ---------- */
+function drawScatter(V, hostId, legendId, tkId, yMin){
+  hostId = hostId || "scatter"; legendId = legendId || "scatter-legend"; tkId = tkId || "tk-scatter"; yMin = yMin || 8;
+  const host = document.getElementById(hostId);
+  if (!V.length) return emptyMsg(host);
+  const {svg, W, narrow} = mkSvg(host, host.clientWidth < 560 ? 420 : 540, "Nuage de points : valorisation maximale selon l'âge du fondateur");
+  const H = narrow ? 420 : 540, m = {t:14, r: narrow?14:24, b:44, l: narrow?52:62};
+  const x = d3.scaleLinear().domain([15, xMaxAll()]).range([m.l, W-m.r]);
+  const y = d3.scaleLog().domain([yMin, 7000]).range([H-m.b, m.t]);
+  const yt = [1,3,10,30,100,300,1000,3000,6000].filter(v => v >= yMin);
+  svg.append("g").attr("class","gridline").attr("transform",`translate(${m.l},0)`).call(d3.axisLeft(y).tickValues(yt).tickSize(-(W-m.l-m.r)).tickFormat(""));
+  svg.append("g").attr("class","axis").attr("transform",`translate(${m.l},0)`).call(d3.axisLeft(y).tickValues(yt).tickFormat(v => v>=1000 ? (v/1000)+" T$" : v+" Md$").tickSizeOuter(0)).select(".domain").remove();
+  svg.append("g").attr("class","axis").attr("transform",`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(narrow?6:10).tickSizeOuter(0));
+  svg.append("text").attr("x",W-m.r).attr("y",H-6).attr("text-anchor","end").attr("fill","var(--text-muted)").attr("font-size",12).text("Âge du fondateur au départ (ans)");
+  thresholdLines(svg, x, m.t, H-m.b, H-m.b-8);
+  const pts = V.map(d => ({d, px: x(ageOf(d)+d.jit), py: y(d.peak_valuation_busd)}));
+  svg.append("g").selectAll("circle").data(pts).join("circle")
+    .attr("cx",p=>p.px).attr("cy",p=>p.py).attr("r",5)
+    .attr("fill",p => p.d.serial && S.mode==="rule" ? "var(--series-2)" : "var(--series-1)")
+    .attr("fill-opacity",.88).attr("stroke","var(--surface-1)").attr("stroke-width",2);
+  // labels: biggest first, skip collisions
+  const placed = [], lg = svg.append("g"), labelN = narrow ? 8 : 20;
+  let count = 0;
+  for (const p of [...pts].sort((a,b)=>b.d.peak_valuation_busd-a.d.peak_valuation_busd)){
+    if (count >= labelN) break;
+    const txt = short(p.d.company), w = txt.length*6.9, h = 13;
+    const right = p.px + 8 + w < W - m.r;
+    const box = {x: right ? p.px+8 : p.px-8-w, y: p.py-h/2, w, h};
+    const hit = placed.some(b => !(box.x+box.w < b.x || b.x+b.w < box.x || box.y+box.h < b.y || b.y+b.h < box.y))
+      || pts.some(q => q!==p && q.px>box.x-3 && q.px<box.x+box.w+3 && q.py>box.y-2 && q.py<box.y+box.h+2);
+    if (hit) continue;
+    placed.push(box); count++;
+    lg.append("text").attr("class","lab").attr("x", right?box.x:box.x+w).attr("y",p.py+4).attr("text-anchor", right?"start":"end").text(txt);
+  }
+  const del = d3.Delaunay.from(pts, p=>p.px, p=>p.py);
+  const ring = svg.append("circle").attr("r",9).attr("fill","none").attr("stroke","var(--text-primary)").attr("stroke-width",2).style("opacity",0);
+  svg.append("rect").attr("x",m.l).attr("y",m.t).attr("width",W-m.l-m.r).attr("height",H-m.t-m.b).attr("fill","transparent")
+    .on("pointermove", ev => {
+      const [mx,my] = d3.pointer(ev), p = pts[del.find(mx,my)];
+      if (Math.hypot(p.px-mx, p.py-my) > 40){ ring.style("opacity",0); return tipHide(); }
+      ring.attr("cx",p.px).attr("cy",p.py).style("opacity",1);
+      const [sx,sy] = screenXY(svg.node(), W, p.px, p.py); tipShow(companyTip(p.d), sx, sy);
+    })
+    .on("pointerleave", () => { ring.style("opacity",0); tipHide(); });
+  document.getElementById(legendId).style.display = S.mode==="rule" ? "flex" : "none";
+  const st = stats(V);
+  setT(tkId, `Corrélation entre l'âge et le logarithme de la valorisation : r = ${fmtR(st.r)}, ${corrWord(st.r)}. Parmi ces gagnants, l'âge au départ ne dit presque rien de la taille finale du succès.`);
+}
+
+/* ---------- 2. cumulative curve ---------- */
+function drawCumul(V, hostId, tkId){
+  hostId = hostId || "cumul"; tkId = tkId || "tk-cumul";
+  const host = document.getElementById(hostId);
+  if (!V.length) return emptyMsg(host);
+  const narrow = host.clientWidth < 560, H = narrow ? 300 : 360;
+  const {svg, W} = mkSvg(host, H, "Courbe cumulée : part des sociétés et de la valeur par âge maximal du fondateur");
+  const m = {t:16, r: narrow?16:28, b:44, l:46};
+  const xMax = xMaxAll();
+  const x = d3.scaleLinear().domain([15, xMax]).range([m.l, W-m.r]);
+  const y = d3.scaleLinear().domain([0,1]).range([H-m.b, m.t]);
+  const tot = d3.sum(V, d=>d.peak_valuation_busd), n = V.length;
+  const ages = d3.range(15, Math.ceil(xMax)+1);
+  const rows = ages.map(a => { const s = V.filter(d => ageOf(d) <= a); return {a, c: s.length/n, v: d3.sum(s, d=>d.peak_valuation_busd)/tot, n: s.length}; });
+  svg.append("g").attr("class","gridline").attr("transform",`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickSize(-(W-m.l-m.r)).tickFormat(""));
+  svg.append("g").attr("class","axis").attr("transform",`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(d3.format(".0%")).tickSizeOuter(0)).select(".domain").remove();
+  svg.append("g").attr("class","axis").attr("transform",`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(narrow?6:10).tickSizeOuter(0));
+  svg.append("text").attr("x",W-m.r).attr("y",H-6).attr("text-anchor","end").attr("fill","var(--text-muted)").attr("font-size",12).text("Âge maximal du fondateur au départ (ans)");
+  thresholdLines(svg, x, m.t, H-m.b, null, 0);
+  const line = key => d3.line().x(r=>x(r.a)).y(r=>y(r[key])).curve(d3.curveStepAfter);
+  svg.append("path").datum(rows).attr("fill","none").attr("stroke","var(--series-1)").attr("stroke-width",2).attr("d",line("c"));
+  svg.append("path").datum(rows).attr("fill","none").attr("stroke","var(--series-2)").attr("stroke-width",2).attr("d",line("v"));
+  // threshold readouts
+  [S.s1, S.s2].forEach(a => {
+    const r = rows.find(q => q.a===a); if (!r) return;
+    [["c","var(--series-1)"],["v","var(--series-2)"]].forEach(([k,col]) => {
+      svg.append("circle").attr("cx",x(a)).attr("cy",y(r[k])).attr("r",4.5).attr("fill",col).attr("stroke","var(--surface-1)").attr("stroke-width",2);
+    });
+    const hi = Math.max(r.c, r.v), lo = Math.min(r.c, r.v), kHi = r.c>=r.v ? "c" : "v";
+    svg.append("text").attr("class","lab").attr("x",x(a)-7).attr("y",y(hi)-7).attr("text-anchor","end").text(pct(r[kHi]));
+    svg.append("text").attr("class","lab").attr("x",x(a)+7).attr("y",y(lo)+15).text(pct(r[kHi==="c"?"v":"c"]));
+    svg.append("text").attr("class","reflab").attr("x",x(a)+5).attr("y",H-m.b-8).text(`${a} ans`);
+  });
+  const hair = svg.append("line").attr("y1",m.t).attr("y2",H-m.b).attr("stroke","var(--text-muted)").attr("stroke-width",1).style("opacity",0);
+  const d1 = svg.append("circle").attr("r",4).attr("fill","var(--series-1)").style("opacity",0);
+  const d2 = svg.append("circle").attr("r",4).attr("fill","var(--series-2)").style("opacity",0);
+  svg.append("rect").attr("x",m.l).attr("y",m.t).attr("width",W-m.l-m.r).attr("height",H-m.t-m.b).attr("fill","transparent")
+    .on("pointermove", ev => {
+      const [mx] = d3.pointer(ev); const a = Math.max(15, Math.min(ages[ages.length-1], Math.floor(x.invert(mx))));
+      const r = rows.find(q=>q.a===a);
+      hair.attr("x1",x(a)).attr("x2",x(a)).style("opacity",1);
+      d1.attr("cx",x(a)).attr("cy",y(r.c)).style("opacity",1); d2.attr("cx",x(a)).attr("cy",y(r.v)).style("opacity",1);
+      const [sx,sy] = screenXY(svg.node(), W, x(a), y(Math.max(r.c,r.v)));
+      tipShow([el("div","t1",`Fondateurs de ${a} ans ou moins`), rowLine("var(--series-1)", pct(r.c), `des sociétés (${r.n})`), rowLine("var(--series-2)", pct(r.v), "de la valeur cumulée")], sx, sy);
+    })
+    .on("pointerleave", () => { hair.style("opacity",0); d1.style("opacity",0); d2.style("opacity",0); tipHide(); });
+  const r1 = rows.find(q=>q.a===S.s1), r2 = rows.find(q=>q.a===S.s2);
+  if (r1 && r2) setT(tkId, `Les fondateurs de ${S.s1} ans ou moins ont lancé ${pct(r1.c)} des sociétés et ${pct(r1.v)} de la valeur ; ceux de ${S.s2} ans ou moins, ${pct(r2.c)} des sociétés et ${pct(r2.v)} de la valeur.`);
+}
+
+/* ---------- 3. histogram ---------- */
+function drawHist(V, hostId){
+  const host = document.getElementById(hostId || "hist");
+  if (!V.length) return emptyMsg(host);
+  const narrow = host.clientWidth < 560, H = narrow ? 260 : 300;
+  const {svg, W} = mkSvg(host, H, "Histogramme du nombre de sociétés par âge du fondateur");
+  const m = {t:40, r:14, b:40, l:40};
+  const hMax = Math.ceil(xMaxAll());
+  const bins = d3.range(15, hMax).map(a => ({a, items: V.filter(d => ageOf(d)===a)}));
+  const x = d3.scaleLinear().domain([15, hMax]).range([m.l, W-m.r]);
+  const y = d3.scaleLinear().domain([0, Math.max(5, d3.max(bins, b=>b.items.length))]).nice().range([H-m.b, m.t]);
+  svg.append("g").attr("class","gridline").attr("transform",`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(4).tickSize(-(W-m.l-m.r)).tickFormat(""));
+  svg.append("g").attr("class","axis").attr("transform",`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(4).tickSizeOuter(0)).select(".domain").remove();
+  svg.append("g").attr("class","axis").attr("transform",`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(narrow?6:10).tickSizeOuter(0));
+  svg.append("text").attr("x",W-m.r).attr("y",H-6).attr("text-anchor","end").attr("fill","var(--text-muted)").attr("font-size",12).text("Âge au départ (ans)");
+  const bw = x(16)-x(15);
+  const g = svg.append("g").selectAll("g").data(bins).join("g");
+  g.append("path").attr("fill","var(--series-1)").attr("fill-opacity", b => bandOpacity(b.a)).attr("d", b => {
+    const x0 = x(b.a)+1, w = Math.max(0,bw-2), y0 = y(b.items.length), h = y(0)-y0, r = Math.min(4, h, w/2);
+    if (h<=0) return "";
+    return `M${x0},${y(0)}V${y0+r}Q${x0},${y0} ${x0+r},${y0}H${x0+w-r}Q${x0+w},${y0} ${x0+w},${y0+r}V${y(0)}Z`;
+  });
+  g.filter(b => b.items.length>0 && bw>=15).append("text").attr("x",b=>x(b.a)+bw/2).attr("y",b=>y(b.items.length)-5).attr("text-anchor","middle").attr("font-size",11).attr("fill","var(--text-secondary)").text(b=>b.items.length);
+  g.append("rect").attr("x",b=>x(b.a)).attr("width",bw).attr("y",m.t).attr("height",H-m.t-m.b).attr("fill","transparent")
+    .on("pointermove",(ev,b) => {
+      const names = b.items.slice().sort((p,q)=>q.peak_valuation_busd-p.peak_valuation_busd).slice(0,6).map(d=>short(d.company));
+      const c = [el("div","t1", b.items.length + (b.items.length>1?" sociétés":" société")), el("div","t2", b.a + " ans au départ")];
+      if (names.length) c.push(el("div","t2", names.join(", ") + (b.items.length>6 ? "…" : "")));
+      const [sx,sy] = screenXY(svg.node(), W, x(b.a)+bw/2, y(b.items.length)); tipShow(c, sx, sy);
+    }).on("pointerleave", tipHide);
+  thresholdLines(svg, x, m.t-36, H-m.b, m.t-24, 1);
+}
+
+/* ---------- 4. bracket table ---------- */
+function drawBrackets(V){
+  const b = brStats(V), st = stats(V);
+  setT("tranches-sub", `« ≤ ${S.s2} ans » inclut les « ≤ ${S.s1} ans » ; « ≤ ${S.s2} ans » et « > ${S.s2} ans » font 100 %. Âge médian de la sélection : ${st.n ? nf(st.med,1) : "–"} ans.`);
+  const tb = document.querySelector("#bracket-tbl tbody"); tb.replaceChildren();
+  b.forEach(x => { const r = document.createElement("tr");
+    [[x.b.s,""],[x.n,"n"],[pct(x.share),"n"],[fmtVal(x.val),"n"],[pct(x.valShare),"n"],[x.med==null?"—":fmtVal(x.med),"n"],[x.top.join(", ")||"—",""]].forEach(([v,c]) => r.append(el("td",c,v)));
+    tb.append(r); });
+}
+
+/* ---------- 5. decades ---------- */
+function drawDecade(V){
+  const host = document.getElementById("decade");
+  const lg = document.getElementById("dec-legend"); lg.replaceChildren();
+  [["var(--series-1)",`Part des fondateurs de ${S.s1} ans ou moins`],["var(--series-2)",`Part des fondateurs de ${S.s2} ans ou moins`]].forEach(([c,t]) => { const s = el("span"); const k = el("i","lkey"); k.style.background=c; s.append(k, document.createTextNode(t)); lg.append(s); });
+  const rows = DECADES.map(dec => { const s = V.filter(d=>d.decade===dec); return {dec, s, n:s.length,
+    p1: s.length ? s.filter(d=>ageOf(d)<=S.s1).length/s.length : null, p2: s.length ? s.filter(d=>ageOf(d)<=S.s2).length/s.length : null,
+    med: s.length ? d3.median(s, ageOf) : null}; }).filter(r => r.n>0);
+  if (!rows.length) return emptyMsg(host);
+  const narrow = host.clientWidth < 560, H = narrow ? 290 : 330;
+  const {svg, W} = mkSvg(host, H, "Courbes : part des fondateurs sous chaque seuil par décennie de création");
+  const m = {t:18, r: narrow?20:40, b:58, l:46};
+  const x = d3.scalePoint().domain(rows.map(r=>r.dec)).range([m.l+20, W-m.r-10]);
+  const y = d3.scaleLinear().domain([0,1]).range([H-m.b, m.t]);
+  svg.append("g").attr("class","gridline").attr("transform",`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickSize(-(W-m.l-m.r)).tickFormat(""));
+  svg.append("g").attr("class","axis").attr("transform",`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(d3.format(".0%")).tickSizeOuter(0)).select(".domain").remove();
+  const xa = svg.append("g").attr("class","axis").attr("transform",`translate(0,${H-m.b})`).call(d3.axisBottom(x).tickSizeOuter(0).tickFormat(d => narrow ? d.replace("Années ","").replace("1968–1979","68–79") : d));
+  xa.select(".domain").attr("stroke","var(--border)");
+  rows.forEach(r => svg.append("text").attr("x",x(r.dec)).attr("y",H-m.b+34).attr("text-anchor","middle").attr("font-size",11).attr("fill","var(--text-muted)").text(`n = ${r.n}`));
+  [["p1","var(--series-1)"],["p2","var(--series-2)"]].forEach(([k,c]) => {
+    svg.append("path").datum(rows).attr("fill","none").attr("stroke",c).attr("stroke-width",2).attr("d", d3.line().x(r=>x(r.dec)).y(r=>y(r[k])));
+    svg.append("g").selectAll("circle").data(rows).join("circle").attr("cx",r=>x(r.dec)).attr("cy",r=>y(r[k])).attr("r",5).attr("fill",c).attr("stroke","var(--surface-1)").attr("stroke-width",2);
+  });
+  const last = rows[rows.length-1];
+  if (!narrow){
+    svg.append("text").attr("class","lab").attr("x",x(last.dec)+9).attr("y",y(last.p2)+4).text(pct(last.p2));
+    svg.append("text").attr("class","lab").attr("x",x(last.dec)+9).attr("y",y(last.p1)+4).text(pct(last.p1));
+  }
+  const step = rows.length>1 ? x.step() : (W-m.l-m.r);
+  svg.append("g").selectAll("rect").data(rows).join("rect").attr("x",r=>x(r.dec)-step/2).attr("width",step).attr("y",m.t).attr("height",H-m.t-m.b).attr("fill","transparent")
+    .on("pointermove",(ev,r) => {
+      const top = r.s.slice().sort((p,q)=>q.peak_valuation_busd-p.peak_valuation_busd).slice(0,5).map(d=>short(d.company)+" ("+ageOf(d)+")");
+      const [sx,sy] = screenXY(svg.node(), W, x(r.dec), y(Math.max(r.p1,r.p2)));
+      tipShow([el("div","t1", r.dec + " · " + r.n + (r.n>1?" sociétés":" société")), rowLine("var(--series-2)", pct(r.p2), `≤ ${S.s2} ans`), rowLine("var(--series-1)", pct(r.p1), `≤ ${S.s1} ans`),
+        el("div","t2", "Âge médian : " + nf(r.med,1) + " ans"), el("div","t2", top.join(", "))], sx, sy);
+    }).on("pointerleave", tipHide);
+  const pre = V.filter(d=>d.founded<2000), post = V.filter(d=>d.founded>=2000);
+  if (pre.length && post.length){
+    const f = (s,th) => s.filter(d=>ageOf(d)<=th).length/s.length;
+    setT("tk-decade", `Avant 2000 : ${pct(f(pre,S.s1))} des fondateurs avaient ${S.s1} ans ou moins (médiane ${nf(d3.median(pre,ageOf),1)} ans). Depuis 2000 : ${pct(f(post,S.s1))} (médiane ${nf(d3.median(post,ageOf),1)} ans). Les décennies récentes comptent aussi des sociétés plus jeunes, dont certaines n'ont pas fini de grandir.`);
+  } else setT("tk-decade", "Comparaison avant / après 2000 indisponible avec ce filtre de période.");
+}
+
+/* ---------- 6–7. strip plots ---------- */
+function drawStrip(hostId, keyFn, order, V){
+  const host = document.getElementById(hostId);
+  const cats = order.map(k => ({k, s: V.filter(d=>keyFn(d)===k)})).filter(c => c.s.length);
+  if (!cats.length) return emptyMsg(host);
+  const narrow = host.clientWidth < 560;
+  const rowH = narrow ? 70 : 46, labW = narrow ? 0 : 250, m = {t:10, r:16, b:40, l: narrow ? 12 : labW};
+  const H = m.t + cats.length*rowH + m.b;
+  const {svg, W} = mkSvg(host, H, "Répartition des âges des fondateurs par catégorie");
+  const x = d3.scaleLinear().domain([15, xMaxAll()]).range([m.l, W-m.r]);
+  svg.append("g").attr("class","gridline").attr("transform",`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(narrow?6:10).tickSize(-(H-m.t-m.b)).tickFormat(""));
+  svg.append("g").attr("class","axis").attr("transform",`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(narrow?6:10).tickSizeOuter(0));
+  svg.append("text").attr("x",W-m.r).attr("y",H-6).attr("text-anchor","end").attr("fill","var(--text-muted)").attr("font-size",12).text("Âge du fondateur au départ (ans)");
+  thresholdLines(svg, x, m.t, H-m.b, null);
+  const pts = [];
+  cats.forEach((c,i) => {
+    const y0 = m.t + i*rowH, dotsY = narrow ? y0 + 50 : y0 + rowH/2;
+    const med = d3.median(c.s, ageOf), p2 = c.s.filter(d=>ageOf(d)<=S.s2).length/c.s.length;
+    if (i>0) svg.append("line").attr("x1", narrow?0:8).attr("x2",W-m.r).attr("y1",y0).attr("y2",y0).attr("stroke","var(--grid)");
+    if (narrow){
+      svg.append("text").attr("x",m.l).attr("y",y0+16).attr("font-size",12.5).attr("font-weight",600).attr("fill","var(--text-primary)").attr("class","slab").text(c.k);
+      svg.append("text").attr("class","lab2").attr("x",m.l).attr("y",y0+31).text(`n = ${c.s.length} · médiane ${nf(med,1)} ans · ≤ ${S.s2} ans : ${pct(p2)}`);
+    } else {
+      svg.append("text").attr("x",8).attr("y",dotsY-3).attr("font-size",13).attr("font-weight",600).attr("fill","var(--text-primary)").attr("class","slab").text(c.k);
+      svg.append("text").attr("class","lab2").attr("x",8).attr("y",dotsY+13).text(`n = ${c.s.length} · médiane ${nf(med,1)} ans · ≤ ${S.s2} ans : ${pct(p2)}`);
+    }
+    c.s.forEach(d => { const p = {d, px: x(ageOf(d)+d.jit), py: dotsY + d.jy*(narrow?14:22)}; pts.push(p); });
+    svg.append("line").attr("x1",x(med)).attr("x2",x(med)).attr("y1",dotsY-15).attr("y2",dotsY+15).attr("stroke","var(--text-primary)").attr("stroke-width",3).attr("stroke-linecap","round");
+  });
+  svg.append("g").selectAll("circle").data(pts).join("circle").attr("cx",p=>p.px).attr("cy",p=>p.py).attr("r",4)
+    .attr("fill","var(--series-1)").attr("fill-opacity",.75).attr("stroke","var(--surface-1)").attr("stroke-width",1.5);
+  const del = d3.Delaunay.from(pts, p=>p.px, p=>p.py);
+  const ring = svg.append("circle").attr("r",7.5).attr("fill","none").attr("stroke","var(--text-primary)").attr("stroke-width",2).style("opacity",0);
+  svg.append("rect").attr("x",m.l).attr("y",m.t).attr("width",W-m.l-m.r).attr("height",H-m.t-m.b).attr("fill","transparent")
+    .on("pointermove", ev => { const [mx,my] = d3.pointer(ev), p = pts[del.find(mx,my)];
+      if (Math.hypot(p.px-mx,p.py-my) > 30){ ring.style("opacity",0); return tipHide(); }
+      ring.attr("cx",p.px).attr("cy",p.py).style("opacity",1); const [sx,sy] = screenXY(svg.node(), W, p.px, p.py); tipShow(companyTip(p.d), sx, sy); })
+    .on("pointerleave", () => { ring.style("opacity",0); tipHide(); });
+}
+
+/* ---------- 8. dumbbell ---------- */
+function drawDumbbell(V){
+  const host = document.getElementById("dumbbell");
+  const ser = V.filter(d=>d.serial).sort((a,b)=>b.peak_valuation_busd-a.peak_valuation_busd);
+  const gap = ser.length ? d3.mean(ser, d=>d.age_at_this_company-d.age) : 0;
+  const crossed = V.filter(d => d.age<=S.s1 && d.age_at_this_company>S.s1).length;
+  setT("serie-sub", `${ser.length} des ${V.length} sociétés de la sélection (${pct(ser.length/(V.length||1))}) ont un fondateur qui avait déjà créé une société financée. La règle les rajeunit en moyenne de ${nf(gap,1)} ans, et fait passer ${crossed} sociétés sous le seuil de ${S.s1} ans. Les 25 plus grosses sont affichées.`);
+  if (!ser.length) return emptyMsg(host);
+  const rows = ser.slice(0,25);
+  const narrow = host.clientWidth < 560, labW = narrow ? 104 : 190, rowH = 22;
+  const m = {t:8, r:20, b:40, l:labW};
+  const H = m.t + rows.length*rowH + m.b;
+  const {svg, W} = mkSvg(host, H, "Haltères : âge à la première société financée contre âge à la création de la société géante");
+  const x = d3.scaleLinear().domain([15, Math.max(52, d3.max(DATA,d=>d.age_at_this_company)+3)]).range([m.l, W-m.r]);
+  svg.append("g").attr("class","gridline").attr("transform",`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(narrow?5:10).tickSize(-(H-m.t-m.b)).tickFormat(""));
+  svg.append("g").attr("class","axis").attr("transform",`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(narrow?5:10).tickSizeOuter(0));
+  svg.append("text").attr("x",W-m.r).attr("y",H-6).attr("text-anchor","end").attr("fill","var(--text-muted)").attr("font-size",12).text("Âge (ans)");
+  thresholdLines(svg, x, m.t, H-m.b, null, 0);
+  rows.forEach((d,i) => {
+    const cy = m.t + i*rowH + rowH/2;
+    svg.append("text").attr("x",labW-8).attr("y",cy+4).attr("text-anchor","end").attr("font-size",12).attr("fill","var(--text-primary)").text(narrow && short(d.company).length>14 ? short(d.company).slice(0,13)+"…" : short(d.company));
+    svg.append("line").attr("x1",x(d.age)).attr("x2",x(d.age_at_this_company)).attr("y1",cy).attr("y2",cy).attr("stroke","var(--text-muted)").attr("stroke-width",2);
+    svg.append("circle").attr("cx",x(d.age)).attr("cy",cy).attr("r",5).attr("fill","var(--series-2)").attr("stroke","var(--surface-1)").attr("stroke-width",2);
+    svg.append("circle").attr("cx",x(d.age_at_this_company)).attr("cy",cy).attr("r",5).attr("fill","var(--series-1)").attr("stroke","var(--surface-1)").attr("stroke-width",2);
+    svg.append("rect").attr("x",0).attr("y",cy-rowH/2).attr("width",W).attr("height",rowH).attr("fill","transparent")
+      .on("pointermove", ev => tipShow([el("div","t1", d.company), el("div","t2", d.founder + " · " + fmtVal(d.peak_valuation_busd)),
+        rowLine("var(--series-2)", d.age + " ans", d.first_funded_company + " (" + d.first_funded_year + ")"),
+        rowLine("var(--series-1)", d.age_at_this_company + " ans", short(d.company) + " (" + d.founded + ")")], ev.clientX, ev.clientY))
+      .on("pointerleave", tipHide);
+  });
+}
+
+/* ---------- 9. top 25 ---------- */
+function drawTop(V){
+  const host = document.getElementById("top25");
+  const rows = V.slice().sort((a,b)=>b.peak_valuation_busd-a.peak_valuation_busd).slice(0,25);
+  if (!rows.length) return emptyMsg(host);
+  const narrow = host.clientWidth < 560, labW = narrow ? 150 : 250, rowH = 22;
+  const m = {t:22, r:44, b:34, l:labW};
+  const H = m.t + rows.length*rowH + m.b;
+  const {svg, W} = mkSvg(host, H, "Barres : âge du fondateur pour les 25 sociétés les plus valorisées");
+  const x = d3.scaleLinear().domain([0, Math.max(55, d3.max(rows, ageOf)+2)]).range([m.l, W-m.r]);
+  svg.append("g").attr("class","gridline").attr("transform",`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(narrow?4:8).tickSize(-(H-m.t-m.b)).tickFormat(""));
+  svg.append("g").attr("class","axis").attr("transform",`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(narrow?4:8).tickSizeOuter(0));
+  rows.forEach((d,i) => {
+    const y0 = m.t + i*rowH, a = ageOf(d), x0 = x(0), x1 = x(a), h = rowH-6, r = Math.min(4, (x1-x0)/2);
+    svg.append("text").attr("x",8).attr("y",y0+rowH/2+4).attr("font-size",12).attr("fill","var(--text-primary)").text(short(d.company));
+    svg.append("text").attr("x",labW-8).attr("y",y0+rowH/2+4).attr("text-anchor","end").attr("font-size",11.5).attr("fill","var(--text-muted)").text(fmtVal(d.peak_valuation_busd));
+    svg.append("path").attr("fill", d.serial && S.mode==="rule" ? "var(--series-2)" : "var(--series-1)").attr("fill-opacity", bandOpacity(a))
+      .attr("d", `M${x0},${y0+3}H${x1-r}Q${x1},${y0+3} ${x1},${y0+3+r}V${y0+3+h-r}Q${x1},${y0+3+h} ${x1-r},${y0+3+h}H${x0}Z`);
+    svg.append("text").attr("x",x1+5).attr("y",y0+rowH/2+4).attr("font-size",11.5).attr("fill","var(--text-secondary)").text(a + (d.approx?" ≈":""));
+    svg.append("rect").attr("x",0).attr("y",y0).attr("width",W).attr("height",rowH).attr("fill","transparent")
+      .on("pointermove", ev => tipShow(companyTip(d), ev.clientX, ev.clientY)).on("pointerleave", tipHide);
+  });
+  thresholdLines(svg, x, m.t-6, H-m.b, m.t-8);
+  const b = brStats(rows);
+  setT("tk-top", `Dans ce top 25 : ${b[0].n} fondateurs de ${S.s1} ans ou moins, ${b[1].n} de ${S.s2} ans ou moins, ${b[2].n} de plus de ${S.s2} ans. Barres orange : fondateurs en série (âge pris à leur première société financée).`);
+}
+
+/* ---------- summary, tiles, conclusion ---------- */
+function drawText(V){
+  const st = stats(V), b = brStats(V);
+  setT("t-n", st.n); setT("t-med", st.n ? nf(st.med,1) + " ans" : "–");
+  b.forEach((x,i) => { setT("t-b"+i, pct(x.share)); setT("t-b"+i+"-k", "fondateur de " + x.b.k + " · " + pct(x.valShare) + " de la valeur"); });
+  const parts = [];
+  if (S.era!=="all") parts.push(S.era==="pre" ? "fondées avant 2000" : "fondées depuis 2000");
+  if (S.group!=="all") parts.push("secteur : " + S.group);
+  if (S.region!=="all") parts.push("région : " + S.region);
+  setT("filters-note", (S.mode==="rule" ? "Âge à la première société financée" : "Âge à la création de la société elle-même") + (parts.length ? " · " + parts.join(" · ") : " · toutes les sociétés") + ` · seuils ${S.s1} et ${S.s2} ans.`);
+  const ol = document.getElementById("summary-list"); ol.replaceChildren();
+  if (!st.n){ ol.append(el("li",null,"Aucune société pour ces filtres.")); return; }
+  const other = S.mode==="rule" ? "this" : "rule", bo = brStats(V, other), so = stats(V, other);
+  const ser = V.filter(d=>d.serial).length;
+  const li = (strong, rest) => { const l = el("li"); l.append(el("strong",null,strong), document.createTextNode(rest)); ol.append(l); };
+  li(`${pct(b[1].share)} des sociétés ont un fondateur de ${S.s2} ans ou moins au départ`, `, et ${pct(b[0].share)} un fondateur de ${S.s1} ans ou moins (${S.mode==="rule" ? "âge à la première société financée" : "âge à la création de la société"}). Âge médian : ${nf(st.med,1)} ans.`);
+  li(`Ils pèsent ${pct(b[1].valShare)} de la valeur cumulée`, ` (${pct(b[0].valShare)} pour les ${S.s1} ans ou moins). Mais la valorisation médiane des ${S.s1} ans ou moins (${b[0].med==null?"–":fmtVal(b[0].med)}) est ${b[0].med!=null && b[2].med!=null ? (b[0].med < b[2].med ? "inférieure" : "supérieure") : "à comparer"} à celle des plus de ${S.s2} ans (${b[2].med==null?"–":fmtVal(b[2].med)}).`);
+  li(`La mesure de l'âge compte beaucoup`, ` : ${S.mode==="rule" ? "à la création de la société elle-même" : "à la première société financée"}, la part des ${S.s1} ans ou moins devient ${pct(bo[0].share)} et l'âge médian ${nf(so.med,1)} ans. ${ser} sociétés (${pct(ser/st.n)}) ont un fondateur qui avait déjà créé une société financée.`);
+  li(`L'âge ne prédit pas la taille du succès`, ` parmi ces gagnants (corrélation ${corrWord(st.r)}, r = ${fmtR(st.r)}). Les 10 plus grosses sociétés pèsent ${pct(st.top10)} de la valeur.`);
+  li(`Ces données ne mesurent pas un taux de réussite`, ` : il manque ceux qui ont essayé et échoué. Les études qui les comptent trouvent un âge moyen de 45 ans pour les entreprises à plus forte croissance aux États-Unis, et un âge médian de 34 ans pour les fondateurs de licornes américaines.`);
+  const VA = viewAll();
+  setT("lede-n1", DATA.filter(d=>d.tier==="geant").length); setT("lede-n2", DATA.length);
+  if (VA.length){
+    setT("ref-this", nf(stats(VA,"this").med,1) + " ans");
+    setT("ref-this-p", `Âge médian à la création de la société elle-même pour les ${VA.length} licornes de la sélection (géants compris). Avec la règle de la première société financée : ${nf(stats(VA,"rule").med,1)} ans.`);
+    const L = VA.filter(d=>d.tier==="licorne"), G = VA.filter(d=>d.tier==="geant");
+    const T = VA.filter(d=>d.peak_valuation_busd>=1000);
+    const tTxt = T.length >= 3 ? ` Exception notable : les ${T.length} sociétés ayant dépassé 1 000 Md$ (${T.sort((a,b)=>b.peak_valuation_busd-a.peak_valuation_busd).map(d=>short(d.company)).join(", ")}) ont des fondateurs plus jeunes, avec un âge médian de ${nf(d3.median(T, ageOf),1)} ans. Mais c'est un groupe de ${T.length} sociétés, trop petit pour en tirer une loi, et Elon Musk y figure deux fois.` : "";
+    setT("concl-4", L.length && G.length ? `Les licornes de 1 à 10 Md$ (âge médian ${nf(stats(L).med,1)} ans) et les géants de plus de 10 Md$ (${nf(stats(G).med,1)} ans) ont des fondateurs du même âge : franchir un palier de valorisation ne s'accompagne pas d'un fondateur plus jeune.` + tTxt : "Comparaison indisponible pour ces filtres.");
+  }
+  setT("concl-1", `Parmi les ${st.n} sociétés de la sélection, ${pct(b[1].share)} ont été lancées par un fondateur de ${S.s2} ans ou moins et ${pct(b[0].share)} par un fondateur de ${S.s1} ans ou moins (${S.mode==="rule"?"âge à la première société financée":"âge à la création de la société"}). Elles représentent ${pct(b[1].valShare)} de la valeur cumulée. Les fondateurs jeunes sont donc très présents au sommet, surtout depuis 2000.`);
+  setT("concl-r", `${corrWord(st.r)} (r = ${fmtR(st.r)})`);
+  setT("concl-3", `${ser} des ${st.n} sociétés (${pct(ser/st.n)}) ont un fondateur qui avait déjà créé une société financée ; la règle les rajeunit en moyenne de ${nf(d3.mean(V.filter(d=>d.serial), d=>d.age_at_this_company-d.age)||0,1)} ans.`);
+}
+
+
+/* ---------- part 2 ---------- */
+function drawPart2(VA){
+  const st = stats(VA), b = brStats(VA);
+  setT("t2-n", st.n); setT("t2-med", st.n ? nf(st.med,1) + " ans" : "–");
+  b.forEach((x,i) => { setT("t2-b"+i, pct(x.share)); setT("t2-b"+i+"-k", "fondateur de " + x.b.k + " · " + pct(x.valShare) + " de la valeur"); });
+  const L = VA.filter(d=>d.tier==="licorne"), G = VA.filter(d=>d.tier==="geant");
+  setT("p2-nl", L.length);
+  ["th-b0","th-b1","th-b2"].forEach((id,i) => setT(id, BR()[i].s));
+  const tb = document.querySelector("#tier-tbl tbody"); tb.replaceChildren();
+  const rowsT = [["Licornes 1–10 Md$", L], ["Géants ≥ 10 Md$", G], ["Toutes (≥ 1 Md$)", VA]];
+  rowsT.forEach(([lab, rows]) => { const r = document.createElement("tr");
+    const bb = brStats(rows), s = stats(rows);
+    [[lab,""],[rows.length,"n"],[rows.length ? nf(s.med,1)+" ans" : "—","n"],[pct(bb[0].share),"n"],[pct(bb[1].share),"n"],[pct(bb[2].share),"n"],
+     [rows.length ? pct(rows.filter(d=>d.serial).length/rows.length) : "—","n"],[rows.length ? pct(rows.filter(d=>d.approx).length/rows.length) : "—","n"]].forEach(([v,c]) => r.append(el("td",c,v)));
+    tb.append(r); });
+  const ol = document.getElementById("summary2-list"); ol.replaceChildren();
+  const li = (strong, rest) => { const l = el("li"); l.append(el("strong",null,strong), document.createTextNode(rest)); ol.append(l); };
+  if (!st.n){ ol.append(el("li",null,"Aucune société pour ces filtres.")); setT("tk-tier",""); }
+  else {
+    const bl = brStats(L), bg = brStats(G), sl = stats(L), sg = stats(G);
+    li(`${pct(b[1].share)} des ${st.n} licornes ont un fondateur de ${S.s2} ans ou moins au départ`, `, ${pct(b[0].share)} un fondateur de ${S.s1} ans ou moins. Âge médian : ${nf(st.med,1)} ans.`);
+    if (L.length && G.length){
+      li(`Les licornes de 1 à 10 Md$ ressemblent aux géants`, ` : âge médian ${nf(sl.med,1)} ans contre ${nf(sg.med,1)} ans ; ${pct(bl[1].share)} contre ${pct(bg[1].share)} de fondateurs de ${S.s2} ans ou moins.`);
+      setT("tk-tier", `Écart d'âge médian entre géants et licornes de 1 à 10 Md$ : ${nf(Math.abs(sg.med - sl.med),1)} an(s). Passer de 1 à plus de 10 milliards ne s'accompagne pas d'un fondateur plus jeune.`);
+    } else setT("tk-tier", "Comparaison indisponible : un des deux groupes est vide pour ces filtres.");
+    const meds = TIERS.map(k => { const s = VA.filter(d=>tierOf(d)===k); return s.length ? k + " : " + nf(d3.median(s, ageOf),1) + " ans (" + s.length + ")" : null; }).filter(Boolean);
+    li(`Âge médian par niveau de valorisation`, ` : ${meds.join(" ; ")}. Seul le tout petit groupe des sociétés à plus de 1 000 Md$ se distingue nettement.`);
+    li(`Comparaison avec la recherche`, ` : l'âge médian des fondateurs de licornes américaines mesuré sur 3 586 fondateurs est de 34 ans. Ici, il est de ${nf(stats(VA,"this").med,1)} ans à la création de la société elle-même, et de ${nf(stats(VA,"rule").med,1)} ans avec la règle de la première société financée. L'échantillon, centré sur les noms connus, rajeunit probablement le résultat.`);
+  }
+  drawStrip("strip-tier", tierOf, TIERS, VA);
+  drawScatter(VA, "scatter2", "scatter2-legend", "tk-scatter2", 0.8);
+  drawCumul(VA, "cumul2", "tk-cumul2");
+  drawHist(VA, "hist2");
+}
+
+/* ---------- data table ---------- */
+const COLS = [["company","Société"],["founded","Création","n"],["founder","Fondateur"],["birth_year","Naissance","n"],["first_funded_company","1re société financée"],
+  ["age","Âge (1re financée)","n"],["age_at_this_company","Âge (cette société)","n"],["peak_valuation_busd","Valorisation max (Md$)","n"],["tierLabel","Univers"],["sector","Secteur"],["group","Famille"],["region","Région"],["country","Pays"]];
+let sortKey = "peak_valuation_busd", sortDir = -1;
+function tableRows(){
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  return viewAll().filter(d => !q || [d.company,d.founder,d.sector,d.group,d.region,d.country,d.first_funded_company].join(" ").toLowerCase().includes(q))
+    .sort((a,b) => (a[sortKey]>b[sortKey]?1:a[sortKey]<b[sortKey]?-1:0)*sortDir);
+}
+function drawTable(){
+  const thead = document.querySelector("#tbl thead"), tbody = document.querySelector("#tbl tbody");
+  thead.replaceChildren(); tbody.replaceChildren();
+  const tr = document.createElement("tr");
+  COLS.forEach(([k,l,c]) => { const th = el("th", c||"", l + (k===sortKey ? (sortDir<0?" ↓":" ↑") : "")); th.tabIndex = 0;
+    const go = () => { if (sortKey===k) sortDir*=-1; else { sortKey=k; sortDir = c ? -1 : 1; } drawTable(); };
+    th.onclick = go; th.onkeydown = e => { if (e.key==="Enter"||e.key===" "){ e.preventDefault(); go(); } }; tr.append(th); });
+  thead.append(tr);
+  const rows = tableRows();
+  setT("tbl-count", rows.length + (rows.length>1 ? " sociétés" : " société"));
+  rows.forEach(d => { const r = document.createElement("tr");
+    COLS.forEach(([k,,c]) => { let v = d[k];
+      if (k==="first_funded_company") v = d.serial ? d.first_funded_company + " (" + d.first_funded_year + ")" : "—";
+      if ((k==="age"||k==="age_at_this_company"||k==="birth_year") && d.approx) v = "≈ " + v;
+      if (k==="peak_valuation_busd") v = nf(v,1);
+      r.append(el("td", c||"", v)); });
+    tbody.append(r); });
+}
+document.getElementById("q").addEventListener("input", drawTable);
+document.getElementById("copy-csv").addEventListener("click", async () => {
+  const keys = ["company","founded","founder","birth_year","first_funded_company","first_funded_year","age","age_at_this_company","peak_valuation_busd","tierLabel","country","region","sector","group","approx"];
+  const esc = v => { const s = String(v); return /[",\n;]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s; };
+  const csv = [keys.join(",")].concat(tableRows().map(d => keys.map(k => esc(d[k])).join(","))).join("\n");
+  const st = document.getElementById("copy-status");
+  try { await navigator.clipboard.writeText(csv); st.textContent = "Copié dans le presse-papiers."; }
+  catch(e){ st.textContent = "Copie refusée par le navigateur."; }
+  setTimeout(() => st.textContent = "", 3000);
+});
+
+/* ---------- controls ---------- */
+const fg = document.getElementById("f-group"), fr = document.getElementById("f-region");
+fg.append(new Option("Tous", "all")); GROUPS.forEach(g => fg.append(new Option(g + " (" + DATA.filter(d=>d.group===g).length + ")", g)));
+fr.append(new Option("Toutes", "all")); REGIONS.forEach(g => fr.append(new Option(g + " (" + DATA.filter(d=>d.region===g).length + ")", g)));
+function syncControls(){
+  document.querySelectorAll("#seg-mode button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v===S.mode ? "true":"false"));
+  document.getElementById("f-era").value = S.era; fg.value = S.group; fr.value = S.region;
+  document.getElementById("f-s1").value = S.s1; document.getElementById("f-s2").value = S.s2;
+}
+document.querySelectorAll("#seg-mode button").forEach(b => b.addEventListener("click", () => { S.mode = b.dataset.v; render(); }));
+document.getElementById("f-era").addEventListener("change", e => { S.era = e.target.value; render(); });
+fg.addEventListener("change", e => { S.group = e.target.value; render(); });
+fr.addEventListener("change", e => { S.region = e.target.value; render(); });
+function readThresholds(){
+  let a = parseInt(document.getElementById("f-s1").value,10), b = parseInt(document.getElementById("f-s2").value,10);
+  if (!isFinite(a)) a = DEF.s1; if (!isFinite(b)) b = DEF.s2;
+  a = Math.max(18, Math.min(49, a)); b = Math.max(a+1, Math.min(50, b));
+  S.s1 = a; S.s2 = b; render();
+}
+["f-s1","f-s2"].forEach(id => document.getElementById(id).addEventListener("change", readThresholds));
+document.getElementById("f-reset").addEventListener("click", () => { Object.assign(S, DEF); document.getElementById("q").value = ""; render(); });
+
+function fillTicker(){
+  const G = DATA.filter(d=>d.tier==="geant"), sg = stats(G, "rule"), sl = stats(DATA, "rule");
+  const p33 = G.filter(d=>d.age<=33).length/G.length, p26 = G.filter(d=>d.age<=26).length/G.length;
+  const items = [`${G.length} géants > 10 Md$`, `${pct(p33)} fondés à 33 ans ou moins`, `${pct(p26)} à 26 ans ou moins`, `âge médian ${nf(sg.med,1)} ans`, `corrélation âge / valeur r = ${fmtR(sg.r)}`, `${DATA.length} licornes > 1 Md$`];
+  const tk = document.getElementById("ticker"); tk.replaceChildren();
+  items.forEach((s,i) => { if (i) tk.append(el("i",null,"◆")); tk.append(document.createTextNode(s)); });
+  setT("boot", `[OK] ${DATA.length} sociétés chargées ✓`);
+}
+function render(){
+  syncControls(); tipHide();
+  const V = view();
+  drawText(V); drawScatter(V); drawCumul(V); drawHist(V); drawBrackets(V); drawDecade(V);
+  drawStrip("strip-group", d=>d.group, GROUPS, V); drawStrip("strip-region", d=>d.region, REGIONS, V);
+  drawDumbbell(V); drawTop(V); drawPart2(viewAll()); drawTable();
+}
+let rt; let lastW = innerWidth;
+window.addEventListener("resize", () => { if (innerWidth === lastW) return; lastW = innerWidth; clearTimeout(rt); rt = setTimeout(render, 150); });
+fillTicker();
+render();
+</script>
+</body>
+</html>

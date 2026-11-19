@@ -1,0 +1,279 @@
+company,founded,founder,birth_year,first_funded_company,first_funded_year,age,age_at_this_company,peak_valuation_busd,tier,country,region,sector,group,decade,serial,approx
+Nvidia,1993,Jensen Huang,1963,Nvidia,1993,30,30,5900,geant,US,États-Unis & Canada,Semi-conducteurs,Semi-conducteurs & hardware,Années 90,False,0
+Apple,1976,Steve Jobs,1955,Apple,1976,21,21,5040,geant,US,États-Unis & Canada,Hardware,Semi-conducteurs & hardware,1968–1979,False,0
+Alphabet (Google),1998,Larry Page,1973,Alphabet (Google),1998,25,25,4300,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 90,False,0
+Microsoft,1975,Bill Gates,1955,Microsoft,1975,20,20,4100,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",1968–1979,False,0
+Amazon,1994,Jeff Bezos,1964,Amazon,1994,30,30,3100,geant,US,États-Unis & Canada,E-commerce,"Internet, e-commerce & jeux",Années 90,False,0
+AMD,1969,Jerry Sanders,1936,AMD,1969,33,33,1000,geant,US,États-Unis & Canada,Semi-conducteurs,Semi-conducteurs & hardware,1968–1979,False,0
+Tencent,1998,Pony Ma,1971,Tencent,1998,27,27,950,geant,CN,Chine,Internet,"Internet, e-commerce & jeux",Années 90,False,0
+Oracle,1977,Larry Ellison,1944,Oracle,1977,33,33,930,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",1968–1979,False,0
+Alibaba,1999,Jack Ma,1964,China Pages,1995,31,35,860,geant,CN,Chine,E-commerce,"Internet, e-commerce & jeux",Années 90,True,0
+Intel,1968,Robert Noyce,1927,Fairchild Semiconductor,1957,30,41,650,geant,US,États-Unis & Canada,Semi-conducteurs,Semi-conducteurs & hardware,1968–1979,True,0
+Cisco,1984,Len Bosack,1952,Cisco,1984,32,32,555,geant,US,États-Unis & Canada,Hardware,Semi-conducteurs & hardware,Années 80,False,0
+Netflix,1997,Reed Hastings,1960,Pure Software,1991,31,37,550,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 90,True,0
+PayPal,1998,Peter Thiel,1967,PayPal,1998,31,31,360,geant,US,États-Unis & Canada,Fintech,Fintech & crypto,Années 90,False,0
+SAP,1972,Dietmar Hopp,1940,SAP,1972,32,32,350,geant,DE,Europe,Logiciel,"Logiciel, cloud & cyber",1968–1979,False,0
+Adobe,1982,John Warnock,1940,Adobe,1982,42,42,320,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 80,False,0
+Salesforce,1999,Marc Benioff,1964,Salesforce,1999,35,35,310,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 90,False,0
+Qualcomm,1985,Irwin Jacobs,1933,Linkabit,1968,35,52,210,geant,US,États-Unis & Canada,Semi-conducteurs,Semi-conducteurs & hardware,Années 80,True,1
+Sun Microsystems,1982,Vinod Khosla,1955,Daisy Systems,1980,25,27,200,geant,US,États-Unis & Canada,Hardware,Semi-conducteurs & hardware,Années 80,True,0
+Intuit,1983,Scott Cook,1952,Intuit,1983,31,31,200,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 80,False,0
+Intuitive Surgical,1995,Fred Moll,1953,Origin Medsystems,1992,39,42,200,geant,US,États-Unis & Canada,Medtech,"Santé (biotech, medtech)",Années 90,True,1
+Amgen,1980,George Rathmann,1927,Amgen,1980,53,53,170,geant,US,États-Unis & Canada,Biotech,"Santé (biotech, medtech)",Années 80,False,1
+Gilead,1987,Michael Riordan,1957,Gilead,1987,30,30,150,geant,US,États-Unis & Canada,Biotech,"Santé (biotech, medtech)",Années 80,False,0
+JD.com,1998,Richard Liu,1973,JD.com,1998,25,25,140,geant,CN,Chine,E-commerce,"Internet, e-commerce & jeux",Années 90,False,1
+Yahoo,1994,Jerry Yang,1968,Yahoo,1994,26,26,125,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 90,False,0
+Vertex,1989,Joshua Boger,1951,Vertex,1989,38,38,125,geant,US,États-Unis & Canada,Biotech,"Santé (biotech, medtech)",Années 80,False,0
+MercadoLibre,1999,Marcos Galperin,1971,MercadoLibre,1999,28,28,120,geant,AR,Reste du monde,E-commerce,"Internet, e-commerce & jeux",Années 90,False,0
+Dell,1984,Michael Dell,1965,Dell,1984,19,19,110,geant,US,États-Unis & Canada,Hardware,Semi-conducteurs & hardware,Années 80,False,1
+Regeneron,1988,Leonard Schleifer,1952,Regeneron,1988,36,36,110,geant,US,États-Unis & Canada,Biotech,"Santé (biotech, medtech)",Années 80,False,0
+Marvell,1995,Sehat Sutardja,1961,Marvell,1995,34,34,110,geant,US,États-Unis & Canada,Semi-conducteurs,Semi-conducteurs & hardware,Années 90,False,1
+Genentech,1976,Robert Swanson,1947,Genentech,1976,29,29,100,geant,US,États-Unis & Canada,Biotech,"Santé (biotech, medtech)",1968–1979,False,0
+Biogen,1978,Walter Gilbert,1932,Biogen,1978,46,46,100,geant,US,États-Unis & Canada,Biotech,"Santé (biotech, medtech)",1968–1979,False,1
+Infosys,1981,N. R. Narayana Murthy,1946,Infosys,1981,35,35,100,geant,IN,Reste du monde,Logiciel,"Logiciel, cloud & cyber",Années 80,False,1
+Compaq,1982,Rod Canion,1945,Compaq,1982,37,37,90,geant,US,États-Unis & Canada,Hardware,Semi-conducteurs & hardware,Années 80,False,1
+NetEase,1997,Ding Lei,1971,NetEase,1997,26,26,90,geant,CN,Chine,Internet,"Internet, e-commerce & jeux",Années 90,False,0
+eBay,1995,Pierre Omidyar,1967,Ink Development,1991,24,28,75,geant,US,États-Unis & Canada,E-commerce,"Internet, e-commerce & jeux",Années 90,True,1
+Autodesk,1982,John Walker,1949,Autodesk,1982,33,33,75,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 80,False,0
+Juniper Networks,1996,Pradeep Sindhu,1953,Juniper Networks,1996,43,43,70,geant,US,États-Unis & Canada,Hardware,Semi-conducteurs & hardware,Années 90,False,1
+VMware,1998,Diane Greene,1955,VXtreme,1995,40,43,69,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 90,True,1
+EMC,1979,Richard Egan,1936,EMC,1979,43,43,67,geant,US,États-Unis & Canada,Hardware,Semi-conducteurs & hardware,1968–1979,False,0
+Electronic Arts,1982,Trip Hawkins,1953,Electronic Arts,1982,29,29,55,geant,US,États-Unis & Canada,Jeux,"Internet, e-commerce & jeux",Années 80,False,0
+Mobileye,1999,Amnon Shashua,1960,Mobileye,1999,39,39,50,geant,IL,Reste du monde,Auto,"Mobilité, spatial, énergie, défense",Années 90,False,1
+Trip.com (Ctrip),1999,James Liang,1969,Trip.com (Ctrip),1999,30,30,50,geant,CN,Chine,Internet,"Internet, e-commerce & jeux",Années 90,False,1
+Check Point,1993,Gil Shwed,1968,Check Point,1993,25,25,30,geant,IL,Reste du monde,Cybersécurité,"Logiciel, cloud & cyber",Années 90,False,0
+Netscape,1994,Jim Clark,1944,Silicon Graphics,1982,38,50,10.2,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 90,True,0
+SpaceX,2002,Elon Musk,1971,Zip2,1995,24,31,2200,geant,US,États-Unis & Canada,Spatial,"Mobilité, spatial, énergie, défense",Années 2000,True,0
+Meta (Facebook),2004,Mark Zuckerberg,1984,Meta (Facebook),2004,20,20,1900,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+Tesla,2003,Elon Musk,1971,Zip2,1995,24,32,1500,geant,US,États-Unis & Canada,Auto,"Mobilité, spatial, énergie, défense",Années 2000,True,0
+Anthropic,2021,Dario Amodei,1983,Anthropic,2021,38,38,965,geant,US,États-Unis & Canada,IA,IA & robotique,Années 2020,False,0
+OpenAI,2015,Sam Altman,1985,Loopt,2005,20,30,852,geant,US,États-Unis & Canada,IA,IA & robotique,Années 2010,True,0
+ByteDance,2012,Zhang Yiming,1983,99fang,2009,26,29,480,geant,CN,Chine,Internet,"Internet, e-commerce & jeux",Années 2010,True,1
+Palantir,2003,Peter Thiel,1967,Confinity/PayPal,1998,31,36,450,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2000,True,0
+Meituan,2010,Wang Xing,1979,Xiaonei,2005,26,31,350,geant,CN,Chine,Internet,"Internet, e-commerce & jeux",Années 2010,True,0
+xAI,2023,Elon Musk,1971,Zip2,1995,24,52,250,geant,US,États-Unis & Canada,IA,IA & robotique,Années 2020,True,0
+CATL,2011,Zeng Yuqun,1968,ATL,1999,31,43,250,geant,CN,Chine,Énergie,"Mobilité, spatial, énergie, défense",Années 2010,True,0
+ServiceNow,2004,Fred Luddy,1955,ServiceNow,2004,49,49,230,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2000,False,0
+PDD (Pinduoduo/Temu),2015,Colin Huang,1980,Ouku,2007,27,35,230,geant,CN,Chine,Internet,"Internet, e-commerce & jeux",Années 2010,True,1
+AppLovin,2012,Adam Foroughi,1980,Lifestreet Media,2004,24,32,230,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2010,True,1
+Kuaishou,2011,Cheng Yixiao,1983,Kuaishou,2011,28,28,220,geant,CN,Chine,Internet,"Internet, e-commerce & jeux",Années 2010,False,1
+Uber,2009,Travis Kalanick,1976,Scour,1998,22,33,200,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,True,0
+Shopify,2004,Tobi Lütke,1980,Shopify,2004,24,24,200,geant,CA,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2000,False,0
+Sea Ltd,2009,Forrest Li,1977,Sea Ltd,2009,32,32,200,geant,SG,Reste du monde,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+Databricks,2013,Ali Ghodsi,1978,Databricks,2013,35,35,190,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2010,False,0
+Moderna,2010,Noubar Afeyan,1962,PerSeptive Biosystems,1987,25,48,190,geant,US,États-Unis & Canada,Biotech,"Santé (biotech, medtech)",Années 2010,True,0
+Xiaomi,2010,Lei Jun,1969,Joyo.com,2000,31,41,190,geant,CN,Chine,Hardware,Semi-conducteurs & hardware,Années 2010,True,1
+Arista Networks,2004,Andy Bechtolsheim,1955,Sun Microsystems,1982,27,49,180,geant,US,États-Unis & Canada,Hardware,Semi-conducteurs & hardware,Années 2000,True,0
+Zoom,2011,Eric Yuan,1970,Zoom,2011,41,41,160,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2010,False,0
+Stripe,2010,Patrick Collison,1988,Auctomatic,2007,19,22,159,geant,US/IE,États-Unis & Canada,Fintech,Fintech & crypto,Années 2010,True,0
+Rivian,2009,RJ Scaringe,1983,Rivian,2009,26,26,150,geant,US,États-Unis & Canada,Auto,"Mobilité, spatial, énergie, défense",Années 2000,False,0
+Spotify,2006,Daniel Ek,1983,Spotify,2006,23,23,140,geant,SE,Europe,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+Snap,2011,Evan Spiegel,1990,Snap,2011,21,21,130,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+Block (Square),2009,Jack Dorsey,1976,Twitter,2006,30,33,130,geant,US,États-Unis & Canada,Fintech,Fintech & crypto,Années 2000,True,0
+Palo Alto Networks,2005,Nir Zuk,1971,OneSecure,1999,28,34,130,geant,US,États-Unis & Canada,Cybersécurité,"Logiciel, cloud & cyber",Années 2000,True,1
+CrowdStrike,2011,George Kurtz,1970,Foundstone,1999,29,41,130,geant,US,États-Unis & Canada,Cybersécurité,"Logiciel, cloud & cyber",Années 2010,True,0
+Baidu,2000,Robin Li,1968,Baidu,2000,32,32,120,geant,CN,Chine,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+Snowflake,2012,Benoît Dageville,1966,Snowflake,2012,46,46,120,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2010,False,0
+Robinhood,2013,Vlad Tenev,1987,Robinhood,2013,26,26,120,geant,US,États-Unis & Canada,Fintech,Fintech & crypto,Années 2010,False,0
+Airbnb,2008,Brian Chesky,1981,Airbnb,2008,27,27,115,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+DoorDash,2013,Tony Xu,1984,DoorDash,2013,29,29,110,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+Atlassian,2002,Mike Cannon-Brookes,1979,Atlassian,2002,23,23,110,geant,AU,Reste du monde,Logiciel,"Logiciel, cloud & cyber",Années 2000,False,0
+Coinbase,2012,Brian Armstrong,1983,Coinbase,2012,29,29,100,geant,US,États-Unis & Canada,Fintech,Fintech & crypto,Années 2010,False,0
+SHEIN,2008,Xu Yangtian,1984,SHEIN,2008,24,24,100,geant,CN,Chine,E-commerce,"Internet, e-commerce & jeux",Années 2000,False,0
+BioNTech,2008,Uğur Şahin,1965,Ganymed,2001,36,43,100,geant,DE,Europe,Biotech,"Santé (biotech, medtech)",Années 2000,True,0
+NIO,2014,William Li,1974,Bitauto,2000,26,40,100,geant,CN,Chine,Auto,"Mobilité, spatial, énergie, défense",Années 2010,True,0
+Coupang,2010,Bom Kim,1978,Coupang,2010,32,32,100,geant,KR,Reste du monde,E-commerce,"Internet, e-commerce & jeux",Années 2010,False,0
+Roblox,2004,David Baszucki,1963,Knowledge Revolution,1989,26,41,95,geant,US,États-Unis & Canada,Jeux,"Internet, e-commerce & jeux",Années 2000,True,0
+Adyen,2006,Pieter van der Does,1969,Bibit,1995,26,37,90,geant,NL,Europe,Fintech,Fintech & crypto,Années 2000,True,0
+CoreWeave,2017,Michael Intrator,1970,CoreWeave,2017,47,47,90,geant,US,États-Unis & Canada,Cloud IA,IA & robotique,Années 2010,False,1
+Beike (KE Holdings),2001,Zuo Hui,1971,Beike (KE Holdings),2001,30,30,85,geant,CN,Chine,Immobilier,"Internet, e-commerce & jeux",Années 2000,False,0
+Didi,2012,Cheng Wei,1983,Didi,2012,29,29,80,geant,CN,Chine,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+Cloudflare,2009,Matthew Prince,1974,Unspam Technologies,2002,28,35,80,geant,US,États-Unis & Canada,Cloud,"Logiciel, cloud & cyber",Années 2000,True,1
+Carvana,2012,Ernie Garcia III,1982,Carvana,2012,30,30,80,geant,US,États-Unis & Canada,E-commerce,"Internet, e-commerce & jeux",Années 2010,False,0
+Workday,2005,Dave Duffield,1940,Integral Systems,1972,32,65,80,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2000,True,1
+Fortinet,2000,Ken Xie,1963,Systems Integration Solutions,1993,30,37,80,geant,US,États-Unis & Canada,Cybersécurité,"Logiciel, cloud & cyber",Années 2000,True,0
+Cambricon,2016,Chen Tianshi,1985,Cambricon,2016,31,31,80,geant,CN,Chine,Semi-conducteurs,Semi-conducteurs & hardware,Années 2010,False,0
+Revolut,2015,Nik Storonsky,1984,Revolut,2015,31,31,75,geant,UK,Europe,Fintech,Fintech & crypto,Années 2010,False,0
+Nubank,2013,David Vélez,1981,Nubank,2013,32,32,70,geant,BR,Reste du monde,Fintech,Fintech & crypto,Années 2010,False,0
+Twilio,2008,Jeff Lawson,1977,Versity.com,1998,21,31,70,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2000,True,0
+The Trade Desk,2009,Jeff Green,1977,AdECN,2004,27,32,70,geant,US,États-Unis & Canada,AdTech,"Logiciel, cloud & cyber",Années 2000,True,0
+Figma,2012,Dylan Field,1992,Figma,2012,20,20,65,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2010,False,0
+Circle,2013,Jeremy Allaire,1971,Allaire Corp,1995,24,42,65,geant,US,États-Unis & Canada,Fintech,Fintech & crypto,Années 2010,True,0
+Anduril,2017,Palmer Luckey,1992,Oculus,2012,20,25,61,geant,US,États-Unis & Canada,Défense,"Mobilité, spatial, énergie, défense",Années 2010,True,0
+Cursor (Anysphere),2022,Michael Truell,2000,Cursor (Anysphere),2022,22,22,60,geant,US,États-Unis & Canada,IA,IA & robotique,Années 2020,False,1
+Datadog,2010,Olivier Pomel,1977,Datadog,2010,33,33,60,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2010,False,0
+Veeva,2007,Peter Gassner,1964,Veeva,2007,43,43,55,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2000,False,0
+Unity,2004,David Helgason,1977,Unity,2004,27,27,50,geant,DK,Europe,Jeux,"Internet, e-commerce & jeux",Années 2000,False,0
+Pinterest,2010,Ben Silbermann,1982,Pinterest,2010,28,28,50,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+Peloton,2012,John Foley,1970,Peloton,2012,42,42,50,geant,US,États-Unis & Canada,Hardware,Semi-conducteurs & hardware,Années 2010,False,0
+Zscaler,2007,Jay Chaudhry,1958,SecureIT,1996,38,49,50,geant,US,États-Unis & Canada,Cybersécurité,"Logiciel, cloud & cyber",Années 2000,True,0
+WeWork,2010,Adam Neumann,1979,Green Desk,2008,29,31,47,geant,US,États-Unis & Canada,Immobilier,"Internet, e-commerce & jeux",Années 2010,True,1
+Affirm,2012,Max Levchin,1975,Confinity/PayPal,1998,23,37,47,geant,US,États-Unis & Canada,Fintech,Fintech & crypto,Années 2010,True,0
+Klarna,2005,Sebastian Siemiatkowski,1981,Klarna,2005,24,24,46,geant,SE,Europe,Fintech,Fintech & crypto,Années 2000,False,0
+Chewy,2011,Ryan Cohen,1986,Chewy,2011,25,25,45,geant,US,États-Unis & Canada,E-commerce,"Internet, e-commerce & jeux",Années 2010,False,0
+Reddit,2005,Steve Huffman,1983,Reddit,2005,22,22,45,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+Pop Mart,2010,Wang Ning,1987,Pop Mart,2010,23,23,45,geant,CN,Chine,Grande conso,Grande consommation,Années 2010,False,0
+Twitter,2006,Jack Dorsey,1976,Twitter,2006,30,30,44,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+Canva,2012,Melanie Perkins,1987,Canva,2012,25,25,42,geant,AU,Reste du monde,Logiciel,"Logiciel, cloud & cyber",Années 2010,False,0
+Okta,2009,Todd McKinnon,1971,Okta,2009,38,38,40,geant,US,États-Unis & Canada,Cybersécurité,"Logiciel, cloud & cyber",Années 2000,False,0
+HubSpot,2006,Brian Halligan,1967,HubSpot,2006,39,39,40,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2000,False,0
+Grab,2012,Anthony Tan,1982,Grab,2012,30,30,40,geant,SG,Reste du monde,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+Checkout.com,2012,Guillaume Pousaz,1981,Checkout.com,2012,31,31,40,geant,UK,Europe,Fintech,Fintech & crypto,Années 2010,False,0
+UiPath,2005,Daniel Dines,1972,UiPath,2005,33,33,40,geant,RO/US,Europe,Logiciel,"Logiciel, cloud & cyber",Années 2000,False,0
+XPeng,2014,He Xiaopeng,1977,UCWeb,2004,27,37,40,geant,CN,Chine,Auto,"Mobilité, spatial, énergie, défense",Années 2010,True,0
+Ubiquiti,2005,Robert Pera,1978,Ubiquiti,2005,27,27,40,geant,US,États-Unis & Canada,Hardware,Semi-conducteurs & hardware,Années 2000,False,0
+Ripple,2012,Chris Larsen,1960,E-Loan,1996,36,52,40,geant,US,États-Unis & Canada,Crypto,Fintech & crypto,Années 2010,True,0
+Instacart,2012,Apoorva Mehta,1986,Instacart,2012,26,26,39,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+Figure AI,2022,Brett Adcock,1986,Vettery,2013,27,36,39,geant,US,États-Unis & Canada,Robotique,IA & robotique,Années 2020,True,0
+Juul (Pax Labs),2007,James Monsees,1980,Juul (Pax Labs),2007,27,27,38,geant,US,États-Unis & Canada,Grande conso,Grande consommation,Années 2000,False,0
+Flipkart,2007,Sachin Bansal,1981,Flipkart,2007,26,26,37,geant,IN,Reste du monde,E-commerce,"Internet, e-commerce & jeux",Années 2000,False,0
+MongoDB,2007,Dwight Merriman,1968,DoubleClick,1996,28,39,35,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2000,True,0
+Wayfair,2002,Niraj Shah,1973,Spinners,1995,22,29,35,geant,US,États-Unis & Canada,E-commerce,"Internet, e-commerce & jeux",Années 2000,True,0
+Delivery Hero,2011,Niklas Östberg,1980,Online Pizza Norden,2007,27,31,35,geant,DE,Europe,Internet,"Internet, e-commerce & jeux",Années 2010,True,0
+Zomato (Eternal),2008,Deepinder Goyal,1983,Zomato (Eternal),2008,25,25,33,geant,IN,Reste du monde,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+SSI (Safe Superintelligence),2024,Ilya Sutskever,1986,DNNresearch,2012,26,38,32,geant,US,États-Unis & Canada,IA,IA & robotique,Années 2020,True,0
+FTX,2019,Sam Bankman-Fried,1992,Alameda Research,2017,25,27,32,geant,BS,États-Unis & Canada,Crypto,Fintech & crypto,Années 2010,True,0
+Ramp,2019,Eric Glyman,1990,Paribus,2014,24,29,32,geant,US,États-Unis & Canada,Fintech,Fintech & crypto,Années 2010,True,1
+Wiz,2020,Assaf Rappaport,1984,Adallom,2012,28,36,32,geant,IL,Reste du monde,Cybersécurité,"Logiciel, cloud & cyber",Années 2020,True,1
+Cruise,2013,Kyle Vogt,1985,Justin.tv,2006,21,28,30,geant,US,États-Unis & Canada,Auto,"Mobilité, spatial, énergie, défense",Années 2010,True,0
+Zalando,2008,Robert Gentz,1983,Zalando,2008,25,25,30,geant,DE,Europe,E-commerce,"Internet, e-commerce & jeux",Années 2000,False,0
+Telegram,2013,Pavel Durov,1984,VK,2006,22,29,30,geant,AE,Reste du monde,Internet,"Internet, e-commerce & jeux",Années 2010,True,0
+Scale AI,2016,Alexandr Wang,1997,Scale AI,2016,19,19,29,geant,US,États-Unis & Canada,IA,IA & robotique,Années 2010,False,0
+Afterpay,2014,Nick Molnar,1990,Afterpay,2014,24,24,29,geant,AU,Reste du monde,Fintech,Fintech & crypto,Années 2010,False,0
+Duolingo,2011,Luis von Ahn,1978,reCAPTCHA,2007,29,33,24,geant,US,États-Unis & Canada,Edtech,"Internet, e-commerce & jeux",Années 2010,True,0
+GoTo (Gojek),2010,Nadiem Makarim,1984,GoTo (Gojek),2010,26,26,28,geant,ID,Reste du monde,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+Etsy,2005,Rob Kalin,1980,Etsy,2005,25,25,28,geant,US,États-Unis & Canada,E-commerce,"Internet, e-commerce & jeux",Années 2000,False,0
+Slack,2009,Stewart Butterfield,1973,Ludicorp (Flickr),2002,29,36,27.7,geant,US/CA,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2000,True,0
+LinkedIn,2002,Reid Hoffman,1967,SocialNet,1997,30,35,26.2,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,True,0
+Lyft,2007,Logan Green,1984,Lyft,2007,23,23,24,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+Byju's,2011,Byju Raveendran,1980,Byju's,2011,31,31,22,geant,IN,Reste du monde,Edtech,"Internet, e-commerce & jeux",Années 2010,False,0
+Perplexity,2022,Aravind Srinivas,1994,Perplexity,2022,28,28,20,geant,US,États-Unis & Canada,IA,IA & robotique,Années 2020,False,0
+DJI,2006,Frank Wang,1980,DJI,2006,26,26,15,geant,CN,Chine,Hardware,Semi-conducteurs & hardware,Années 2000,False,1
+Chobani,2005,Hamdi Ulukaya,1972,Chobani,2005,33,33,20,geant,US,États-Unis & Canada,Grande conso,Grande consommation,Années 2000,False,1
+WhatsApp,2009,Jan Koum,1976,WhatsApp,2009,33,33,19,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+Rippling,2016,Parker Conrad,1980,Wikinvest,2006,26,36,16.8,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2010,True,0
+Dropbox,2007,Drew Houston,1983,Dropbox,2007,24,24,16,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2000,False,0
+Groupon,2008,Andrew Mason,1980,Groupon,2008,28,28,16,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+Paytm (One97),2000,Vijay Shekhar Sharma,1978,Paytm (One97),2000,22,22,16,geant,IN,Reste du monde,Fintech,Fintech & crypto,Années 2000,False,0
+Wise,2011,Kristo Käärmann,1980,Wise,2011,31,31,15,geant,UK,Europe,Fintech,Fintech & crypto,Années 2010,False,0
+Discord,2015,Jason Citron,1984,OpenFeint,2009,25,31,15,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2010,True,0
+Mistral AI,2023,Arthur Mensch,1992,Mistral AI,2023,31,31,14,geant,FR,Europe,IA,IA & robotique,Années 2020,False,0
+Helsing,2021,Torsten Reil,1977,NaturalMotion,2001,24,44,14,geant,DE,Europe,Défense,"Mobilité, spatial, énergie, défense",Années 2020,True,0
+Beyond Meat,2009,Ethan Brown,1971,Beyond Meat,2009,38,38,14,geant,US,États-Unis & Canada,Grande conso,Grande consommation,Années 2000,False,0
+Plaid,2013,Zach Perret,1987,Plaid,2013,26,26,13.4,geant,US,États-Unis & Canada,Fintech,Fintech & crypto,Années 2010,False,0
+Celonis,2011,Alexander Rinke,1989,Celonis,2011,22,22,13,geant,DE,Europe,Logiciel,"Logiciel, cloud & cyber",Années 2010,False,0
+Freshworks,2010,Girish Mathrubootham,1975,Freshworks,2010,35,35,13,geant,IN,Reste du monde,Logiciel,"Logiciel, cloud & cyber",Années 2010,False,0
+Zynga,2007,Mark Pincus,1966,Freeloader,1995,29,41,12.7,geant,US,États-Unis & Canada,Jeux,"Internet, e-commerce & jeux",Années 2000,True,0
+Brex,2017,Henrique Dubugras,1995,Pagar.me,2013,18,22,12.3,geant,US,États-Unis & Canada,Fintech,Fintech & crypto,Années 2010,True,0
+Thinking Machines Lab,2025,Mira Murati,1988,Thinking Machines Lab,2025,37,37,12,geant,US,États-Unis & Canada,IA,IA & robotique,Années 2020,False,0
+Northvolt,2016,Peter Carlsson,1970,Northvolt,2016,46,46,12,geant,SE,Europe,Énergie,"Mobilité, spatial, énergie, défense",Années 2010,False,0
+Airtable,2012,Howie Liu,1988,Etacts,2010,22,24,11,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2010,True,0
+GoPro,2002,Nick Woodman,1975,Funbug,1999,24,27,11,geant,US,États-Unis & Canada,Hardware,Semi-conducteurs & hardware,Années 2000,True,0
+Supercell,2010,Ilkka Paananen,1978,Sumea,2000,22,32,10.2,geant,FI,Europe,Jeux,"Internet, e-commerce & jeux",Années 2010,True,0
+Sierra,2023,Bret Taylor,1980,FriendFeed,2007,27,43,10,geant,US,États-Unis & Canada,IA,IA & robotique,Années 2020,True,0
+OYO,2013,Ritesh Agarwal,1993,OYO,2013,20,20,10,geant,IN,Reste du monde,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+Notion,2013,Ivan Zhao,1987,Notion,2013,26,26,10,geant,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2010,False,1
+Bumble,2014,Whitney Wolfe Herd,1989,Bumble,2014,25,25,13,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+Nykaa,2012,Falguni Nayar,1963,Nykaa,2012,49,49,13,geant,IN,Reste du monde,E-commerce,"Internet, e-commerce & jeux",Années 2010,False,0
+Epic Games,1991,Tim Sweeney,1970,Epic Games,1991,21,21,32,geant,US,États-Unis & Canada,Jeux,"Internet, e-commerce & jeux",Années 90,False,0
+Polymarket,2020,Shayne Coplan,1998,Polymarket,2020,22,22,21,geant,US,États-Unis & Canada,Crypto,Fintech & crypto,Années 2020,False,0
+Unitree,2016,Wang Xingxing,1990,Unitree,2016,26,26,53,geant,CN,Chine,Robotique,IA & robotique,Années 2010,False,0
+Luminar,2012,Austin Russell,1995,Luminar,2012,17,17,13,geant,US,États-Unis & Canada,Auto,"Mobilité, spatial, énergie, défense",Années 2010,False,0
+Rocket Lab,2006,Peter Beck,1977,Rocket Lab,2006,29,29,30,geant,US/NZ,États-Unis & Canada,Spatial,"Mobilité, spatial, énergie, défense",Années 2000,False,1
+Grubhub,2004,Matt Maloney,1976,Grubhub,2004,28,28,11.5,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,False,1
+ElevenLabs,2022,Mati Staniszewski,1995,ElevenLabs,2022,27,27,11,geant,UK,Europe,IA,IA & robotique,Années 2020,False,1
+Lovable,2023,Anton Osika,1990,Lovable,2023,33,33,13.3,geant,SE,Europe,IA,IA & robotique,Années 2020,False,1
+Roku,2002,Anthony Wood,1965,ReplayTV,1997,32,37,65,geant,US,États-Unis & Canada,Hardware,Semi-conducteurs & hardware,Années 2000,True,1
+QuantumScape,2010,Jagdeep Singh,1964,Lightera Networks,1997,33,46,48,geant,US,États-Unis & Canada,Énergie,"Mobilité, spatial, énergie, défense",Années 2010,True,1
+Zillow,2004,Rich Barton,1967,Expedia,1996,29,37,45,geant,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,True,1
+Instagram,2010,Kevin Systrom,1983,Instagram,2010,27,27,1,licorne,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+YouTube,2005,Chad Hurley,1977,YouTube,2005,28,28,1.65,licorne,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+GitHub,2008,Chris Wanstrath,1985,GitHub,2008,23,23,7.5,licorne,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2000,False,0
+Oculus,2012,Palmer Luckey,1992,Oculus,2012,20,20,2,licorne,US,États-Unis & Canada,Hardware,Semi-conducteurs & hardware,Années 2010,False,0
+Tumblr,2007,David Karp,1986,Tumblr,2007,21,21,1.1,licorne,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+Skype,2003,Niklas Zennström,1966,Kazaa,2000,34,37,8.5,licorne,SE,Europe,Internet,"Internet, e-commerce & jeux",Années 2000,True,0
+Nextdoor,2011,Nirav Tolia,1971,Epinions,1999,28,40,5,licorne,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2010,True,0
+Quora,2009,Adam D'Angelo,1984,Quora,2009,25,25,2,licorne,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+Squarespace,2003,Anthony Casalena,1982,Squarespace,2003,21,21,7.4,licorne,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2000,False,0
+Warby Parker,2010,Neil Blumenthal,1980,Warby Parker,2010,30,30,6.8,licorne,US,États-Unis & Canada,Grande conso,Grande consommation,Années 2010,False,0
+Glossier,2014,Emily Weiss,1985,Glossier,2014,29,29,1.8,licorne,US,États-Unis & Canada,Grande conso,Grande consommation,Années 2010,False,0
+Zenefits,2013,Parker Conrad,1980,Wikinvest,2006,26,33,4.5,licorne,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2010,True,0
+Oscar Health,2012,Joshua Kushner,1985,Vostu,2007,22,27,8,licorne,US,États-Unis & Canada,Assurtech,Fintech & crypto,Années 2010,True,0
+Coursera,2012,Andrew Ng,1976,Coursera,2012,36,36,7,licorne,US,États-Unis & Canada,Edtech,"Internet, e-commerce & jeux",Années 2010,False,0
+Musical.ly,2014,Alex Zhu,1979,Musical.ly,2014,35,35,1,licorne,CN,Chine,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+ofo,2014,Dai Wei,1991,ofo,2014,23,23,2,licorne,CN,Chine,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+BlaBlaCar,2006,Frédéric Mazzella,1976,BlaBlaCar,2006,30,30,2,licorne,FR,Europe,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+Doctolib,2013,Stanislas Niox-Chateau,1986,Doctolib,2013,27,27,6.4,licorne,FR,Europe,Medtech,"Santé (biotech, medtech)",Années 2010,False,0
+Monzo,2015,Tom Blomfield,1985,GoCardless,2011,26,30,5.9,licorne,UK,Europe,Fintech,Fintech & crypto,Années 2010,True,0
+Bolt,2013,Markus Villig,1993,Bolt,2013,20,20,8.4,licorne,EE,Europe,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+Wolt,2014,Miki Kuusi,1990,Wolt,2014,24,24,8.1,licorne,FI,Europe,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+Mojang,2009,Markus Persson,1979,Mojang,2009,30,30,2.5,licorne,SE,Europe,Jeux,"Internet, e-commerce & jeux",Années 2000,False,0
+Inflection AI,2022,Mustafa Suleyman,1984,DeepMind,2010,26,38,4,licorne,US,États-Unis & Canada,IA,IA & robotique,Années 2020,True,0
+Vercel,2015,Guillermo Rauch,1990,LearnBoost,2010,20,25,9.3,licorne,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2010,True,0
+Box,2005,Aaron Levie,1985,Box,2005,20,20,5,licorne,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2000,False,0
+Ualá,2017,Pierpaolo Barbieri,1987,Ualá,2017,30,30,2.75,licorne,AR,Reste du monde,Fintech,Fintech & crypto,Années 2010,False,0
+Ola,2010,Bhavish Aggarwal,1985,Ola,2010,25,25,7.3,licorne,IN,Reste du monde,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+Razorpay,2014,Harshil Mathur,1990,Razorpay,2014,24,24,7.5,licorne,IN,Reste du monde,Fintech,Fintech & crypto,Années 2010,False,0
+Dream11,2008,Harsh Jain,1986,Dream11,2008,22,22,8,licorne,IN,Reste du monde,Jeux,"Internet, e-commerce & jeux",Années 2000,False,0
+CRED,2018,Kunal Shah,1983,Freecharge,2010,27,35,6.4,licorne,IN,Reste du monde,Fintech,Fintech & crypto,Années 2010,True,0
+Zepto,2021,Aadit Palicha,2002,KiranaKart,2020,18,19,7,licorne,IN,Reste du monde,E-commerce,"Internet, e-commerce & jeux",Années 2020,True,0
+Lenskart,2010,Peyush Bansal,1985,Lenskart,2010,25,25,8,licorne,IN,Reste du monde,E-commerce,"Internet, e-commerce & jeux",Années 2010,False,0
+Unacademy,2015,Gaurav Munjal,1990,Unacademy,2015,25,25,3.4,licorne,IN,Reste du monde,Edtech,"Internet, e-commerce & jeux",Années 2010,False,0
+Tokopedia,2009,William Tanuwijaya,1981,Tokopedia,2009,28,28,7,licorne,ID,Reste du monde,E-commerce,"Internet, e-commerce & jeux",Années 2000,False,0
+Bukalapak,2010,Achmad Zaky,1986,Bukalapak,2010,24,24,6,licorne,ID,Reste du monde,E-commerce,"Internet, e-commerce & jeux",Années 2010,False,0
+Toss (Viva Republica),2013,Lee Seung-gun,1982,Toss (Viva Republica),2013,31,31,7.4,licorne,KR,Reste du monde,Fintech,Fintech & crypto,Années 2010,False,0
+Woowa Brothers (Baemin),2010,Kim Bong-jin,1976,Woowa Brothers (Baemin),2010,34,34,4,licorne,KR,Reste du monde,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+Mercari,2013,Shintaro Yamada,1977,Unoh,2001,24,36,9.6,licorne,JP,Reste du monde,E-commerce,"Internet, e-commerce & jeux",Années 2010,True,0
+Preferred Networks,2014,Toru Nishikawa,1982,Preferred Infrastructure,2006,24,32,2,licorne,JP,Reste du monde,IA,IA & robotique,Années 2010,True,0
+Mobike,2015,Hu Weiwei,1982,Mobike,2015,33,33,2.7,licorne,CN,Chine,Internet,"Internet, e-commerce & jeux",Années 2010,False,0
+Hopin,2019,Johnny Boufarhat,1994,Hopin,2019,25,25,7.75,licorne,UK,Europe,Logiciel,"Logiciel, cloud & cyber",Années 2010,False,0
+Flexport,2013,Ryan Petersen,1980,ImportGenius,2008,28,33,8,licorne,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2010,True,0
+Magic Leap,2010,Rony Abovitz,1971,MAKO Surgical,2004,33,39,6.4,licorne,US,États-Unis & Canada,Hardware,Semi-conducteurs & hardware,Années 2010,True,0
+Theranos,2003,Elizabeth Holmes,1984,Theranos,2003,19,19,9,licorne,US,États-Unis & Canada,Medtech,"Santé (biotech, medtech)",Années 2000,False,0
+Quibi,2018,Jeffrey Katzenberg,1950,DreamWorks SKG,1994,44,68,1.75,licorne,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2010,True,0
+Zappos,1999,Nick Swinmurn,1973,Zappos,1999,26,26,1.2,licorne,US,États-Unis & Canada,E-commerce,"Internet, e-commerce & jeux",Années 90,False,0
+LivingSocial,2007,Tim O'Shaughnessy,1982,LivingSocial,2007,25,25,3,licorne,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+Blue Apron,2012,Matt Salzberg,1983,Blue Apron,2012,29,29,2,licorne,US,États-Unis & Canada,E-commerce,"Internet, e-commerce & jeux",Années 2010,False,0
+Dollar Shave Club,2011,Michael Dubin,1978,Dollar Shave Club,2011,33,33,1,licorne,US,États-Unis & Canada,Grande conso,Grande consommation,Années 2010,False,0
+The Honest Company,2011,Jessica Alba,1981,The Honest Company,2011,30,30,1.7,licorne,US,États-Unis & Canada,Grande conso,Grande consommation,Années 2010,False,0
+Impossible Foods,2011,Patrick Brown,1954,Impossible Foods,2011,57,57,7,licorne,US,États-Unis & Canada,Grande conso,Grande consommation,Années 2010,False,0
+Relativity Space,2015,Tim Ellis,1990,Relativity Space,2015,25,25,4.2,licorne,US,États-Unis & Canada,Spatial,"Mobilité, spatial, énergie, défense",Années 2010,False,0
+Gemini,2014,Cameron Winklevoss,1981,Gemini,2014,33,33,7.1,licorne,US,États-Unis & Canada,Crypto,Fintech & crypto,Années 2010,False,0
+Yelp,2004,Jeremy Stoppelman,1977,Yelp,2004,27,27,6,licorne,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,False,0
+Compass,2012,Robert Reffkin,1979,Compass,2012,33,33,8,licorne,US,États-Unis & Canada,Immobilier,"Internet, e-commerce & jeux",Années 2010,False,0
+Rent the Runway,2009,Jennifer Hyman,1980,Rent the Runway,2009,29,29,1.7,licorne,US,États-Unis & Canada,E-commerce,"Internet, e-commerce & jeux",Années 2000,False,0
+LendingClub,2006,Renaud Laplanche,1970,TripleHop,1999,29,36,9.7,licorne,US,États-Unis & Canada,Fintech,Fintech & crypto,Années 2000,True,0
+BuzzFeed,2006,Jonah Peretti,1974,HuffPost,2005,31,32,1.7,licorne,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 2000,True,0
+Vice Media,1994,Shane Smith,1969,Vice Media,1994,25,25,5.7,licorne,US,États-Unis & Canada,Internet,"Internet, e-commerce & jeux",Années 90,False,0
+Nest,2010,Tony Fadell,1969,Nest,2010,41,41,3.2,licorne,US,États-Unis & Canada,Hardware,Semi-conducteurs & hardware,Années 2010,False,1
+Waze,2008,Uri Levine,1965,Waze,2008,43,43,1.15,licorne,IL,Reste du monde,Internet,"Internet, e-commerce & jeux",Années 2000,False,1
+King,2003,Riccardo Zacconi,1967,King,2003,36,36,7.1,licorne,UK,Europe,Jeux,"Internet, e-commerce & jeux",Années 2000,False,1
+Niantic,2015,John Hanke,1967,Archetype Interactive,1996,29,48,9,licorne,US,États-Unis & Canada,Jeux,"Internet, e-commerce & jeux",Années 2010,True,1
+Poshmark,2011,Manish Chandra,1965,Kaboodle,2005,40,46,7,licorne,US,États-Unis & Canada,E-commerce,"Internet, e-commerce & jeux",Années 2010,True,1
+Character.AI,2021,Noam Shazeer,1976,Character.AI,2021,45,45,2.5,licorne,US,États-Unis & Canada,IA,IA & robotique,Années 2020,False,1
+Hugging Face,2016,Clément Delangue,1988,Hugging Face,2016,28,28,4.5,licorne,US,États-Unis & Canada,IA,IA & robotique,Années 2010,False,1
+Cohere,2019,Aidan Gomez,1996,Cohere,2019,23,23,7,licorne,CA,États-Unis & Canada,IA,IA & robotique,Années 2010,False,1
+Replit,2016,Amjad Masad,1987,Replit,2016,29,29,9,licorne,US,États-Unis & Canada,IA,IA & robotique,Années 2010,False,1
+Synthesia,2017,Victor Riparbelli,1991,Synthesia,2017,26,26,4,licorne,UK,Europe,IA,IA & robotique,Années 2010,False,1
+Personio,2015,Hanno Renner,1990,Personio,2015,25,25,8.5,licorne,DE,Europe,Logiciel,"Logiciel, cloud & cyber",Années 2010,False,1
+Criteo,2005,Jean-Baptiste Rudelle,1969,K-Mobile,1999,30,36,4.5,licorne,FR,Europe,AdTech,"Logiciel, cloud & cyber",Années 2000,True,1
+Fisker,2016,Henrik Fisker,1963,Fisker Coachbuild,2005,42,53,8,licorne,US,États-Unis & Canada,Auto,"Mobilité, spatial, énergie, défense",Années 2010,True,1
+Jet.com,2014,Marc Lore,1971,Quidsi (Diapers.com),2005,34,43,3.3,licorne,US,États-Unis & Canada,E-commerce,"Internet, e-commerce & jeux",Années 2010,True,1
+Zoox,2014,Tim Kentley-Klay,1975,Zoox,2014,39,39,3.2,licorne,US,États-Unis & Canada,Auto,"Mobilité, spatial, énergie, défense",Années 2010,False,1
+Calendly,2013,Tope Awotona,1981,Calendly,2013,32,32,3,licorne,US,États-Unis & Canada,Logiciel,"Logiciel, cloud & cyber",Années 2010,False,1
+Credit Karma,2007,Kenneth Lin,1976,Credit Karma,2007,31,31,7.1,licorne,US,États-Unis & Canada,Fintech,Fintech & crypto,Années 2000,False,1
+Gorillas,2020,Kağan Sümer,1987,Gorillas,2020,33,33,3,licorne,DE,Europe,E-commerce,"Internet, e-commerce & jeux",Années 2020,False,1
+Bird,2017,Travis VanderZanden,1979,Bird,2017,38,38,2.5,licorne,US,États-Unis & Canada,Auto,"Mobilité, spatial, énergie, défense",Années 2010,False,1
+Mercury,2017,Immad Akhund,1984,Heyzap,2009,25,33,3.5,licorne,US,États-Unis & Canada,Fintech,Fintech & crypto,Années 2010,True,1
+Careem,2012,Mudassir Sheikha,1977,Careem,2012,35,35,3.1,licorne,AE,Reste du monde,Internet,"Internet, e-commerce & jeux",Années 2010,False,1
+Flutterwave,2016,Olugbenga Agboola,1984,Flutterwave,2016,32,32,3,licorne,NG,Reste du monde,Fintech,Fintech & crypto,Années 2010,False,1
+Kavak,2016,Carlos García Ottati,1984,Kavak,2016,32,32,8.7,licorne,MX,Reste du monde,E-commerce,"Internet, e-commerce & jeux",Années 2010,False,1
+Rappi,2015,Simón Borrero,1985,Rappi,2015,30,30,5.25,licorne,CO,Reste du monde,Internet,"Internet, e-commerce & jeux",Années 2010,False,1
+Vinted,2008,Justas Janauskas,1984,Vinted,2008,24,24,5,licorne,LT,Europe,E-commerce,"Internet, e-commerce & jeux",Années 2000,False,1
+Contentsquare,2012,Jonathan Cherki,1988,Contentsquare,2012,24,24,5.6,licorne,FR,Europe,Logiciel,"Logiciel, cloud & cyber",Années 2010,False,1
+Dataiku,2013,Florian Douetteau,1980,Dataiku,2013,33,33,4.6,licorne,FR,Europe,Logiciel,"Logiciel, cloud & cyber",Années 2010,False,1
+Alan,2016,Jean-Charles Samuelian,1987,Alan,2016,29,29,4.5,licorne,FR,Europe,Assurtech,Fintech & crypto,Années 2010,False,1
+Qonto,2016,Alexandre Prot,1989,Qonto,2016,27,27,5,licorne,FR,Europe,Fintech,Fintech & crypto,Années 2010,False,1
+Mirakl,2012,Philippe Corrot,1966,Mirakl,2012,46,46,3.5,licorne,FR,Europe,Logiciel,"Logiciel, cloud & cyber",Années 2010,False,1
+Back Market,2014,Thibaud Hug de Larauze,1988,Back Market,2014,26,26,5.7,licorne,FR,Europe,E-commerce,"Internet, e-commerce & jeux",Années 2010,False,1
+GoCardless,2011,Hiroki Takeuchi,1986,GoCardless,2011,25,25,2.1,licorne,UK,Europe,Fintech,Fintech & crypto,Années 2010,False,1
