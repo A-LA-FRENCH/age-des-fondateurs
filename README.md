@@ -11,7 +11,7 @@
 - Un résumé, une section « ce que dit la recherche », une conclusion et le tableau complet des sociétés, avec recherche et copie en CSV.
 - Des filtres valables pour toute la page : mesure de l'âge, période, secteur, région et deux seuils d'âge réglables (26 et 33 ans par défaut). Les chiffres du texte se recalculent avec les filtres.
 
-Tout tient dans un seul fichier, `index.html`. Il suffit de l'ouvrir dans un navigateur, ou d'activer GitHub Pages sur la branche `main`. La page charge D3 depuis cdnjs et ses polices (VT323, IBM Plex Mono) depuis Google Fonts.
+Tout tient dans un seul fichier, `index.html`. Il suffit de l'ouvrir dans un navigateur, ou d'activer GitHub Pages sur la branche `main`. La page charge D3 depuis cdnjs et ses polices (VT323 pour les titres, Courier Prime pour le texte) depuis Google Fonts.
 
 ## Méthode
 
@@ -65,7 +65,7 @@ An interactive study, in French, of founders' age at the start and the value the
 - A summary, a "what the research says" section, a conclusion and the full table of companies, with search and CSV copy.
 - Filters that apply to the whole page: how age is measured, period, sector, region and two adjustable age thresholds (26 and 33 by default). The figures in the text update with the filters.
 
-Everything lives in a single file, `index.html`. Open it in a browser, or enable GitHub Pages on the `main` branch. The page loads D3 from cdnjs and its fonts (VT323, IBM Plex Mono) from Google Fonts.
+Everything lives in a single file, `index.html`. Open it in a browser, or enable GitHub Pages on the `main` branch. The page loads D3 from cdnjs and its fonts (VT323 for headings, Courier Prime for text) from Google Fonts.
 
 ## Method
 
